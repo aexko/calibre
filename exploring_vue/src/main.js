@@ -1,6 +1,7 @@
 import { createApp } from "vue";
 import App from "./App.vue";
 
+// Main CSS
 import "./assets/main.css";
 
 // Implémentation PopperJS
