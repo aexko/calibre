@@ -11,4 +11,9 @@ createPopper(popcorn, tooltip, {
   placement: 'top',
 });
 
+// Implémentation PortalVue
+import PortalVue from 'portal-vue'
+
+Vue.use(PortalVue)
+
 createApp(App).mount("#app");
