@@ -10,7 +10,70 @@
     <header>
         <%- include('../partials/header'); %>
     </header>
+<br><br>
+    <h3>Formulaire d'inscription</h3><br><br>
+    <form action="/inscription" method="post">
+        <label for="prenom">Prénom:</label><br>
+        <input type="text" id="nom" name="prenom" placeholder="prenom" title="" required oninvalid="this.setCustomValidity('Entrez votre prenom')"
+        oninput="this.setCustomValidity('')"><br><br>
+        <label for="nom">Nom:</label><br>
+        <input type="text" id="nom" name="nom" placeholder="nom" title="" required oninvalid="this.setCustomValidity('Entrez votre nom')"
+        oninput="this.setCustomValidity('')"><br><br>
+        <label for="username">nom d'utilisateur:</label><br>
+        <input type="text" id="username" name="username" title="remplissez ce champs" placeholder="nom d'utilisateur" required oninvalid="this.setCustomValidity('Choisissez un nom d\'utilisateur')"
+        oninput="this.setCustomValidity('')"><br><br>
+        <label for="motpasse">mot de passe:</label><br>
+        <input type="password" id="motpasse" name="motpasse" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Votre mot de passe doit contenir au moins un nombre, un lettre au majuscule et un lettre au miniscule et doit avoir une longueur minimum de 8 caracteres" placeholder="mot de passe" required oninvalid="this.setCustomValidity('Choisissez un mot de passe')"
+        oninput="this.setCustomValidity('')"><br><br>
+        <label for="age">âge:</label><br>
+        <input type="number" id="age" step="0.01" min="0.01" name="age" placeholder="age" title="remplissez ce champs" required oninvalid="this.setCustomValidity('Entrez votre age')"
+        oninput="this.setCustomValidity('')"><br><br>
+        <label for="poids">Poids:</label><br>
+        <input type="number" step="0.01" min="0.01" id="poids" name="poids" title="remplissez ce champs" placeholder="poids" required oninvalid="this.setCustomValidity('Entrez votre poids')"
+        oninput="this.setCustomValidity('')">
+        <select name="unitepoids" id="unitepoids">
+            <option value="kg">kilo(kg)</option>
+            <option value="livre">livre(lb)</option>
+       </select><br><br>
+        <label for="taille">Taille:</label><br>
+        <input type="number" id="taille" step="0" min="1" name="taille" title="remplissez ce champs" placeholder="taille" required oninvalid="this.setCustomValidity('Entrez votre taille')"
+        oninput="this.setCustomValidity('')">
+        <select name="unitetaille" id="unitetaille">
+            <option value="cm">cm</option>
+            <option value="pouce">pouce</option>
+       </select><br><br>
+        <label for="genre">genre:</label><br>
+        <select name="genre" id="genre" placeholder="genre">
+             <option value="Homme">Homme</option>
+             <option value="Femme">Femme</option>
+             <option value="Autre">Autre</option>
+        </select><br><br>
+        <label for="nap">niveau d'activité physique:</label><br>
+        <select name="nap" id="nap">
+            <option value="active">Extrêmement inactif (pas d'activité):</option>
+            <option value="sedent">Sédentaire (peu ou pas d'activité)</option>
+            <option value="leger">legèrement actif (entrainement de 1-3 fois par semaine)</option>
+            <option value="modere">Modérément actif (entrainement de 4-5 fois par semaine)</option>
+            <option value="actif">actif (entrainement quotidien ou 3-4 fois d'entrainement intensif)</option>
+            <option value="vigourous">Vigoureusement actif (6-7 fois d'entrainement intensif )</option>
+            <option value="tres">Très actif (entrainement quotidien intensif )</option>
+       </select><br><br>
+       <label for="restriction">Entrez vos restrictions alimentaires(qu'est ce que vous ne mangez pas):</label><br>
+       <select name="restriction" id="restriction" searchable="Search here..">
+           <option value="pomme">pomme</option>
+           <option value="viande">viande</option>
+           <option value="Autre">Autre a ajouter</option>
+      </select><br><br>
+      <label for="exigences">Entrez vos exigences diététiques spéciales:</label><br>
+      <select name="exigences" id="exigences" searchable="Search here..">
+          <option value="arachide">Allergie à l’arachide</option>
+          <option value="vega">vegan</option>
+          <option value="Autre">Autre</option>
+     </select><br><br>
+     
 
+        <input type="submit" value="Submit" >
+      </form>
     <footer>
         <%- include('../partials/footer'); %>
     </footer>
