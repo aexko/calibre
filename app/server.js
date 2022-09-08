@@ -16,6 +16,16 @@ mongoose.connect(`mongodb+srv://${nomUtilisateur}:${motPasse}@${cluster}.unyolim
     useUnifiedTopology: true
   }
 );
+
+//connection compass 
+/* 
+mongoose.connect('mongodb://localhost:27017/'+nomDb,
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  }
+);**/
+
 // Parse URL-encoded bodies (as sent by HTML forms)
 app.use(express.urlencoded());
 
