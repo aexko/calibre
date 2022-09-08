@@ -1,6 +1,14 @@
 const express = require('express')
+//connection mongoose
+const mongoose = require("mongoose");
 const app = express()
 const port = 3000
+//importation de module schemaUtilisateur
+const modelUtilisateur = require("./models/schemaUtilisateur");
+const nomUtilisateur = "admin"
+const motPasse = "admin"
+const nomDb = "Calibre"
+const cluster = "Calibre"
 
 // Parse URL-encoded bodies (as sent by HTML forms)
 app.use(express.urlencoded());
