@@ -49,12 +49,16 @@ app.get('/about', (req, res) => {
   app.get('/inscription', (req, res) => {
     res.render('pages/inscription')
   })
-  //cette routage permet de recevoir un formulaire d inscription et de lestocker dans la bd
+  //cette routage permet de recevoir un formulaire d inscription et de les stocker dans la bd
   app.post('/inscription', (req, res) => {
-    //les donnes a stocker dans la bd
-    console.log(req.body.nom);
-    res.end()
-  
+     //les donnes a stocker dans la bd
+const instance_utilisateur = new modelUtilisateur(req.body);
+
+// Sauvegarde dans la bd
+instance_utilisateur.save((err) => {
+  if (err) throw err;
+
+  })
     })
 
 app.listen(port, () => {
