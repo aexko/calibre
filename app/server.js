@@ -57,8 +57,8 @@ const instance_utilisateur = new modelUtilisateur(req.body);
 // Sauvegarde dans la bd
 instance_utilisateur.save((err) => {
   if (err) throw err;
-
   })
+  res.redirect('/')
     })
 
 app.listen(port, () => {
