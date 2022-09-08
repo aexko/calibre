@@ -9,7 +9,13 @@ const nomUtilisateur = "admin"
 const motPasse = "admin"
 const nomDb = "Calibre"
 const cluster = "Calibre"
-
+//connection atlas
+mongoose.connect(`mongodb+srv://${nomUtilisateur}:${motPasse}@${cluster}.unyolim.mongodb.net/${nomDb}?retryWrites=true&w=majority`,
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  }
+);
 // Parse URL-encoded bodies (as sent by HTML forms)
 app.use(express.urlencoded());
 
