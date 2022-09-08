@@ -25,7 +25,12 @@ mongoose.connect('mongodb://localhost:27017/'+nomDb,
     useUnifiedTopology: true
   }
 );**/
-
+//ceci permet de savoir si la bd est bien connectee
+const bd = mongoose.connection;
+bd.on("error", console.error.bind(console, "erreur de connection: "));
+bd.once("open", function () {
+  console.log("Vous etes connectee");
+});
 // Parse URL-encoded bodies (as sent by HTML forms)
 app.use(express.urlencoded());
 
