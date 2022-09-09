@@ -13,54 +13,45 @@
     <h3>Formulaire d'inscription</h3>
     <br /><br />
     <form action="/inscription" method="post">
-        <label for="prenom">Prénom:</label><br />
-        <input type="text" id="nom" name="prenom" placeholder="prenom" title="" required
+        <input type="text" id="nom" name="prenom" placeholder="Prénom" title="" required
             oninvalid="this.setCustomValidity('Entrez votre prenom')"
             oninput="this.setCustomValidity('')" /><br /><br />
-        <label for="nom">Nom:</label><br />
-        <input type="text" id="nom" name="nom" placeholder="nom" title="" required
+        <input type="text" id="nom" name="nom" placeholder="Nom" title="" required
             oninvalid="this.setCustomValidity('Entrez votre nom')" oninput="this.setCustomValidity('')" /><br /><br />
-        <label for="email">Courriel:</label><br />
         <input type="email" id="email" name="email" placeholder="Courriel" title="" required
             oninvalid="this.setCustomValidity('Entrez votre Courriel')"
             oninput="this.setCustomValidity('')" /><br /><br />
-        <label for="nom_utilisateur">nom d'utilisateur:</label><br />
         <input type="text" id="nom_utilisateur" name="nom_utilisateur" title="remplissez ce champs"
-            placeholder="nom d'utilisateur" required
+            placeholder="Nom d'utilisateur" required
             oninvalid="this.setCustomValidity('Choisissez un nom d\'utilisateur')"
             oninput="this.setCustomValidity('')" /><br /><br />
-        <label for="mot_passe">mot de passe:</label><br />
         <input type="password" id="mot_passe" name="mot_passe" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
             title="Votre mot de passe doit contenir au moins un nombre, un lettre au majuscule et un lettre au miniscule et doit avoir une longueur minimum de 8 caracteres"
-            placeholder="mot de passe" required oninvalid="this.setCustomValidity('Choisissez un mot de passe')"
+            placeholder="Mot de passe" required oninvalid="this.setCustomValidity('Choisissez un mot de passe')"
             oninput="this.setCustomValidity('')" /><br /><br />
-        <label for="age">âge:</label><br />
-        <input type="number" id="age" step="0.01" min="0.01" name="age" placeholder="age" title="remplissez ce champs"
+        <input type="number" id="age" step="0.01" min="0.01" name="age" placeholder="Age" title="remplissez ce champs"
             required oninvalid="this.setCustomValidity('Entrez votre age')"
             oninput="this.setCustomValidity('')" /><br /><br />
-        <label for="poids_kg">Poids:</label><br />
         <input type="number" step="0.01" min="0.01" id="poids_kg" name="poids_kg" title="remplissez ce champs"
-            placeholder="poids" required oninvalid="this.setCustomValidity('Entrez votre poids')"
+            placeholder="Poids" required oninvalid="this.setCustomValidity('Entrez votre poids')"
             oninput="this.setCustomValidity('')" />
         <select name="unitepoids" id="unitepoids">
             <option value="kg">kilo(kg)</option>
             <option value="livre">livre(lb)</option>
         </select><br /><br />
-        <label for="taille_cm">Taille:</label><br />
         <input type="number" id="taille_cm" step="0" min="1" name="taille_cm" title="remplissez ce champs"
-            placeholder="taille" required oninvalid="this.setCustomValidity('Entrez votre taille')"
+            placeholder="Taille" required oninvalid="this.setCustomValidity('Entrez votre taille')"
             oninput="this.setCustomValidity('')" />
         <select name="unitetaille" id="unitetaille">
             <option value="cm">cm</option>
             <option value="pouce">pouce</option>
         </select><br /><br />
-        <label for="genre">genre:</label><br />
-        <select name="genre" id="genre" placeholder="genre">
+        <select name="genre" id="genre">
             <option value="Homme">Homme</option>
             <option value="Femme">Femme</option>
             <option value="Autre">Autre</option>
         </select><br /><br />
-        <label for="id_niveau_activite_physique">niveau d'activité physique:</label><br />
+        <label for="id_niveau_activite_physique">Niveau d'activité physique:</label><br />
         <select name="id_niveau_activite_physique" id="id_niveau_activite_physique">
             <option value="0">Extrêmement inactif (pas d'activité):</option>
             <option value="1">Sédentaire (peu ou pas d'activité)</option>
