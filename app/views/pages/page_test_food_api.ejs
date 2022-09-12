@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../partials/head'); %>
+</head>
+
+<body class="container">
+
+    <header>
+        <%- include('../partials/header'); %>
+    </header>
+
+    <main>
+        <div class="jumbotron">
+            <h1>FOOD</h1>
+            <p>API</p>
+
+            <!-- input de la recherche -->
+            <input type="text" placeholder="Entrez votre recherche ici" id="search">
+            <button onclick="getRecepe(document.getElementById('search').value)">Recherche
+
+            </button>
+
+            <div id="output"></div>
+            <a href="" id="sourceLink"></a>
+
+
+        </div>
+
+
+
+
+    </main>
+
+    <footer>
+        <%- include('../partials/footer'); %>
+    </footer>
+
+
+    <script>
+
+
+        function getSource(id) {
+            $.ajax({
+                url: "https://api.spoonacular.com/recipes/" + id + "/information?apiKey=3b2c9d7b94d24ca785d5fccdfce53e3a",
+                success: function (res) {
+                    document.getElementById("sourceLink").innerHTML = res.sourceUrl
+                    document.getElementById("sourceLink").href = res.sourceUrl
+                    alert(res.sourceUrl)
+                
+                }
+            });
+        }
+
+        function getRecepe(q) {
+            $.ajax({
+                url: "https://api.spoonacular.com/recipes/search?apiKey=3b2c9d7b94d24ca785d5fccdfce53e3a&number=1&query=" + q,
+                sucess: function (res) {
+                    document.getElementById("output").innerHTML = "<h1>" + res.results[0].title + "<h1><br><img src=" + res.baseUrl + res.results[0].image + "'width='400'/> <br> ready in " + res.results[0].readyInMinutes + " minutes"
+                    getSource(res.results[0].id)
+                    alert(res)
+
+                }
+            })
+        }
+
+
+
+
+    </script>
+
+</body>
+
+</html>
