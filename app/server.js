@@ -14,7 +14,7 @@ const {
     checkAuthenticated,
     checkNotAuthenticated,
 } = require("./middlewares/auth");
-const initializePassport = require("./passport-config");
+const initializePassport = require("./js/passport-config.js");
 initializePassport(
     passport,
     async(email) => {
