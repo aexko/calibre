@@ -9,6 +9,24 @@ const nomUtilisateur = "admin";
 const motPasse = "admin";
 const nomDb = "Calibre";
 const cluster = "Calibre";
+const passport = require("passport");
+const {
+    checkAuthenticated,
+    checkNotAuthenticated,
+} = require("./middlewares/auth");
+const initializePassport = require("./passport-config");
+initializePassport(
+    passport,
+    async(email) => {
+        const userFound = await User.findOne({ email });
+        return userFound;
+    },
+    async(id) => {
+        const userFound = await User.findOne({ _id: id });
+        return userFound;
+    }
+);
+
 //connection atlas
 /*mongoose.connect(
     `mongodb+srv://${nomUtilisateur}:${motPasse}@${cluster}.unyolim.mongodb.net/${nomDb}?retryWrites=true&w=majority`, {
@@ -43,7 +61,33 @@ app.get("/", (req, res) => {
 app.get("/about", (req, res) => {
     res.render("pages/about");
 });
-//cette routage permet de servir la page d inscription
+// ce routage permet de servir la page de connexion
+app.get("/connexion", (req, res) => {
+    res.render("pages/connexion");
+});
+app.post(
+    "/connexion",
+    StoreUser,
+    checkNotAuthenticated,
+    passport.authenticate("local", {
+        successRedirect: "/profil",
+        failureRedirect: "/connexion",
+        failureFlash: true,
+    }),
+    async(req, res) => {}
+);
+async function StoreUser(req, res, next) {
+    const userFound = await modelUtilisateur.findOne({ email: req.body.email });
+
+    if (userFound) {
+        currentlyConnectedUser = userFound;
+    } else {
+        console.log("Utilisateur inexistant");
+    }
+
+    next();
+}
+//ce routage permet de servir la page d inscription
 app.get("/inscription", (req, res) => {
     res.render("pages/inscription");
 });
