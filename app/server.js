@@ -23,10 +23,18 @@ mongoose.connect('mongodb://localhost:27017/' + nomDb, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
+
+//route permettant de servir les fichier statiques
+app.use(express.static(__dirname + '/public/'));
+
+mongoose.connect('mongodb://localhost:27017/' + nomDb, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+});
 //ceci permet de savoir si la bd est bien connectee
 const bd = mongoose.connection;
 bd.on("error", console.error.bind(console, "erreur de connection: "));
-bd.once("open", function() {
+bd.once("open", function () {
     console.log("Vous etes connectee");
 });
 // Parse URL-encoded bodies (as sent by HTML forms)
@@ -72,13 +80,13 @@ function niveauActivite(frequence_activite) {
     if (frequence_activite = 0) {
         activite = 1.37
     } else
-    if (frequence_activite = 1) {
-        activite = 1.55
-    } else if (frequence_activite = 2) {
-        activite = 1.80
-    } else if (frequence_activite = 3) {
-        activite = 2.0
-    }
+        if (frequence_activite = 1) {
+            activite = 1.55
+        } else if (frequence_activite = 2) {
+            activite = 1.80
+        } else if (frequence_activite = 3) {
+            activite = 2.0
+        }
     return activite
 }
 
