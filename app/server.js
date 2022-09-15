@@ -55,6 +55,30 @@ app.get("/about", (req, res) => {
 app.get("/inscription", (req, res) => {
     res.render("pages/inscription");
 });
+//cette routage permet de verifier si le nom d utilisateur est redondant
+app.get("/inscription/:nomUtilisateur", (req, res) => {
+    //on verifie dans la bd si le nom d utilisateur est existant
+    modelUtilisateur.findOne({ nom_utilisateur: req.params.nomUtilisateur }, function (err, docs) {
+        if (err) {
+            console.log(err)
+        }
+        else {
+            if (docs) {
+                //si existant on envoie une message qui va etre afficher a l utilisateur
+                res.json({
+                    titre: 'existant',
+                    msg: "un compte avec le même nom d'utilisateur existe"
+                });
+            } else {
+                res.json({
+                    //si existant on envoie une message vide
+                    titre: 'succes',
+                    msg: '',
+                });
+            }
+        }
+    });
+});
 //cette routage permet de recevoir un formulaire d inscription et de les stocker dans la bd
 app.post("/inscription", (req, res) => {
     //les donnes a stocker dans la bd
