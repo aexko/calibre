@@ -88,12 +88,34 @@ app.post("/inscription", (req, res) => {
     instance_utilisateur.imc = calculIMC(req.body.taille_cm, req.body.poids_kg)
     instance_utilisateur.calorie_quotien_recommendee = calculCalorie(req.body.taille, req.body.poids, req.body.age, activite)
 
-    // Sauvegarde dans la bd
-    instance_utilisateur.save((err) => {
-        if (err) throw err;
+    // on verifie si le courriel est redondant
+    modelUtilisateur.findOne({ email: req.body.email }, function (err, docs) {
+        if (err) {
+            console.log(err)
+        }
+        else {
+            if (docs) {
+                console.log("Result : ", docs);
+                res.json({
+                    //si ou on retorune le message suivant et l affiche apres a l aide d une alert
+                    titre: 'existant',
+                    msg: 'cette courriel est déjà liée à un compte.'
+                });
+            } else {
+                //sinon on sauvegarde le nouveau compte dans la bd
+                instance_utilisateur.save((err) => {
+                    if (err) throw err;
+                });
+                res.json({
+                    //et on retorune le message suivant et l affiche apres a l aide d une alert
+                    titre: 'succes',
+                    msg: 'votre compte a été crée avec succes',
+                });
+            }
+        }
     });
-    res.redirect("/");
 });
+
 
 app.listen(port, () => {
     console.log(`Server's on localhost:${port}`);
