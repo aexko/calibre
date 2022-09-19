@@ -5,16 +5,41 @@ const app = express();
 const port = 3000;
 //importation de module schemaUtilisateur
 const modelUtilisateur = require("./models/schemaUtilisateur");
+const bodyParser = require("body-parser");
+const LocalStrategy = require("passport-local");
 const nomUtilisateur = "admin";
 const motPasse = "admin";
 const nomDb = "Calibre";
 const cluster = "Calibre";
 const passport = require("passport");
+const flash = require("express-flash");
+const bcrypt = require("bcrypt");
+const session = require("express-session");
+const salt = bcrypt.genSalt(10);
+
 const {
     checkAuthenticated,
     checkNotAuthenticated,
 } = require("./middlewares/auth");
 const initializePassport = require("./passport-config");
+
+
+// pour activer le module ejs
+app.set("view engine", "ejs");
+
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(flash());
+app.use(
+    session({
+        secret: 'twt',
+        resave: true,
+        saveUnitialized: true,
+    })
+);
+
+// pour activer session du passport
+app.use(passport.session());
+
 initializePassport(
     passport,
     async(email) => {
@@ -26,6 +51,10 @@ initializePassport(
         return userFound;
     }
 );
+
+app.use(passport.initialize());
+app.use(passport.session());
+
 
 //connection atlas
 /*mongoose.connect(
@@ -52,7 +81,7 @@ mongoose.connect('mongodb://localhost:27017/' + nomDb, {
 //ceci permet de savoir si la bd est bien connectee
 const bd = mongoose.connection;
 bd.on("error", console.error.bind(console, "erreur de connection: "));
-bd.once("open", function () {
+bd.once("open", function() {
     console.log("Vous etes connectee");
 });
 // Parse URL-encoded bodies (as sent by HTML forms)
@@ -73,17 +102,22 @@ app.get("/about", (req, res) => {
 app.get("/connexion", (req, res) => {
     res.render("pages/connexion");
 });
+app.get("/profil", (req, res) => {
+    res.render("pages/profil");
+});
 app.post(
     "/connexion",
     StoreUser,
     checkNotAuthenticated,
     passport.authenticate("local", {
         successRedirect: "/profil",
-        failureRedirect: "/connexion",
+        failureRedirect: "/about",
         failureFlash: true,
     }),
     async(req, res) => {}
 );
+
+
 async function StoreUser(req, res, next) {
     const userFound = await modelUtilisateur.findOne({ email: req.body.email });
 
@@ -102,11 +136,10 @@ app.get("/inscription", (req, res) => {
 //cette routage permet de verifier si le nom d utilisateur est redondant
 app.get("/inscription/:nomUtilisateur", (req, res) => {
     //on verifie dans la bd si le nom d utilisateur est existant
-    modelUtilisateur.findOne({ nom_utilisateur: req.params.nomUtilisateur }, function (err, docs) {
+    modelUtilisateur.findOne({ nom_utilisateur: req.params.nomUtilisateur }, function(err, docs) {
         if (err) {
             console.log(err)
-        }
-        else {
+        } else {
             if (docs) {
                 //si existant on envoie une message qui va etre afficher a l utilisateur
                 res.json({
@@ -124,20 +157,22 @@ app.get("/inscription/:nomUtilisateur", (req, res) => {
     });
 });
 //cette routage permet de recevoir un formulaire d inscription et de les stocker dans la bd
-app.post("/inscription", (req, res) => {
+app.post("/inscription", async(req, res) => {
     //les donnes a stocker dans la bd
     const instance_utilisateur = new modelUtilisateur(req.body);
     var activite = niveauActivite(req.body.id_niveau_activite_physique)
+    var password = instance_utilisateur.mot_passe
+
+    instance_utilisateur.mot_passe = await bcrypt.hash(password, 10);
 
     instance_utilisateur.imc = calculIMC(req.body.taille_cm, req.body.poids_kg)
     instance_utilisateur.calorie_quotien_recommendee = calculCalorie(req.body.taille, req.body.poids, req.body.age, activite)
 
-    // on verifie si le courriel est redondant
-    modelUtilisateur.findOne({ email: req.body.email }, function (err, docs) {
+    // on verifie si le courriel est redondant  
+    modelUtilisateur.findOne({ email: req.body.email }, function(err, docs) {
         if (err) {
             console.log(err)
-        }
-        else {
+        } else {
             if (docs) {
                 console.log("Result : ", docs);
                 res.json({
@@ -170,13 +205,13 @@ function niveauActivite(frequence_activite) {
     if (frequence_activite = 0) {
         activite = 1.37
     } else
-        if (frequence_activite = 1) {
-            activite = 1.55
-        } else if (frequence_activite = 2) {
-            activite = 1.80
-        } else if (frequence_activite = 3) {
-            activite = 2.0
-        }
+    if (frequence_activite = 1) {
+        activite = 1.55
+    } else if (frequence_activite = 2) {
+        activite = 1.80
+    } else if (frequence_activite = 3) {
+        activite = 2.0
+    }
     return activite
 }
 
