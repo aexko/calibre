@@ -15,45 +15,27 @@ const passport = require("passport");
 const flash = require("express-flash");
 const bcrypt = require("bcrypt");
 const session = require("express-session");
-const salt = bcrypt.genSalt(10);
-
-const {
-    checkAuthenticated,
-    checkNotAuthenticated,
-} = require("./middlewares/auth");
-const initializePassport = require("./passport-config");
-
-
-// pour activer le module ejs
-app.set("view engine", "ejs");
-
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(flash());
-app.use(
-    session({
-        secret: 'twt',
-        resave: true,
-        saveUnitialized: true,
-    })
-);
-
-// pour activer session du passport
-app.use(passport.session());
+const initializePassport = require('./passport-config')
 
 initializePassport(
     passport,
-    async(email) => {
-        const userFound = await User.findOne({ email });
-        return userFound;
-    },
-    async(id) => {
-        const userFound = await User.findOne({ _id: id });
-        return userFound;
-    }
-);
+    email => modelUtilisateur.find(instance_utilisateur => instance_utilisateur.email === email),
+    id => modelUtilisateur.find(instance_utilisateur.id == id)
+)
+app.set('view-engine', 'ejs')
+app.use(express.urlencoded({ extended: false }))
+app.use(flash())
+app.use(session({
 
-app.use(passport.initialize());
-app.use(passport.session());
+    secret: "pizza",
+    resave: false,
+    saveUninitialized: false
+
+}))
+app.use(passport.initialize())
+app.use(passport.session())
+    // pour activer le module ejs
+app.set("view engine", "ejs");
 
 
 //connection atlas
@@ -105,18 +87,11 @@ app.get("/connexion", (req, res) => {
 app.get("/profil", (req, res) => {
     res.render("pages/profil");
 });
-app.post(
-    "/connexion",
-    StoreUser,
-    checkNotAuthenticated,
-    passport.authenticate("local", {
-        successRedirect: "/profil",
-        failureRedirect: "/about",
-        failureFlash: true,
-    }),
-    async(req, res) => {}
-);
-
+app.post('/connexion', checkNotAuthenticated, passport.authenticate('local', {
+    successRedirect: '/profil',
+    failureRedirect: '/connexion',
+    failureFlash: true
+}))
 
 async function StoreUser(req, res, next) {
     const userFound = await modelUtilisateur.findOne({ email: req.body.email });
@@ -227,4 +202,20 @@ function calculCalorie(taille, poids, age, activite) {
     calorie = activite * (230 * Math.pow(poids, 0.48) * Math.pow(taille_m, 0.5) * Math.pow(age, -0.13))
 
     return calorie
+}
+
+function checkAuthenticated(req, res, next) {
+    if (req.isAuthenticated()) {
+        return next()
+    }
+
+    res.redirect('/connexion')
+}
+
+function checkNotAuthenticated(req, res, next) {
+    if (req.isAuthenticated()) {
+        return res.redirect('/')
+    }
+    next()
+
 }

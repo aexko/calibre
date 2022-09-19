@@ -31,5 +31,5 @@ const schemaUtilisateur = mongoose.Schema({
     }]
 });
 
-const Utilisateur = mongoose.model("Utilisateur", schemaUtilisateur);
-module.exports = Utilisateur;
+
+module.exports = mongoose.model("Utilisateur", schemaUtilisateur);
