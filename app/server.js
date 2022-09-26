@@ -187,7 +187,7 @@ app.post("/inscription", checkNotAuthenticated, async(req, res) => {
 
 
 app.listen(port, () => {
-    console.log(`Server's on localhost:${port}`);
+    console.log(`Le serveur est sur localhost:${port}`);
 });
 
 
