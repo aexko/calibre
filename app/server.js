@@ -56,7 +56,7 @@ mongoose.connect('mongodb://localhost:27017/' + nomDb, {
 //route permettant de servir les fichier statiques
 app.use(express.static(__dirname + '/public/'));
 
-mongoose.connect('mongodb://localhost:27017/' + nomDb, {
+mongoose.connect('mongodb://127.0.0.1:27017/' + nomDb, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
@@ -172,7 +172,7 @@ app.post("/inscription", async(req, res) => {
 
 
 app.listen(port, () => {
-    console.log(`Server's on localhost:${port}`);
+    console.log(`Le serveur est sur localhost:${port}`);
 });
 
 function niveauActivite(frequence_activite) {
