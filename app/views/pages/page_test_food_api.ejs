@@ -6,31 +6,17 @@
 </head>
 
 <body class="container">
-
     <header>
         <%- include('../partials/header'); %>
     </header>
 
     <main>
         <div class="jumbotron">
-            <h1>FOOD</h1>
-            <p>API</p>
-
-            <!-- input de la recherche -->
-            <input type="text" placeholder="Entrez votre recherche ici" id="search">
-            <button onclick="getRecepe(document.getElementById('search').value)">Recherche
-
-            </button>
-
-            <div id="output"></div>
-            <a href="" id="sourceLink"></a>
-
-
+            <h1>Recherche de recettes</h1>
+            <input id="recherche"><button onclick="getRecette(document.getElementById('recherche').value)">Recherche</button>
+            <div id="sortie"></div>
+            <a href="" id="source"></a>
         </div>
-
-
-
-
     </main>
 
     <footer>
