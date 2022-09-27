@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../partials/head'); %>
+</head>
+
+<body class="container">
+    <header>
+        <%- include('../partials/header'); %>
+    </header>
+    <br /><br />
+<h3>Bonjour <%=prenomNom%> ceci est votre espace personnelle</h3>
+<form action="/deconnexion?_method=DELETE" method="post">
+    <input type="submit" value="Déconnexion"/>
+
+</form>
+<footer>
+    <%- include('../partials/footer'); %>
+</footer>
+
+</body>
+
+</html>
