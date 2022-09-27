@@ -46,10 +46,10 @@ bd.once("open", function() {
 initialiserPassport(
     passport,
     async(email) => {
-        const utilisateurTrouvee = await modelUtilisateur.findOne({ email });
+        const utilisateurTrouvee = await modelUtilisateur.findOne({ email :email });
         return utilisateurTrouvee;
     },async(id) => {
-        const utilisateurTrouvee = await modelUtilisateur.findOne({id });
+        const utilisateurTrouvee = await modelUtilisateur.findOne({_id:id });
         return utilisateurTrouvee;
     }
 );
