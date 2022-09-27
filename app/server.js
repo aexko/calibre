@@ -93,7 +93,7 @@ app.get("/connexion", checkNotAuthenticated, (req, res) => {
 });
 app.get("/profil", checkAuthenticated, (req, res) => {
     res.render("pages/profil", {
-        prenomNom: req.user.prenom,
+        prenom: req.user.prenom,
         utilisateurconnecte: utilisateurCourant
     });
 });
@@ -151,9 +151,8 @@ app.post("/inscription", checkNotAuthenticated, async(req, res) => {
     var activite = niveauActivite(req.body.id_niveau_activite_physique)
 
     instance_utilisateur.imc = calculIMC(req.body.taille_cm, req.body.poids_kg)
-    instance_utilisateur.calorie_quotien_recommendee = calculCalorie(req.body.taille, req.body.poids, req.body.age, activite)
-
-    // on verifie si le courriel est redondant  
+    instance_utilisateur.calorie_quotidien_recommendee = calculCalorie(req.body.taille_cm, req.body.poids_kg, req.body.age, activite)
+        // on verifie si le courriel est redondant  
     modelUtilisateur.findOne({ email: req.body.email }, async function(err, docs) {
         if (err) {
             console.log(err)
@@ -191,20 +190,7 @@ app.listen(port, () => {
     console.log(`Server's on localhost:${port}`);
 });
 
-function niveauActivite(frequence_activite) {
-    var activite
-    if (frequence_activite = 0) {
-        activite = 1.37
-    } else
-    if (frequence_activite = 1) {
-        activite = 1.55
-    } else if (frequence_activite = 2) {
-        activite = 1.80
-    } else if (frequence_activite = 3) {
-        activite = 2.0
-    }
-    return activite
-}
+
 async function StockerUtilisateur(req, res, next) {
     const userFound = await modelUtilisateur.findOne({ email: req.body.email });
     const mdp = req.body.mot_passe
@@ -221,6 +207,21 @@ async function StockerUtilisateur(req, res, next) {
     next();
 }
 
+function niveauActivite(frequence_activite) {
+    var activite
+    if (frequence_activite = 0) {
+        activite = 1.37
+    } else
+    if (frequence_activite = 1) {
+        activite = 1.55
+    } else if (frequence_activite = 2) {
+        activite = 1.80
+    } else if (frequence_activite = 3) {
+        activite = 2.0
+    }
+    return activite
+}
+
 function calculIMC(taille, poids) {
     var taille_m = taille / 100
     var imc = poids / (Math.pow(taille_m, 2))
@@ -230,7 +231,7 @@ function calculIMC(taille, poids) {
 
 function calculCalorie(taille, poids, age, activite) {
     var taille_m = taille / 100
-    calorie = activite * (230 * Math.pow(poids, 0.48) * Math.pow(taille_m, 0.5) * Math.pow(age, -0.13))
+    var calorie = activite * (230 * Math.pow(poids, 0.48) * Math.pow(taille_m, 0.5) * Math.pow(age, (-0.13)))
 
-    return calorie
+    return Math.round(calorie)
 }
