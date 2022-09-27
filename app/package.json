@@ -4,8 +4,7 @@
   "description": "Le but de l'application est de suivre les habitudes de vie (alimentaires, sportives) des utilisateurs et les motiver à les modifier de façon positive pour leur bien-être",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon server.js"
+    "devStart": "nodemon server.js"
   },
   "author": "",
   "license": "ISC",
