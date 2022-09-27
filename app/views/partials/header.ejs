@@ -4,14 +4,22 @@
         <li class="nav-item">
             <a class="nav-link" href="/">Accueil</a>
         </li>
+
         <li class="nav-item">
             <a class="nav-link" href="about">À propos</a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" href="inscription">Inscription</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="connexion">Connexion</a>
-        </li>
+        <% if (utilisateurconnecte) { %>
+            <li class="nav-item">
+                <a class="nav-link" href="profil">Profil</a>
+            </li>
+            <% }else{ %>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="inscription">Inscription</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="connexion">Connexion</a>
+                </li>
+                <% } %>
     </ul>
 </nav>

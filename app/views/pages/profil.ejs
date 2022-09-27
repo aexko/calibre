@@ -4,20 +4,22 @@
 <head>
     <%- include('../partials/head'); %>
 </head>
+<php></php>
 
 <body class="container">
     <header>
         <%- include('../partials/header'); %>
     </header>
     <br /><br />
-<h3>Bonjour <%=prenomNom%> ceci est votre espace personnelle</h3>
-<form action="/deconnexion?_method=DELETE" method="post">
-    <input type="submit" value="Déconnexion"/>
+    <h3>Bonjour
+        <%=prenomNom%> ceci est votre espace personnelle</h3>
+    <form action="/deconnexion?_method=DELETE" method="post">
+        <input type="submit" value="Déconnexion" />
 
-</form>
-<footer>
-    <%- include('../partials/footer'); %>
-</footer>
+    </form>
+    <footer>
+        <%- include('../partials/footer'); %>
+    </footer>
 
 </body>
 

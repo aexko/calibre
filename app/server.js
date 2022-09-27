@@ -11,9 +11,10 @@ const nomDb = "Calibre";
 const cluster = "Calibre";
 const passport = require("passport");
 const flash = require("express-flash");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const session = require("express-session");
 const methodOverride = require("method-override")
+utilisateurCourant = null;
 const {
     checkAuthenticated,
     checkNotAuthenticated,
@@ -46,21 +47,21 @@ bd.once("open", function() {
 initialiserPassport(
     passport,
     async(email) => {
-        const utilisateurTrouvee = await modelUtilisateur.findOne({ email :email });
+        const utilisateurTrouvee = await modelUtilisateur.findOne({ email: email });
         return utilisateurTrouvee;
-    },async(id) => {
-        const utilisateurTrouvee = await modelUtilisateur.findOne({_id:id });
+    }, async(id) => {
+        const utilisateurTrouvee = await modelUtilisateur.findOne({ _id: id });
         return utilisateurTrouvee;
     }
 );
 // pour activer le module ejs
 
 app.use(express.json())
-app.use(express.urlencoded({extended: true}))
+app.use(express.urlencoded({ extended: true }))
 app.use(flash());
 app.use(
     session({
-        name:"sessionUtilisateur",
+        name: "sessionUtilisateur",
         secret: 'twt',
         resave: false,
         saveUninitialized: false,
@@ -72,39 +73,54 @@ app.use(passport.session());
 app.use(methodOverride('_method'))
 
 app.get("/", (req, res) => {
-    res.render("pages/index");
+    res.render("pages/index", {
+        utilisateurconnecte: utilisateurCourant
+    });
 });
 
 app.get("/about", (req, res) => {
-    res.render("pages/about");
+    res.render("pages/about", {
+        utilisateurconnecte: utilisateurCourant
+    });
 });
 // ce routage permet de servir la page de connexion
-app.get("/connexion",checkNotAuthenticated, (req, res) => {
-    res.render("pages/connexion");
+app.get("/connexion", checkNotAuthenticated, (req, res) => {
+    res.render("pages/connexion", {
+        utilisateurconnecte: utilisateurCourant
+    });
 });
-app.get("/profil", checkAuthenticated,(req, res) => {
-    res.render("pages/profil",{prenomNom :req.user.prenom +" "+ req.user.nom});
+app.get("/profil", checkAuthenticated, (req, res) => {
+    res.render("pages/profil", {
+        prenomNom: req.user.prenom + " " + req.user.nom,
+        utilisateurconnecte: utilisateurCourant
+    });
 });
 app.post(
-    "/connexion",checkNotAuthenticated,
+    "/connexion", StockerUtilisateur, checkNotAuthenticated,
     passport.authenticate("local", {
         successRedirect: "/profil",
         failureRedirect: "/connexion",
-        failureFlash: true    }));
+        failureFlash: true,
+    }),
+    async(req, res) => {}
+);
 
-app.delete('/deconnexion',checkAuthenticated,(req,res)=>{
+app.delete('/deconnexion', checkAuthenticated, (req, res) => {
     req.logout(function(err) {
         if (err) { return next(err); }
-        res.redirect('/connexion');
-      });
+        utilisateurCourant = null,
+            res.redirect('/connexion');
+    });
 });
 
 //ce routage permet de servir la page d inscription
-app.get("/inscription",checkNotAuthenticated ,(req, res) => {
-    res.render("pages/inscription");
+app.get("/inscription", checkNotAuthenticated, (req, res) => {
+    res.render("pages/inscription", {
+        utilisateurconnecte: utilisateurCourant
+    });
 });
 //cette routage permet de verifier si le nom d utilisateur est redondant
-app.get("/inscription/:nomUtilisateur",checkNotAuthenticated, (req, res) => {
+app.get("/inscription/:nomUtilisateur", checkNotAuthenticated, (req, res) => {
     //on verifie dans la bd si le nom d utilisateur est existant
     modelUtilisateur.findOne({ nom_utilisateur: req.params.nomUtilisateur }, function(err, docs) {
         if (err) {
@@ -127,7 +143,7 @@ app.get("/inscription/:nomUtilisateur",checkNotAuthenticated, (req, res) => {
     });
 });
 //cette routage permet de recevoir un formulaire d inscription et de les stocker dans la bd
-app.post("/inscription",checkNotAuthenticated, async(req, res) => {
+app.post("/inscription", checkNotAuthenticated, async(req, res) => {
     //les donnes a stocker dans la bd
     const instance_utilisateur = new modelUtilisateur(req.body);
     var activite = niveauActivite(req.body.id_niveau_activite_physique)
@@ -148,10 +164,10 @@ app.post("/inscription",checkNotAuthenticated, async(req, res) => {
                     msg: 'cette courriel est déjà liée à un compte.'
                 });
             } else {
-                try{
-                    instance_utilisateur.mot_passe = await bcrypt.hash(instance_utilisateur.mot_passe,10)
+                try {
+                    instance_utilisateur.mot_passe = await bcrypt.hash(instance_utilisateur.mot_passe, 10)
 
-                }catch{
+                } catch {
 
                 }
                 //sinon on sauvegarde le nouveau compte dans la bd
@@ -186,6 +202,21 @@ function niveauActivite(frequence_activite) {
         activite = 2.0
     }
     return activite
+}
+async function StockerUtilisateur(req, res, next) {
+    const userFound = await modelUtilisateur.findOne({ email: req.body.email });
+    const mdp = req.body.mot_passe
+
+    if (userFound) {
+        if (await bcrypt.compare(mdp, userFound.mot_passe)) {
+            utilisateurCourant = userFound;
+        }
+
+    } else {
+        currentlyConnectedUser = null;
+    }
+
+    next();
 }
 
 function calculIMC(taille, poids) {
