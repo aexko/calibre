@@ -5,8 +5,6 @@ const app = express();
 const port = 3000;
 //importation de module schemaUtilisateur
 const modelUtilisateur = require("./models/schemaUtilisateur");
-const bodyParser = require("body-parser");
-const LocalStrategy = require("passport-local");
 const nomUtilisateur = "admin";
 const motPasse = "admin";
 const nomDb = "Calibre";
@@ -15,29 +13,12 @@ const passport = require("passport");
 const flash = require("express-flash");
 const bcrypt = require("bcrypt");
 const session = require("express-session");
-const initializePassport = require('./passport-config')
-
-initializePassport(
-    passport,
-    email => modelUtilisateur.find(instance_utilisateur => instance_utilisateur.email === email),
-    id => modelUtilisateur.find(instance_utilisateur.id == id)
-)
-app.set('view-engine', 'ejs')
-app.use(express.urlencoded({ extended: false }))
-app.use(flash())
-app.use(session({
-
-    secret: "pizza",
-    resave: false,
-    saveUninitialized: false
-
-}))
-app.use(passport.initialize())
-app.use(passport.session())
-    // pour activer le module ejs
-app.set("view engine", "ejs");
-
-
+const methodOverride = require("method-override")
+const {
+    checkAuthenticated,
+    checkNotAuthenticated,
+} = require("./middlewares/auth");
+const initialiserPassport = require("./passport-config");
 //connection atlas
 /*mongoose.connect(
     `mongodb+srv://${nomUtilisateur}:${motPasse}@${cluster}.unyolim.mongodb.net/${nomDb}?retryWrites=true&w=majority`, {
@@ -46,15 +27,10 @@ app.set("view engine", "ejs");
     }
 );
 */
-//connection compass
-
-mongoose.connect('mongodb://localhost:27017/' + nomDb, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-});
-
 //route permettant de servir les fichier statiques
 app.use(express.static(__dirname + '/public/'));
+
+app.set("view engine", "ejs");
 
 mongoose.connect('mongodb://localhost:27017/' + nomDb, {
     useNewUrlParser: true,
@@ -66,12 +42,34 @@ bd.on("error", console.error.bind(console, "erreur de connection: "));
 bd.once("open", function() {
     console.log("Vous etes connectee");
 });
-// Parse URL-encoded bodies (as sent by HTML forms)
-app.use(express.urlencoded());
 
-// Parse JSON bodies (as sent by API clients)
-app.use(express.json());
-app.set("view engine", "ejs");
+initialiserPassport(
+    passport,
+    async(email) => {
+        const utilisateurTrouvee = await modelUtilisateur.findOne({ email });
+        return utilisateurTrouvee;
+    },async(id) => {
+        const utilisateurTrouvee = await modelUtilisateur.findOne({id });
+        return utilisateurTrouvee;
+    }
+);
+// pour activer le module ejs
+
+app.use(express.json())
+app.use(express.urlencoded({extended: true}))
+app.use(flash());
+app.use(
+    session({
+        name:"sessionUtilisateur",
+        secret: 'twt',
+        resave: false,
+        saveUninitialized: false,
+    })
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(methodOverride('_method'))
 
 app.get("/", (req, res) => {
     res.render("pages/index");
@@ -81,35 +79,32 @@ app.get("/about", (req, res) => {
     res.render("pages/about");
 });
 // ce routage permet de servir la page de connexion
-app.get("/connexion", (req, res) => {
+app.get("/connexion",checkNotAuthenticated, (req, res) => {
     res.render("pages/connexion");
 });
-app.get("/profil", (req, res) => {
-    res.render("pages/profil");
+app.get("/profil", checkAuthenticated,(req, res) => {
+    res.render("pages/profil",{prenomNom :req.user.prenom +" "+ req.user.nom});
 });
-app.post('/connexion', checkNotAuthenticated, passport.authenticate('local', {
-    successRedirect: '/profil',
-    failureRedirect: '/connexion',
-    failureFlash: true
-}))
+app.post(
+    "/connexion",checkNotAuthenticated,
+    passport.authenticate("local", {
+        successRedirect: "/profil",
+        failureRedirect: "/connexion",
+        failureFlash: true    }));
 
-async function StoreUser(req, res, next) {
-    const userFound = await modelUtilisateur.findOne({ email: req.body.email });
+app.delete('/deconnexion',checkAuthenticated,(req,res)=>{
+    req.logout(function(err) {
+        if (err) { return next(err); }
+        res.redirect('/connexion');
+      });
+});
 
-    if (userFound) {
-        currentlyConnectedUser = userFound;
-    } else {
-        console.log("Utilisateur inexistant");
-    }
-
-    next();
-}
 //ce routage permet de servir la page d inscription
-app.get("/inscription", (req, res) => {
+app.get("/inscription",checkNotAuthenticated ,(req, res) => {
     res.render("pages/inscription");
 });
 //cette routage permet de verifier si le nom d utilisateur est redondant
-app.get("/inscription/:nomUtilisateur", (req, res) => {
+app.get("/inscription/:nomUtilisateur",checkNotAuthenticated, (req, res) => {
     //on verifie dans la bd si le nom d utilisateur est existant
     modelUtilisateur.findOne({ nom_utilisateur: req.params.nomUtilisateur }, function(err, docs) {
         if (err) {
@@ -132,19 +127,16 @@ app.get("/inscription/:nomUtilisateur", (req, res) => {
     });
 });
 //cette routage permet de recevoir un formulaire d inscription et de les stocker dans la bd
-app.post("/inscription", async(req, res) => {
+app.post("/inscription",checkNotAuthenticated, async(req, res) => {
     //les donnes a stocker dans la bd
     const instance_utilisateur = new modelUtilisateur(req.body);
     var activite = niveauActivite(req.body.id_niveau_activite_physique)
-    var password = instance_utilisateur.mot_passe
-
-    instance_utilisateur.mot_passe = await bcrypt.hash(password, 10);
 
     instance_utilisateur.imc = calculIMC(req.body.taille_cm, req.body.poids_kg)
     instance_utilisateur.calorie_quotien_recommendee = calculCalorie(req.body.taille, req.body.poids, req.body.age, activite)
 
     // on verifie si le courriel est redondant  
-    modelUtilisateur.findOne({ email: req.body.email }, function(err, docs) {
+    modelUtilisateur.findOne({ email: req.body.email }, async function(err, docs) {
         if (err) {
             console.log(err)
         } else {
@@ -156,6 +148,12 @@ app.post("/inscription", async(req, res) => {
                     msg: 'cette courriel est déjà liée à un compte.'
                 });
             } else {
+                try{
+                    instance_utilisateur.mot_passe = await bcrypt.hash(instance_utilisateur.mot_passe,10)
+
+                }catch{
+
+                }
                 //sinon on sauvegarde le nouveau compte dans la bd
                 instance_utilisateur.save((err) => {
                     if (err) throw err;
@@ -202,20 +200,4 @@ function calculCalorie(taille, poids, age, activite) {
     calorie = activite * (230 * Math.pow(poids, 0.48) * Math.pow(taille_m, 0.5) * Math.pow(age, -0.13))
 
     return calorie
-}
-
-function checkAuthenticated(req, res, next) {
-    if (req.isAuthenticated()) {
-        return next()
-    }
-
-    res.redirect('/connexion')
-}
-
-function checkNotAuthenticated(req, res, next) {
-    if (req.isAuthenticated()) {
-        return res.redirect('/')
-    }
-    next()
-
 }
