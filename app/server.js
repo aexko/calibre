@@ -28,15 +28,17 @@ const initialiserPassport = require("./passport-config");
     }
 );
 */
+//connection compass
+mongoose.connect('mongodb://127.0.0.1:27017/' + nomDb, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+});
 //route permettant de servir les fichier statiques
 app.use(express.static(__dirname + '/public/'));
 
 app.set("view engine", "ejs");
 
-mongoose.connect('mongodb://localhost:27017/' + nomDb, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-});
+
 //ceci permet de savoir si la bd est bien connectee
 const bd = mongoose.connection;
 bd.on("error", console.error.bind(console, "erreur de connection: "));
@@ -91,7 +93,7 @@ app.get("/connexion", checkNotAuthenticated, (req, res) => {
 });
 app.get("/profil", checkAuthenticated, (req, res) => {
     res.render("pages/profil", {
-        prenomNom: req.user.prenom + " " + req.user.nom,
+        prenomNom: req.user.prenom,
         utilisateurconnecte: utilisateurCourant
     });
 });
