@@ -1,7 +1,7 @@
 {
     "name": "app",
     "version": "1.0.0",
-    "description": "Le but de l'application est de suivre les habitudes de vie (alimentaires, sportives) des utilisateurs et les motiver à les modifier de façon positive pour leur bien-être",
+    "description": "Le but de l'application est de suivre les habitudes de vie (alimentaires, sportives) des utilisateurs et les motiver à les modifier de façon positive pour leur bien-être.",
     "main": "server.js",
     "scripts": {
         "dev": "nodemon server.js"
