@@ -40,9 +40,9 @@ app.set("view engine", "ejs");
 
 //ceci permet de savoir si la bd est bien connectee
 const bd = mongoose.connection;
-bd.on("error", console.error.bind(console, "erreur de connection: "));
+bd.on("error", console.error.bind(console, "Erreur de connection: "));
 bd.once("open", function () {
-	console.log("Vous etes connectee");
+	console.log("Connexion réussie à MongoDB");
 });
 
 initialiserPassport(
