@@ -6,7 +6,7 @@
     "scripts": {
         "dev": "nodemon server.js"
     },
-    "author": "",
+    "author": "Abdelaziz, Lyna - Kao, Alex - Sabbagh Ziarani, Narges",
     "license": "ISC",
     "dependencies": {
         "bcrypt": "^5.0.1",
