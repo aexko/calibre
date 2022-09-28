@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <%- include('../partials/head'); %>
-</head>
+
 
 <body class="container">
     <header>
         <%- include('../partials/header'); %>
     </header>
+
+    <head>
+        <%- include('../partials/head'); %>
+    </head>
 
     <main>
         <div class="jumbotron">
@@ -19,6 +21,10 @@
             <a href="" id="source"></a>
         </div>
     </main>
+
+    <footer>
+        <%- include('../partials/footer'); %>
+    </footer>
 
     <script>
         function getSource(id) {
@@ -49,8 +55,5 @@
 
 </body>
 
-<footer>
-    <%- include('../partials/footer'); %>
-</footer>
 
 </html>
