@@ -4,7 +4,8 @@
     "description": "Le but de l'application est de suivre les habitudes de vie (alimentaires, sportives) des utilisateurs et les motiver à les modifier de façon positive pour leur bien-être.",
     "main": "server.js",
     "scripts": {
-        "dev": "nodemon server.js"
+        "dev": "nodemon server.js",
+        "test": "METTRE A JOUR POUR LES TESTS UNITAIRES"
     },
     "author": "Abdelaziz, Lyna - Kao, Alex - Sabbagh Ziarani, Narges",
     "license": "ISC",
