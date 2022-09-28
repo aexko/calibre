@@ -39,6 +39,10 @@ app.use(express.static(__dirname + '/public/'));
 app.set("view engine", "ejs");
 
 
+mongoose.connect('mongodb://127.0.0.1:27017/' + nomDb, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+});
 //ceci permet de savoir si la bd est bien connectee
 const bd = mongoose.connection;
 bd.on("error", console.error.bind(console, "erreur de connection: "));
@@ -186,6 +190,7 @@ app.post("/inscription", checkNotAuthenticated, async(req, res) => {
 });
 
 
+// For website access
 app.listen(port, () => {
     console.log(`Le serveur est sur localhost:${port}`);
 });
