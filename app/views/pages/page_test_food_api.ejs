@@ -25,35 +25,30 @@
 
 
     <script>
-
-
         function getSource(id) {
             $.ajax({
                 url: "https://api.spoonacular.com/recipes/" + id + "/information?apiKey=3b2c9d7b94d24ca785d5fccdfce53e3a",
                 success: function (res) {
-                    document.getElementById("sourceLink").innerHTML = res.sourceUrl
-                    document.getElementById("sourceLink").href = res.sourceUrl
-                    alert(res.sourceUrl)
-                
+                    document.getElementById("source").innerHTML = res.sourceUrl
+                    document.getElementById("source").href = res.sourceUrl
                 }
             });
         }
 
-        function getRecepe(q) {
+        function getRecette(q) {
             $.ajax({
                 url: "https://api.spoonacular.com/recipes/search?apiKey=3b2c9d7b94d24ca785d5fccdfce53e3a&number=1&query=" + q,
-                sucess: function (res) {
-                    document.getElementById("output").innerHTML = "<h1>" + res.results[0].title + "<h1><br><img src=" + res.baseUrl + res.results[0].image + "'width='400'/> <br> ready in " + res.results[0].readyInMinutes + " minutes"
-                    getSource(res.results[0].id)
-                    alert(res)
-
+                success: function (res) {
+                    try {
+                        document.getElementById("sortie").innerHTML = "<br><h2>" + res.results[0].title + "</h2><img src='" + res.baseUri + res.results[0].image + "'width='400' /><br> Durée : " + res.results[0].readyInMinutes + " minutes"
+                        getSource(res.results[0].id)
+                    } catch (err) {
+                        console.log("Erreur: " + err.name)
+                        document.getElementById("sortie").innerHTML = "Pas de recettes trouvées";
+                    }
                 }
             })
         }
-
-
-
-
     </script>
 
 </body>
