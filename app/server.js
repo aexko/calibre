@@ -96,6 +96,13 @@ app.get("/profil", checkAuthenticated, (req, res) => {
         utilisateurconnecte: utilisateurCourant
     });
 });
+
+app.get("/recettes", (req, res) => {
+    res.render("pages/recettes", {
+        utilisateurconnecte: utilisateurCourant
+    });
+});
+
 app.post(
     "/connexion", StockerUtilisateur, checkNotAuthenticated,
     passport.authenticate("local", {
