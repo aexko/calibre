@@ -6,7 +6,8 @@
     "scripts": {
         "dev": "nodemon server.js",
         "test": "METTRE A JOUR POUR LES TESTS UNITAIRES",
-        "start": "node server.js"
+        "start": "node server.js",
+        "cypress:open": "cypress open"
     },
     "author": "Abdelaziz, Lyna - Kao, Alex - Sabbagh Ziarani, Narges",
     "license": "ISC",
