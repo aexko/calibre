@@ -10,10 +10,14 @@ const motPasse = "admin";
 const nomDb = "Calibre";
 const cluster = "Calibre";
 const passport = require("passport");
+//const ProgressBar = require("./progress");
 const flash = require("express-flash");
 const bcrypt = require("bcryptjs");
+
 const session = require("express-session");
-const methodOverride = require("method-override")
+const methodOverride = require("method-override");
+
+
 utilisateurCourant = null;
 const {
     checkAuthenticated,
@@ -93,8 +97,10 @@ app.get("/connexion", checkNotAuthenticated, (req, res) => {
 });
 app.get("/profil", checkAuthenticated, (req, res) => {
     res.render("pages/profil", {
-        prenom: req.user.prenom,
-        utilisateurconnecte: utilisateurCourant
+        utilisateur: utilisateurCourant,
+        utilisateurconnecte: utilisateurCourant,
+
+
     });
 });
 app.post(
@@ -152,6 +158,7 @@ app.post("/inscription", checkNotAuthenticated, async(req, res) => {
 
     instance_utilisateur.imc = calculIMC(req.body.taille_cm, req.body.poids_kg)
     instance_utilisateur.calorie_quotidien_recommendee = calculCalorie(req.body.taille_cm, req.body.poids_kg, req.body.age, activite)
+    instance_utilisateur.calorie_quotidien_consommee = 0
         // on verifie si le courriel est redondant  
     modelUtilisateur.findOne({ email: req.body.email }, async function(err, docs) {
         if (err) {

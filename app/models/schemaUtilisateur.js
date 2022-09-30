@@ -12,6 +12,7 @@ const schemaUtilisateur = mongoose.Schema({
     genre: String,
     id_niveau_activite_physique: Number,
     calorie_quotidien_recommendee: Number,
+    calorie_quotidien_consommee: Number,
     imc: Number,
     restrictions_alim: [{
         id: Number,
