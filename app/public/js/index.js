@@ -40,3 +40,75 @@ function validerNomUtilisateur(nomUtilisateur) {
 		},
 	});
 }
+
+var tabcourant = 0; // le tab courant est 0 au debut
+        montrerTab(tabcourant); // affichage du tab courant
+        
+        function montrerTab(n) {
+          // cette fonction affiche le tab courant
+          var x = document.getElementsByClassName("tab");
+          x[n].style.display = "block";
+          //pour fixer les bouttons prochain précédent
+          if (n == 0) {
+            document.getElementById("prevBtn").style.display = "none";
+          } else {
+            document.getElementById("prevBtn").style.display = "inline";
+          }
+          if (n == (x.length - 1)) {
+            document.getElementById("nextBtn").innerHTML = "Soumettre";
+          } else {
+            document.getElementById("nextBtn").innerHTML = "Prochain";
+          }
+          //corrige le indicateur d etape en bas du formulaire
+          indiquerEtap(n)
+        }
+        
+        function changerTab(n) {
+          //cette methode permet de changer de tab selon le bouton clique
+          var x = document.getElementsByClassName("tab");
+          // si validation echoue pour le tab courant et bouton prochain clique, retourne faux
+          if (n == 1 && !validerForm()) return false;
+          // sinon tab courant est cachee 
+          x[tabcourant].style.display = "none";
+          // numero de tabcourant est changee
+          tabcourant = tabcourant + n;
+          // si fin du form on va soumettre
+          if (tabcourant >= x.length) {
+           // document.getElementById("formulaireInscription").submit();
+           soummettreFormulaire();
+            return false;
+          }
+          //sinon on va afficher le tab voulu
+          montrerTab(tabcourant);
+        }
+        
+        function validerForm() {
+          // cette fonction permet de valider le tab courant
+          var x, y, i, valid = true;
+          x = document.getElementsByClassName("tab");
+          y = x[tabcourant].getElementsByTagName("input");
+          // verifie si les inputs d un tab ne sont pas vides
+          for (i = 0; i < y.length; i++) {
+            // si vide le nom de la classe de l input change a invalid et par css la couleur de background est mis a rouge
+            if (y[i].value == "") {
+              y[i].className += " invalid";
+              // valid est mis a faux
+              valid = false;
+            }
+          }
+          // si valid l indicateur etape indique le fin de l etape
+          if (valid) {
+            document.getElementsByClassName("step")[tabcourant].className += " finish";
+          }
+          return valid; // retourn si validee ou pas
+        }
+        
+        function indiquerEtap(n) {
+          // cette methode permet d afficher l indicateur d etape
+          var i, x = document.getElementsByClassName("step");
+          for (i = 0; i < x.length; i++) {
+            x[i].className = x[i].className.replace(" active", "");
+          }
+          //ajout active au nom de classe 
+          x[n].className += " active";
+        }
