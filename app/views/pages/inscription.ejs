@@ -9,7 +9,7 @@
     <header>
         <%- include('../partials/header'); %>
     </header>
-    <form id="formulaireInscription" method="post" onsubmit="soummettreFormulaire();return false;">
+    <form id="formulaireInscription" method="post" >
         <h1>Inscrivez-vous:</h1>
         <!-- One "tab" for each step in the form: -->
         <div class="tab">
@@ -141,7 +141,8 @@
           // if you have reached the end of the form...
           if (currentTab >= x.length) {
             // ... the form gets submitted:
-            document.getElementById("formulaireInscription").submit();
+           // document.getElementById("formulaireInscription").submit();
+           soummettreFormulaire();
             return false;
           }
           // Otherwise, display the correct tab:
