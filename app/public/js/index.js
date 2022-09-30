@@ -68,6 +68,7 @@ var tabcourant = 0; // le tab courant est 0 au debut
           var x = document.getElementsByClassName("tab");
           // si validation echoue pour le tab courant et bouton prochain clique, retourne faux
           if (n == 1 && !validerForm()) return false;
+		  if(n == -1 && !validerForm()) {document.getElementsByClassName("step")[tabcourant].className=document.getElementsByClassName("step")[tabcourant].className.replace(" finish", ""); };
           // sinon tab courant est cachee 
           x[tabcourant].style.display = "none";
           // numero de tabcourant est changee
@@ -98,7 +99,7 @@ var tabcourant = 0; // le tab courant est 0 au debut
           }
           // si valid l indicateur etape indique le fin de l etape
           if (valid) {
-            document.getElementsByClassName("step")[tabcourant].className += " finish";
+            document.getElementsByClassName("step")[tabcourant].className ="step finish";
           }
           return valid; // retourn si validee ou pas
         }
