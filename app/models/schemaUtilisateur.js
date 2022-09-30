@@ -12,7 +12,7 @@ const schemaUtilisateur = mongoose.Schema({
     taille: [{
     }],
     genre: String,
-    id_niveau_activite_physique: Number,
+    id_niveau_activite_physique: String,
     imc: Number,
     calorie_quotidien_recommendee: Number,
     restrictions_alim: [{

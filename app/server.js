@@ -163,15 +163,15 @@ app.get("/inscription/:nomUtilisateur", checkNotAuthenticated, (req, res) => {
 app.post("/inscription", checkNotAuthenticated, async (req, res) => {
 	//les donnes a stocker dans la bd
 	const instance_utilisateur = new modelUtilisateur(req.body);
-	var activite = niveauActivite(req.body.id_niveau_activite_physique);
+	//var activite = niveauActivite(req.body.id_niveau_activite_physique);
 
-	instance_utilisateur.imc = calculIMC(req.body.taille_cm, req.body.poids_kg);
-	instance_utilisateur.calorie_quotidien_recommendee = calculCalorie(
+	//instance_utilisateur.imc = calculIMC(req.body.taille_cm, req.body.poids_kg);
+	/*	instance_utilisateur.calorie_quotidien_recommendee = calculCalorie(
 		req.body.taille_cm,
 		req.body.poids_kg,
 		req.body.age,
 		activite
-	);
+	);*/
 	// on verifie si le courriel est redondant
 	modelUtilisateur.findOne(
 		{ email: req.body.email },
