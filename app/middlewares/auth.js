@@ -6,10 +6,10 @@
  * @returns redirection vers la page d'accueil
  */
 function checkNotAuthenticated(req, res, next) {
-    if (req.isAuthenticated()) {
-        return res.redirect("/profil");
-    }
-    next();
+	if (req.isAuthenticated()) {
+		return res.redirect("/profil");
+	}
+	next();
 }
 
 /**
@@ -20,14 +20,14 @@ function checkNotAuthenticated(req, res, next) {
  * @returns redirection vers la page de connexion
  */
 function checkAuthenticated(req, res, next) {
-    if (req.isAuthenticated()) {
-        return next();
-    }
-    res.redirect("/connexion");
+	if (req.isAuthenticated()) {
+		return next();
+	}
+	res.redirect("/connexion");
 }
 
 // pour l'acces des fonctions dans les autres fichiers
 module.exports = {
-    checkNotAuthenticated,
-    checkAuthenticated,
+	checkNotAuthenticated,
+	checkAuthenticated,
 };

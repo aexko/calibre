@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<header>
+    <%- include('../partials/header'); %>
+</header>
+
+<body class="container">
+
+    <head>
+        <%- include('../partials/head'); %>
+    </head>
+
+    <main>
+        <div class="jumbotron">
+            <h1>Recherche de recettes</h1>
+            <input id="recherche"><button
+                onclick="getRecette(document.getElementById('recherche').value)">Recherche</button>
+            <div id="sortie"></div>
+            <a href="" id="source"></a>
+        </div>
+    </main>
+
+    <footer>
+        <%- include('../partials/footer'); %>
+    </footer>
+
+    <script src="/public/js/spoonacularAPI.js"></script>
+
+</body>
+
+
+</html>

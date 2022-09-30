@@ -1,4 +1,4 @@
-const mongoose = require("mongoose")
+const mongoose = require("mongoose");
 
 const schemaUtilisateur = mongoose.Schema({
     prenom: String,
@@ -31,6 +31,5 @@ const schemaUtilisateur = mongoose.Schema({
         }],
     }]
 });
-
 
 module.exports = mongoose.model("Utilisateur", schemaUtilisateur);
