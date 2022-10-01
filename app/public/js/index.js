@@ -103,7 +103,7 @@ function changerTab(n) {
 }*/
 function validerTab() {
 	// cette fonction permet de valider le tab courant
-	valide=true;
+	valide = true;
 	var x, y, i;
 	x = document.getElementsByClassName("tab");
 	y = x[tabcourant].getElementsByTagName("input");
@@ -113,24 +113,32 @@ function validerTab() {
 		if (y[i].className == "invalid") {
 			// valid est mis a faux
 			return false;
-		}else if( y[i].value == "" || y[i].value.trim() == ""){
+		} else if (y[i].value == "" || y[i].value.trim() == "") {
 			y[i].className = "invalid"
 			valide = false;
 		}
 	}
 	// si valid l indicateur etape indique le fin de l etape
-	if(valide){		document.getElementsByClassName("step")[tabcourant].className = "step finish";
-}
+	if (valide) {
+		document.getElementsByClassName("step")[tabcourant].className = "step finish";
+	}
 	return valide; // retourn si validee ou pas
 }
 function validerForm(element) {
-	valide=true
+	valide = true;
 	// cette fonction permet de valider le tab courant
 
 	// verifie si les inputs d un tab ne sont pas vides
 	// si vide le nom de la classe de l input change a invalid et par css la couleur de background est mis a rouge
 	if (element.name == "age" || element.name == "taille" || element.name == "poids") {
 		valide = validerAgeTaillePoids(element)
+	} else if (element.name == "email") {
+		valide = validerCourriel(element);
+	} else if (element.name == "nom_utilisateur") {
+		valide = validerUtilisateur(element);
+		document.getElementById("patternUtilisateur").style.display = "block"; 
+	} else if (element.name == "mot_passe") {
+		valide = validerMotPasse(element);
 	}
 	if (!valide) {
 		element.className = "invalid";
@@ -156,7 +164,43 @@ function validerAgeTaillePoids(element) {
 	document.getElementById("message " + element.name).innerHTML = "";
 	return true;
 }
-function validercourrielMotPasseNomUtilisateur() { }
+function validerCourriel() {
+
+}
+function validerMotPasse() {
+
+}
+function validerUtilisateur(element) {
+	//peut contenir juste des nombres, lettres majuscules et lettres miniscules et underscore doit etre entre 8 et 20 caracteres
+	//^[a-zA-Z0-9_]{8,20}$
+	valideMinMaj = true;
+	commenceMiniscule = /^[a-zA-Z0-9_]+$/g;
+	if (element.value.match(commenceMiniscule)) {
+		document.getElementById("minisculeUtilisateur").className = "valid";
+		valideMinMaj =  true;
+	} else {
+		document.getElementById("minisculeUtilisateur").className = "invalid";
+		valideMinMaj = false;
+	}
+	valideLongueur = true;
+	if(element.value.length<8){
+		document.getElementById("longueurMin").className = "invalid";
+		document.getElementById("longueurMax").className = "valid";
+
+		valideLongueur =  false;
+	}else if(element.value.length>20){
+		document.getElementById("longueurMax").className = "invalid";
+		document.getElementById("longueurMin").className = "valid";
+		valideLongueur =  false;
+	}else{
+		document.getElementById("longueurMax").className = "valid";
+		document.getElementById("longueurMin").className = "valid";
+		valideLongueur =  true;
+	}
+	return valideLongueur && valideMinMaj;
+
+	
+}
 
 function indiquerEtap(n) {
 	// cette methode permet d afficher l indicateur d etape

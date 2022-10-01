@@ -140,11 +140,10 @@
             id="nom_utilisateur"
             name="nom_utilisateur"
             autocomplete="on"
-            onkeyup="validerNomUtilisateur(this)"
+            onkeyup="validerNomUtilisateur(this),validerForm(this)"
             oninput="this.className = ''"
             title="remplissez ce champs"
             placeholder="Nom d'utilisateur"
-            pattern="^[a-zA-Z0-9][a-zA-Z0-9_]{8,20}$"
             title="Votre mot de passe doit commencer avec une lettre miniscule et peut contenir des nombres, des lettres au majuscule et au miniscule et doit avoir une longueur minimum de 8 caracteres et une longueur maximum de 20 caracteres"
             oninvalid="this.setCustomValidity('Choisissez un nom d\'utilisateur valide')"
             oninput="this.setCustomValidity('')"
@@ -152,6 +151,11 @@
             id="avertirNomUtilisateur"
             style="padding-left: 20px; color: orangered"
           ></label>
+          <div id="patternUtilisateur" style="display:none;">
+            <p id="minisculeUtilisateur">Votre nom d'utilisateur ne doit contenir que des lettres majuscules, miniscules, des nombres et _</p>
+            <p id="longueurMin">Votre nom d'utilisateur doit être plus longue que 8 caractères</p>
+            <p id="longueurMax">Votre nom d'utilisateur doit être moins longue que 20 caractères</p>
+          </div>
         </p>
       </div>
       <div class="tab">
