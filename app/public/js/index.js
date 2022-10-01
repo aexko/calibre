@@ -37,7 +37,9 @@ function validerNomUtilisateur(nomUtilisateur) {
 			//si le nom d utilisateur est existant le champs d avertissement va contenir un avertissement sinon il sera vide
 			document.getElementById("avertirNomUtilisateur").innerHTML =
 				result.msg;
-		},
+				validerForm(nomUtilisateur);
+		},	
+
 	});
 }
 
@@ -136,9 +138,10 @@ function validerForm(element) {
 		valide = validerCourriel(element);
 	} else if (element.name == "nom_utilisateur") {
 		valide = validerUtilisateur(element);
-		document.getElementById("patternUtilisateur").style.display = "block"; 
+		document.getElementById("patternUtilisateur").style.display = "block";
 	} else if (element.name == "mot_passe") {
 		valide = validerMotPasse(element);
+		document.getElementById("patternMotPasse").style.display = "block";
 	}
 	if (!valide) {
 		element.className = "invalid";
@@ -167,8 +170,44 @@ function validerAgeTaillePoids(element) {
 function validerCourriel() {
 
 }
-function validerMotPasse() {
-
+function validerMotPasse(element) {
+	//pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+	valideMin = true;
+	pattern = /[a-z]/g;
+	if (element.value.match(pattern)) {
+		document.getElementById("minisculeMotPasse").className = "valid";
+		valideMin = true;
+	} else {
+		document.getElementById("minisculeMotPasse").className = "invalid";
+		valideMin = false;
+	}
+	valideMaj = true;
+	pattern = /[A-Z]/g;
+	if (element.value.match(pattern)) {
+		document.getElementById("majMotPasse").className = "valid";
+		valideMaj = true;
+	} else {
+		document.getElementById("majMotPasse").className = "invalid";
+		valideMaj = false;
+	}
+	valideNombre = true;
+	pattern = /[0-9]/g;
+	if (element.value.match(pattern)) {
+		document.getElementById("nombreMotPasse").className = "valid";
+		valideNombre = true;
+	} else {
+		document.getElementById("nombreMotPasse").className = "invalid";
+		valideNombre = false;
+	}
+	valideLongueur = true;
+	if (element.value.length < 8) {
+		document.getElementById("longueurMinPass").className = "invalid";
+		valideLongueur = false;
+	} else {
+		document.getElementById("longueurMinPass").className = "valid";
+		valideLongueur = true;
+	}
+	return valideLongueur && valideMin && valideMaj && valideNombre;
 }
 function validerUtilisateur(element) {
 	//peut contenir juste des nombres, lettres majuscules et lettres miniscules et underscore doit etre entre 8 et 20 caracteres
@@ -177,29 +216,29 @@ function validerUtilisateur(element) {
 	commenceMiniscule = /^[a-zA-Z0-9_]+$/g;
 	if (element.value.match(commenceMiniscule)) {
 		document.getElementById("minisculeUtilisateur").className = "valid";
-		valideMinMaj =  true;
+		valideMinMaj = true;
 	} else {
 		document.getElementById("minisculeUtilisateur").className = "invalid";
 		valideMinMaj = false;
 	}
 	valideLongueur = true;
-	if(element.value.length<8){
+	if (element.value.length < 8) {
 		document.getElementById("longueurMin").className = "invalid";
 		document.getElementById("longueurMax").className = "valid";
 
-		valideLongueur =  false;
-	}else if(element.value.length>20){
+		valideLongueur = false;
+	} else if (element.value.length > 20) {
 		document.getElementById("longueurMax").className = "invalid";
 		document.getElementById("longueurMin").className = "valid";
-		valideLongueur =  false;
-	}else{
+		valideLongueur = false;
+	} else {
 		document.getElementById("longueurMax").className = "valid";
 		document.getElementById("longueurMin").className = "valid";
-		valideLongueur =  true;
+		valideLongueur = true;
 	}
-	return valideLongueur && valideMinMaj;
+	return valideLongueur && valideMinMaj && document.getElementById("avertirNomUtilisateur").innerHTML == "";
 
-	
+
 }
 
 function indiquerEtap(n) {
