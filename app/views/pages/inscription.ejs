@@ -1,42 +1,103 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <%- include('../partials/head'); %>
-</head>
+  </head>
 
-<body class="container">
-    <header>
-        <%- include('../partials/header'); %>
-    </header>
-    <form id="formulaireInscription" method="post" >
-        <h1>Inscrivez-vous:</h1>
-        <!-- One "tab" for each step in the form: -->
-        <div class="tab">
-          <p><input type="text" id="prenom" name="prenom" placeholder="Prénom" oninput="this.className = ''" title=""
-            oninvalid="this.setCustomValidity('Entrez votre prenom')" oninput="this.setCustomValidity('')"
-            autocomplete="on" /></p>
-          <p><input type="text" id="nom" name="nom" placeholder="Nom" oninput="this.className = ''" title=""
-            oninvalid="this.setCustomValidity('Entrez votre nom')" oninput="this.setCustomValidity('')"
-            autocomplete="on" /></p>
-        </div>
-        <div class="tab">
-          <p>Quelle âge avez-vous?<input type="number" id="age" step="0.01" min="18" max="120" name="age" onkeyup="validerForm(this)" placeholder="Age" oninput="this.className = ''" title="remplissez ce champs"
+  <body class="container">
+    <header><%- include('../partials/header'); %></header>
+    <form id="formulaireInscription" method="post">
+      <h1>Inscrivez-vous:</h1>
+      <!-- One "tab" for each step in the form: -->
+      <div class="tab">
+        <p>
+          <input
+            type="text"
+            id="prenom"
+            name="prenom"
+            placeholder="Prénom"
+            oninput="this.className = ''"
+            onkeyup="validerForm(this)"
+            title=""
+            oninvalid="this.setCustomValidity('Entrez votre prenom')"
+            oninput="this.setCustomValidity('')"
+            autocomplete="on"
+          />
+        </p>
+        <p>
+          <input
+            type="text"
+            id="nom"
+            name="nom"
+            placeholder="Nom"
+            oninput="this.className = ''"
+            onkeyup="validerForm(this)"
+            title=""
+            oninvalid="this.setCustomValidity('Entrez votre nom')"
+            oninput="this.setCustomValidity('')"
+            autocomplete="on"
+          />
+        </p>
+      </div>
+      <div class="tab">
+        <p>
+          Quelle âge avez-vous?<input
+            type="number"
+            id="age"
+            step="0.01"
+            min="18"
+            max="120"
+            name="age"
+            onkeyup="validerForm(this)"
+            placeholder="Age"
+            title="remplissez ce champs"
             oninvalid="this.setCustomValidity('Entrez votre age')"
-            oninput="this.setCustomValidity('')" /></p><div id="message age"></div>
-          <p>Choisissez le genre qui nous permettra de calculer votre consommaion de calorie quotidienne:<select name="genre" id="genre">
+            oninput="this.setCustomValidity('')"
+          />
+        </p>
+        <div id="message age"></div>
+        <p>
+          Choisissez le genre qui nous permettra de calculer votre consommaion
+          de calorie quotidienne:<select name="genre" id="genre">
             <option value="Homme">Homme</option>
             <option value="Femme">Femme</option>
-        </select></p>
+          </select>
+        </p>
         <div id="metrique">
-            <p>Quelle est votre taille?<input type="number" step="0.01" min="15" max="635" id="poids_kg" name="poids" oninput="this.className = ''" title="remplissez ce champs"
-                placeholder="Poids" oninvalid="this.setCustomValidity('Entrez votre poids')"
-                oninput="this.setCustomValidity('')" /></p><div id="message taille"></div>
-           <p>Quelle est votre poids?<input type="number" id="taille_cm" step="1"  min="50" max="280" name="taille" oninput="this.className = ''" title="remplissez ce champs"
-                placeholder="Taille" oninvalid="this.setCustomValidity('Entrez votre taille')"
-                oninput="this.setCustomValidity('')" /></p><div id="message poids"></div>
-            </select></div>
-            <!--<div id="imperial" style="display:none" >
+          <p>
+            Quelle est votre taille?<input
+              type="number"
+              id="taille_cm"
+              step="1"
+              min="50"
+              max="280"
+              name="taille"
+              onkeyup="validerForm(this)"
+              title="remplissez ce champs"
+              placeholder="Taille"
+              oninvalid="this.setCustomValidity('Entrez votre taille')"
+              oninput="this.setCustomValidity('')"
+            />
+          </p>
+          <div id="message taille"></div>
+          <p>
+            Quelle est votre poids?<input
+              type="number"
+              step="0.01"
+              min="15"
+              max="635"
+              id="poids_kg"
+              name="poids"
+              onkeyup="validerForm(this)"
+              title="remplissez ce champs"
+              placeholder="Poids"
+              oninvalid="this.setCustomValidity('Entrez votre poids')"
+              oninput="this.setCustomValidity('')"
+            />
+          </p>
+          <div id="message poids"></div>
+        </div>
+        <!--<div id="imperial" style="display:none" >
                 <input type="number" disabled="true" required step="0.01" min="34" max="1400" id="poids_lbs" name="poids" oninput="this.className = ''" title="remplissez ce champs"
                     placeholder="Poids" oninvalid="this.setCustomValidity('Entrez votre poids')"
                     oninput="this.setCustomValidity('')" />
@@ -47,68 +108,124 @@
                 <input type="number" disabled="true" required id="taille_inch" step="0.01" min="1" max="11.9" name="taille" oninput="this.className = ''" title="remplissez ce champs"
                     placeholder="Taille" oninvalid="this.setCustomValidity('Entrez votre taille')"
                     oninput="this.setCustomValidity('')" /><label>in</label>
-                </select></div>--></p>
-          <p>Quelle est votre niveau d'activité?<select name="id_niveau_activite_physique" id="id_niveau_activite_physique">
-            <option value="sedentaire">Sédentaire (peu ou pas d'activité)</option>
-            <option value="legerActif">Legèrement actif (entrainement de 1-2 fois par semaine)</option>
-            <option value="modereActif">Modérément actif (entrainement de 3-5 fois par semaine)</option>
-            <option value="tresActif">Très actif (6-7 fois d'entrainement intensif )</option>
-            <option value="ExtremeActif">Extrêmement actif (entrainement quotidien intensif )</option>
-       </select></p>
-        </div>
-        <div class="tab">Choisissez un nom d'utilisateur:
-          <p><input type="text" id="nom_utilisateur" name="nom_utilisateur" autocomplete="on"
-            onkeyup="validerNomUtilisateur(this)" oninput="this.className = ''" title="remplissez ce champs" placeholder="Nom d'utilisateur"
+                </select></div>-->
+        <p>
+          Quelle est votre niveau d'activité?<select
+            name="id_niveau_activite_physique"
+            id="id_niveau_activite_physique"
+          >
+            <option value="sedentaire">
+              Sédentaire (peu ou pas d'activité)
+            </option>
+            <option value="legerActif">
+              Legèrement actif (entrainement de 1-2 fois par semaine)
+            </option>
+            <option value="modereActif">
+              Modérément actif (entrainement de 3-5 fois par semaine)
+            </option>
+            <option value="tresActif">
+              Très actif (6-7 fois d'entrainement intensif )
+            </option>
+            <option value="ExtremeActif">
+              Extrêmement actif (entrainement quotidien intensif )
+            </option>
+          </select>
+        </p>
+      </div>
+      <div class="tab">
+        Choisissez un nom d'utilisateur:
+        <p>
+          <input
+            type="text"
+            id="nom_utilisateur"
+            name="nom_utilisateur"
+            autocomplete="on"
+            onkeyup="validerNomUtilisateur(this)"
+            oninput="this.className = ''"
+            title="remplissez ce champs"
+            placeholder="Nom d'utilisateur"
             pattern="^[a-zA-Z0-9][a-zA-Z0-9_]{8,20}$"
             title="Votre mot de passe doit commencer avec une lettre miniscule et peut contenir des nombres, des lettres au majuscule et au miniscule et doit avoir une longueur minimum de 8 caracteres et une longueur maximum de 20 caracteres"
             oninvalid="this.setCustomValidity('Choisissez un nom d\'utilisateur valide')"
-            oninput="this.setCustomValidity('')" /><label id="avertirNomUtilisateur"
-            style="padding-left:20px; color:orangered;"></label></p>
+            oninput="this.setCustomValidity('')"
+          /><label
+            id="avertirNomUtilisateur"
+            style="padding-left: 20px; color: orangered"
+          ></label>
+        </p>
+      </div>
+      <div class="tab">
+        Quelles sont vos restrictions:
+        <p>
+          qu'est ce que vous ne mangez pas?
+          <select name="restrictions" id="restrictions_alim">
+            <option value="pomme">pomme</option>
+            <option value="viande">viande</option>
+            <option value="Autre">Autre a ajouter</option>
+          </select>
+        </p>
+        <p>
+          quelles sont vos exigences diètiques?<select
+            name="exigences"
+            id="exigences"
+          >
+            <option value="arachide">Allergie à l’arachide</option>
+            <option value="vega">vegan</option>
+            <option value="Autre">Autre</option>
+          </select>
+        </p>
+      </div>
+      <div class="tab">
+        Créer votre compte:
+        <p>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="Courriel"
+            oninput="this.className = ''"
+            title=""
+            oninvalid="this.setCustomValidity('Entrez votre Courriel')"
+            oninput="this.setCustomValidity('')"
+            autocomplete="on"
+          />
+        </p>
+        <p>
+          <input
+            type="password"
+            id="mot_passe"
+            name="mot_passe"
+            autocomplete="on"
+            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+            oninput="this.className = ''"
+            title="Votre mot de passe doit contenir au moins un nombre, un lettre au majuscule et un lettre au miniscule et doit avoir une longueur minimum de 8 caracteres"
+            placeholder="Mot de passe"
+            oninvalid="this.setCustomValidity('Choisissez un mot de passe')"
+            oninput="this.setCustomValidity('')"
+          />
+        </p>
+      </div>
+      <div style="overflow: auto">
+        <div style="float: right">
+          <button type="button" id="prevBtn" onclick="changerTab(-1)">
+            Précédent
+          </button>
+          <button type="button" id="nextBtn" onclick="changerTab(1)">
+            Prochain
+          </button>
         </div>
-        <div class="tab">Quelles sont vos restrictions:
-            <p>qu'est ce que vous ne mangez pas?
-            <select name="restrictions" id="restrictions_alim">
-                <option value="pomme">pomme</option>
-                <option value="viande">viande</option>
-                <option value="Autre">Autre a ajouter</option>
-            </select></p>
-            <p>quelles sont vos exigences diètiques?<select name="exigences" id="exigences">
-                <option value="arachide">Allergie à l’arachide</option>
-                <option value="vega">vegan</option>
-                <option value="Autre">Autre</option>
-            </select></p>
-        </div>
-        <div class="tab">Créer votre compte:
-            <p><input type="email" id="email" name="email" placeholder="Courriel" oninput="this.className = ''" title=""
-                oninvalid="this.setCustomValidity('Entrez votre Courriel')" oninput="this.setCustomValidity('')"
-                autocomplete="on" /></p>
-            <p><input type="password" id="mot_passe" name="mot_passe" autocomplete="on"
-                pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" oninput="this.className = ''"
-                title="Votre mot de passe doit contenir au moins un nombre, un lettre au majuscule et un lettre au miniscule et doit avoir une longueur minimum de 8 caracteres"
-                placeholder="Mot de passe" oninvalid="this.setCustomValidity('Choisissez un mot de passe')"
-                oninput="this.setCustomValidity('')" /></p>
-        </div>
-        <div style="overflow:auto;">
-          <div style="float:right;">
-            <button type="button" id="prevBtn" onclick="changerTab(-1)">Précédent</button>
-            <button type="button" id="nextBtn" onclick="changerTab(1)">Prochain</button>
-          </div>
-        </div>
-        <!-- Circles which indicates the steps of the form: -->
-        <div style="text-align:center;margin-top:40px;">
-          <span class="step"></span>
-          <span class="step"></span>
-          <span class="step"></span>
-          <span class="step"></span>
-          <span class="step"></span>
-        </div>
-      </form>
+      </div>
+      <!-- Circles which indicates the steps of the form: -->
+      <div style="text-align: center; margin-top: 40px">
+        <span class="step"></span>
+        <span class="step"></span>
+        <span class="step"></span>
+        <span class="step"></span>
+        <span class="step"></span>
+      </div>
+    </form>
     <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
     <script src="../js/index.js"></script>
-    <footer>
-        <%- include('../partials/footer'); %>
-    </footer>
-
-</body>
-
+    <footer><%- include('../partials/footer'); %></footer>
+  </body>
 </html>

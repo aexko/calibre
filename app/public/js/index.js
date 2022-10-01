@@ -43,8 +43,6 @@ function validerNomUtilisateur(nomUtilisateur) {
 
 var tabcourant = 0; // le tab courant est 0 au debut
 montrerTab(tabcourant); // affichage du tab courant
-var valide = true;
-
 function montrerTab(n) {
 	// cette fonction affiche le tab courant
 	var x = document.getElementsByClassName("tab");
@@ -68,8 +66,8 @@ function changerTab(n) {
 	//cette methode permet de changer de tab selon le bouton clique
 	var x = document.getElementsByClassName("tab");
 	// si validation echoue pour le tab courant et bouton prochain clique, retourne faux
-	if (n == 1 && !valide) return false;
-	if (n == -1 && !valide) { document.getElementsByClassName("step")[tabcourant].className = document.getElementsByClassName("step")[tabcourant].className.replace(" finish", ""); };
+	if (n == 1 && !validerTab()) return false;
+	if (n == -1 && !validerTab()) { document.getElementsByClassName("step")[tabcourant].className = document.getElementsByClassName("step")[tabcourant].className.replace(" finish", ""); };
 	// sinon tab courant est cachee 
 	x[tabcourant].style.display = "none";
 	// numero de tabcourant est changee
@@ -103,34 +101,60 @@ function changerTab(n) {
 		document.getElementsByClassName("step")[tabcourant].className = "step finish";
 	}; // retourn si validee ou pas
 }*/
-function validerForm(element) {
+function validerTab() {
 	// cette fonction permet de valider le tab courant
-	
+	valide=true;
+	var x, y, i;
+	x = document.getElementsByClassName("tab");
+	y = x[tabcourant].getElementsByTagName("input");
 	// verifie si les inputs d un tab ne sont pas vides
+	for (i = 0; i < y.length; i++) {
 		// si vide le nom de la classe de l input change a invalid et par css la couleur de background est mis a rouge
-		if (element.value == "" || element.value.trim() == "") {
-			element.className += " invalid";
+		if (y[i].className == "invalid") {
 			// valid est mis a faux
+			return false;
+		}else if( y[i].value == "" || y[i].value.trim() == ""){
+			y[i].className = "invalid"
 			valide = false;
-		}if(element.name == "age" || element.name == "taille" || element.name == "age"){
-			valide = validerAgeTaillePoids(element)
 		}
 	}
 	// si valid l indicateur etape indique le fin de l etape
-	 // retourn si validee ou pas
+	if(valide){		document.getElementsByClassName("step")[tabcourant].className = "step finish";
+}
+	return valide; // retourn si validee ou pas
+}
+function validerForm(element) {
+	valide=true
+	// cette fonction permet de valider le tab courant
+
+	// verifie si les inputs d un tab ne sont pas vides
+	// si vide le nom de la classe de l input change a invalid et par css la couleur de background est mis a rouge
+	if (element.name == "age" || element.name == "taille" || element.name == "poids") {
+		valide = validerAgeTaillePoids(element)
+	}
+	if (!valide) {
+		element.className = "invalid";
+	} else {
+		element.className = "";
+	}
+}
+// si valid l indicateur etape indique le fin de l etape
+// retourn si validee ou pas
 
 function validerAgeTaillePoids(element) {
-	if(element.value <parseInt(element.min)){
-		document.getElementById("message "+element.name).className="invalid";
-		document.getElementById("message "+element.name).innerHTML="Votre "+element.name +" doit etre plus que "+ element.min;
-	}else if(element.value > parseInt(element.max)){
-		document.getElementById("message "+element.name).className="invalid";
-		document.getElementById("message "+element.name).innerHTML="Votre "+element.name +" doit etre moins que "+ element.max;
-	}else{
-		document.getElementById("message "+element.name).className="";
-		document.getElementById("message "+element.name).innerHTML="";
+
+	if (element.value < parseInt(element.min)) {
+		document.getElementById("message " + element.name).className = "invalid";
+		document.getElementById("message " + element.name).innerHTML = "Votre " + element.name + " doit etre plus que " + element.min;
+		return false;
+	} else if (element.value > parseInt(element.max)) {
+		document.getElementById("message " + element.name).className = "invalid";
+		document.getElementById("message " + element.name).innerHTML = "Votre " + element.name + " doit etre moins que " + element.max;
+		return false;
 	}
-	return;
+	document.getElementById("message " + element.name).className = "";
+	document.getElementById("message " + element.name).innerHTML = "";
+	return true;
 }
 function validercourrielMotPasseNomUtilisateur() { }
 
