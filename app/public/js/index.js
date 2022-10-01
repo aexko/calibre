@@ -14,10 +14,12 @@ function soummettreFormulaire() {
 			dataType: "json",
 			success: function (result) {
 				//on alert le resultat sois : courriel deja existant ou creation avec succes
-				alert(result.msg);
 				if (result.titre == "existant") {
 					//si le resultat de route post est existant on vide le champs de courriel
 					document.getElementById("email").value = "";
+					//si le nom d utilisateur est existant le champs d avertissement va contenir un avertissement sinon il sera vide
+					document.getElementById("avertirEmail").innerHTML =
+						result.msg;
 				} else {
 					//si le compte a ete cree avec succes on va a la page d accueil
 					location.replace("/");
@@ -37,8 +39,8 @@ function validerNomUtilisateur(nomUtilisateur) {
 			//si le nom d utilisateur est existant le champs d avertissement va contenir un avertissement sinon il sera vide
 			document.getElementById("avertirNomUtilisateur").innerHTML =
 				result.msg;
-				validerForm(nomUtilisateur);
-		},	
+			validerForm(nomUtilisateur);
+		},
 
 	});
 }
@@ -65,44 +67,29 @@ function montrerTab(n) {
 }
 
 function changerTab(n) {
+
 	//cette methode permet de changer de tab selon le bouton clique
 	var x = document.getElementsByClassName("tab");
+
 	// si validation echoue pour le tab courant et bouton prochain clique, retourne faux
 	if (n == 1 && !validerTab()) return false;
 	if (n == -1 && !validerTab()) { document.getElementsByClassName("step")[tabcourant].className = document.getElementsByClassName("step")[tabcourant].className.replace(" finish", ""); };
-	// sinon tab courant est cachee 
 	x[tabcourant].style.display = "none";
 	// numero de tabcourant est changee
 	tabcourant = tabcourant + n;
+
 	// si fin du form on va soumettre
 	if (tabcourant >= x.length) {
 		// document.getElementById("formulaireInscription").submit();
 		soummettreFormulaire();
+		tabcourant = x.length - 1
+		x[tabcourant].style.display = "block";
 		return false;
+	} else {//sinon on va afficher le tab voulu
+		montrerTab(tabcourant);
 	}
-	//sinon on va afficher le tab voulu
-	montrerTab(tabcourant);
-}
 
-/*function validerForm() {
-	// cette fonction permet de valider le tab courant
-	var x, y, i;
-	x = document.getElementsByClassName("tab");
-	y = x[tabcourant].getElementsByTagName("input");
-	// verifie si les inputs d un tab ne sont pas vides
-	for (i = 0; i < y.length; i++) {
-		// si vide le nom de la classe de l input change a invalid et par css la couleur de background est mis a rouge
-		if (y[i].value == "" || y[i].value.trim() == "") {
-			y[i].className += " invalid";
-			// valid est mis a faux
-			valide = false;
-		}
-	}
-	// si valid l indicateur etape indique le fin de l etape
-	if (valid) {
-		document.getElementsByClassName("step")[tabcourant].className = "step finish";
-	}; // retourn si validee ou pas
-}*/
+}
 function validerTab() {
 	// cette fonction permet de valider le tab courant
 	valide = true;
@@ -167,7 +154,15 @@ function validerAgeTaillePoids(element) {
 	document.getElementById("message " + element.name).innerHTML = "";
 	return true;
 }
-function validerCourriel() {
+function validerCourriel(element) {
+	pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/g;
+	if (element.value.match(pattern)) {
+		document.getElementById("messageCourriel").style.display = "none"
+		return true;
+	} else {
+		document.getElementById("messageCourriel").style.display = "block"
+		return false;
+	}
 
 }
 function validerMotPasse(element) {

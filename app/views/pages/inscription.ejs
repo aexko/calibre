@@ -146,10 +146,10 @@
             title="Votre mot de passe doit commencer avec une lettre miniscule et peut contenir des nombres, des lettres au majuscule et au miniscule et doit avoir une longueur minimum de 8 caracteres et une longueur maximum de 20 caracteres"
             oninvalid="this.setCustomValidity('Choisissez un nom d\'utilisateur valide')"
             oninput="this.setCustomValidity('')"
-          /><label
+          /><p
             id="avertirNomUtilisateur"
-            style="padding-left: 20px; color: orangered"
-          ></label>
+            style="padding-left: 20px; color: red"
+          ></p>
           <div id="patternUtilisateur" style="display:none;">
             <p id="minisculeUtilisateur">Votre nom d'utilisateur ne doit contenir que des lettres majuscules, miniscules, des nombres et _</p>
             <p id="longueurMin">Votre nom d'utilisateur doit être plus longue que 8 caractères</p>
@@ -186,13 +186,21 @@
             id="email"
             name="email"
             placeholder="Courriel"
+            onkeyup="validerForm(this)"
             oninput="this.className = ''"
             title=""
             oninvalid="this.setCustomValidity('Entrez votre Courriel')"
             oninput="this.setCustomValidity('')"
             autocomplete="on"
           />
+          <p
+            id="avertirEmail"
+            style="padding-left: 20px; color: red"
+          ></p>
         </p>
+        <p id="messageCourriel" class="invalid" style="display:none;">
+           Entrez un courriel valide
+          </p>
         <p>
           <input
             type="password"
