@@ -185,29 +185,34 @@
           </select>
         </p>
       </div>
-      <div class="tab">
+      <div class="tab" id="Imc">
         <div id="ImcDescription"></div>
-        <button id="atteindre" onclick="atteindreUnpoids()">Atteindre un poids saine</button>
-        <button id="maintenir" onclick="maintenirUnPoids()">Maintenir le poids actuel</button>
+        <p>Votre objectif:</p>
+        <button type="button" id="attein" onclick="atteindreUnpoids()">
+          Atteindre un poids saine
+        </button>
+        <button type="button" id="maintenir" onclick="maintenirUnPoids()">
+          Maintenir le poids actuel
+        </button>
+
         <br /><br />
-        <div id="atteindreUnpoids" style="display: none">
+        <div id="objectifPoids" style="display: none">
           <input
             id="objectif_poids"
             type="number"
+            onkeyup="validerForm(this)"
             step="0.01"
-            name="objectif_poids"
+            name="objectif_de_poids"
             title="remplissez ce champs"
             placeholder="poids saine visé"
-            required
             oninvalid="this.setCustomValidity('Entrez votre objectif de poids')"
             oninput="this.setCustomValidity('')"
-          /><br />
-          <input
-            type="button"
-            onclick="calculerTDEE()"
-            value="calculer Calorie quotidien"
           />
+          <p id="message objectif_poids"></p>
         </div>
+        <br /><br />
+      </div>
+      <div class="tab" id="calorieQuotidienne">
         <div id="caloriesConsommesQuotidienne"></div>
       </div>
       <div class="tab">
@@ -317,16 +322,21 @@
       </div>
       <div style="overflow: auto">
         <div style="float: right">
-          <button type="button" id="prevBtn" onclick="changerTab(-1),calculerIMC()">
+          <button type="button" id="prevBtn" onclick="changerTab(-1)">
             Précédent
           </button>
-          <button type="button" id="nextBtn" onclick="changerTab(1),calculerIMC()">
+          <button
+            type="button"
+            id="nextBtn"
+            onclick="changerTab(1),calculerIMC(),calculerTDEE()"
+          >
             Prochain
           </button>
         </div>
       </div>
       <!-- Circles which indicates the steps of the form: -->
       <div style="text-align: center; margin-top: 40px">
+        <span class="step"></span>
         <span class="step"></span>
         <span class="step"></span>
         <span class="step"></span>

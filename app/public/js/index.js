@@ -119,7 +119,7 @@ function validerForm(element) {
 
 	// verifie si les inputs d un tab ne sont pas vides
 	// si vide le nom de la classe de l input change a invalid et par css la couleur de background est mis a rouge
-	if (element.name == "age" || element.name == "taille" || element.name == "poids") {
+	if (element.name == "age" || element.name == "taille" || element.name == "poids" || element.name == "objectif_de_poids") {
 		valide = validerAgeTaillePoids(element)
 	} else if (element.name == "email") {
 		valide = validerCourriel(element);
@@ -140,14 +140,23 @@ function validerForm(element) {
 // retourn si validee ou pas
 
 function validerAgeTaillePoids(element) {
-
+	titre = element.id;
+if(element.id == "objectif_poids"){
+	unite = document.getElementById("unitePrefere");
+    uniteSelectionne = unite.options[unite.selectedIndex].value;
+	if(uniteSelectionne == "metrique"){
+		titre='kg'
+	}else{
+		titre='kg'
+	}
+}
 	if (element.value < parseInt(element.min)) {
 		document.getElementById("message " + element.id).className = "invalid";
-		document.getElementById("message " + element.id).innerHTML = "Votre " + element.name + " doit etre plus que " + element.min + " " + element.id;
+		document.getElementById("message " + element.id).innerHTML = "Votre " + element.name.replaceAll("_"," ") + " doit etre plus que " + element.min + " " + titre;
 		return false;
 	} else if (element.value > parseInt(element.max)) {
 		document.getElementById("message " + element.id).className = "invalid";
-		document.getElementById("message " + element.id).innerHTML = "Votre " + element.name + " doit etre moins que " + element.max + " " + element.id;
+		document.getElementById("message " + element.id).innerHTML = "Votre " + element.name.replaceAll("_"," ") + " doit etre moins que " + element.max + " " + titre;
 		return false;
 	}
 	document.getElementById("message " + element.id).className = "";
