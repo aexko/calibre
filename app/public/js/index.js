@@ -245,3 +245,30 @@ function indiquerEtap(n) {
 	//ajout active au nom de classe 
 	x[n].className += " active";
 }
+function afficherUnite(unite) {
+	imperial = document.getElementById("imperial");
+	imperialInputs = imperial.getElementsByTagName("input");
+	metrique = document.getElementById("metrique");
+	metriqueInputs = metrique.getElementsByTagName("input");
+
+	if (unite == "metrique") {
+		for (const input of imperialInputs) {
+			input.setAttribute("disabled", "")
+		}
+		for (const input of metriqueInputs) {
+			input.removeAttribute("disabled");
+		}
+		metrique.style.display = "block"
+		imperial.style.display = "none"
+	} else if (unite == "imperial") {
+		metrique = document.getElementById("metrique");
+		for (const input of metriqueInputs) {
+			input.setAttribute("disabled", "")
+		}
+		for (const input of imperialInputs) {
+			input.removeAttribute("disabled");
+		}
+		imperial.style.display = "block"
+		metrique.style.display = "none"
+	}
+}

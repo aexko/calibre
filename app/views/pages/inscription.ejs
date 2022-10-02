@@ -63,23 +63,16 @@
             <option value="Femme">Femme</option>
           </select>
         </p>
+        <select
+          name="unitePrefere"
+          id="unitePrefere"
+          onchange="afficherUnite(this.value)"
+        >
+          <option value="metrique">système métrique</option>
+          <option value="imperial">système impérial</option>
+        </select>
+
         <div id="metrique">
-          <p>
-            Quelle est votre taille?<input
-              type="number"
-              id="taille_cm"
-              step="1"
-              min="50"
-              max="280"
-              name="taille"
-              onkeyup="validerForm(this)"
-              title="remplissez ce champs"
-              placeholder="Taille"
-              oninvalid="this.setCustomValidity('Entrez votre taille')"
-              oninput="this.setCustomValidity('')"
-            />
-          </p>
-          <div id="message taille"></div>
           <p>
             Quelle est votre poids?<input
               type="number"
@@ -96,19 +89,75 @@
             />
           </p>
           <div id="message poids"></div>
+          <p>
+            Quelle est votre taille?<input
+              type="number"
+              id="taille_cm"
+              step="1"
+              min="50"
+              max="280"
+              name="taille"
+              onkeyup="validerForm(this)"
+              title="remplissez ce champs"
+              placeholder="Taille"
+              oninvalid="this.setCustomValidity('Entrez votre taille')"
+              oninput="this.setCustomValidity('')"
+            />
+          </p>
+          <div id="message taille"></div>
         </div>
-        <!--<div id="imperial" style="display:none" >
-                <input type="number" disabled="true" required step="0.01" min="34" max="1400" id="poids_lbs" name="poids" oninput="this.className = ''" title="remplissez ce champs"
-                    placeholder="Poids" oninvalid="this.setCustomValidity('Entrez votre poids')"
-                    oninput="this.setCustomValidity('')" />
-                <br /><br />
-                <input type="number" disabled="true" required id="taille_feet" step="0.01" min="1" max="9" name="taille" oninput="this.className = ''" title="remplissez ce champs"
-                placeholder="Taille" oninvalid="this.setCustomValidity('Entrez votre taille')"
-                oninput="this.setCustomValidity('')" /><label>ft  </label>
-                <input type="number" disabled="true" required id="taille_inch" step="0.01" min="1" max="11.9" name="taille" oninput="this.className = ''" title="remplissez ce champs"
-                    placeholder="Taille" oninvalid="this.setCustomValidity('Entrez votre taille')"
-                    oninput="this.setCustomValidity('')" /><label>in</label>
-                </select></div>-->
+        <div id="imperial" style="display: none">
+          <p>
+            Quelle est votre poids?<input
+              type="number"
+              onkeyup="validerForm(this)"
+              step="0.01"
+              min="34"
+              max="1400"
+              id="poids_lbs"
+              name="poids"
+              oninput="this.className = ''"
+              title="remplissez ce champs"
+              placeholder="Poids"
+              oninvalid="this.setCustomValidity('Entrez votre poids')"
+              oninput="this.setCustomValidity('')"
+            />
+          </p>
+          <div id="message poids"></div>
+          <p>
+            Quelle est votre taille?<input
+              type="number"
+              onkeyup="validerForm(this)"
+              id="taille_feet"
+              step="0.01"
+              min="1"
+              max="9"
+              name="taille"
+              oninput="this.className = ''"
+              title="remplissez ce champs"
+              placeholder="Taille"
+              oninvalid="this.setCustomValidity('Entrez votre taille')"
+              oninput="this.setCustomValidity('')"
+              style="width: 20%"
+            />ft
+            <input
+              type="number"
+              onkeyup="validerForm(this)"
+              id="taille_inch"
+              step="0.01"
+              min="1"
+              max="11.9"
+              name="taille"
+              oninput="this.className = ''"
+              title="remplissez ce champs"
+              placeholder="Taille"
+              oninvalid="this.setCustomValidity('Entrez votre taille')"
+              oninput="this.setCustomValidity('')"
+              style="width: 20%"
+            />inch
+          </p>
+          <div id="message taille"></div>
+        </div>
         <p>
           Quelle est votre niveau d'activité?<select
             name="id_niveau_activite_physique"
@@ -146,16 +195,25 @@
             title="Votre mot de passe doit commencer avec une lettre miniscule et peut contenir des nombres, des lettres au majuscule et au miniscule et doit avoir une longueur minimum de 8 caracteres et une longueur maximum de 20 caracteres"
             oninvalid="this.setCustomValidity('Choisissez un nom d\'utilisateur valide')"
             oninput="this.setCustomValidity('')"
-          /><p
-            id="avertirNomUtilisateur"
-            style="padding-left: 20px; color: red"
-          ></p>
-          <div id="patternUtilisateur" style="display:none;">
-            <p id="minisculeUtilisateur">Votre nom d'utilisateur ne doit contenir que des lettres majuscules, miniscules, des nombres et _</p>
-            <p id="longueurMin">Votre nom d'utilisateur doit être plus longue que 8 caractères</p>
-            <p id="longueurMax">Votre nom d'utilisateur doit être moins longue que 20 caractères</p>
-          </div>
+          />
         </p>
+
+        <p
+          id="avertirNomUtilisateur"
+          style="padding-left: 20px; color: red"
+        ></p>
+        <div id="patternUtilisateur" style="display: none">
+          <p id="minisculeUtilisateur">
+            Votre nom d'utilisateur ne doit contenir que des lettres majuscules,
+            miniscules, des nombres et _
+          </p>
+          <p id="longueurMin">
+            Votre nom d'utilisateur doit être plus longue que 8 caractères
+          </p>
+          <p id="longueurMax">
+            Votre nom d'utilisateur doit être moins longue que 20 caractères
+          </p>
+        </div>
       </div>
       <div class="tab">
         Quelles sont vos restrictions:
@@ -193,14 +251,12 @@
             oninput="this.setCustomValidity('')"
             autocomplete="on"
           />
-          <p
-            id="avertirEmail"
-            style="padding-left: 20px; color: red"
-          ></p>
         </p>
-        <p id="messageCourriel" class="invalid" style="display:none;">
-           Entrez un courriel valide
-          </p>
+
+        <p id="avertirEmail" style="padding-left: 20px; color: red"></p>
+        <p id="messageCourriel" class="invalid" style="display: none">
+          Entrez un courriel valide
+        </p>
         <p>
           <input
             type="password"
@@ -215,12 +271,20 @@
             oninput="this.setCustomValidity('')"
           />
         </p>
-        <div id="patternMotPasse" style="display:none;">
-            <p id="minisculeMotPasse">Votre mot de passe doit contenir au moins un lettre miniscule</p>
-            <p id="majMotPasse">Votre mot de passe doit contenir au moins un lettre majuscule</p>
-            <p id="nombreMotPasse">Votre mot de passe doit contenir au moins un nombre</p>
-            <p id="longueurMinPass">Votre mot de passe doit être plus longue que 8 caractères</p>
-          </div>
+        <div id="patternMotPasse" style="display: none">
+          <p id="minisculeMotPasse">
+            Votre mot de passe doit contenir au moins un lettre miniscule
+          </p>
+          <p id="majMotPasse">
+            Votre mot de passe doit contenir au moins un lettre majuscule
+          </p>
+          <p id="nombreMotPasse">
+            Votre mot de passe doit contenir au moins un nombre
+          </p>
+          <p id="longueurMinPass">
+            Votre mot de passe doit être plus longue que 8 caractères
+          </p>
+        </div>
       </div>
       <div style="overflow: auto">
         <div style="float: right">
