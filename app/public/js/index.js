@@ -102,7 +102,7 @@ function validerTab() {
 		if (y[i].className == "invalid" && !y[i].disabled) {
 			// valid est mis a faux
 			return false;
-		} else if (y[i].value == "" || y[i].value.trim() == "" & !y[i].disabled) {
+		} else if ((y[i].value == "" || y[i].value.trim() == "" )&& !y[i].disabled) {
 			y[i].className = "invalid"
 			valide = false;
 		}

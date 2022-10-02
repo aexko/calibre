@@ -115,6 +115,7 @@
               min="34"
               max="1400"
               id="lbs"
+              disabled
               name="poids"
               oninput="this.className = ''"
               title="remplissez ce champs"
@@ -129,6 +130,7 @@
               type="number"
               onkeyup="validerForm(this)"
               id="feet"
+              disabled
               step="0.01"
               min="1"
               max="9"
@@ -144,6 +146,7 @@
               type="number"
               onkeyup="validerForm(this)"
               id="inch"
+              disabled
               step="0.01"
               min="0"
               max="11.9"
@@ -181,6 +184,43 @@
             </option>
           </select>
         </p>
+      </div>
+      <div class="tab">
+        Choisissez un nom d'utilisateur:
+        <div id="ImcDescription"></div>
+
+        <input
+          id="atteindre"
+          onclick="atteindreUnpoids()"
+          type="button"
+          value="Atteindre un poids saine"
+        />
+        <input
+          id="maintenir"
+          type="button"
+          onclick="maintenirUnPoids()"
+          value="Maintenir le poids actuel"
+        />
+        <br /><br />
+        <div id="atteindreUnpoids" style="display: none">
+          <input
+            id="objectif_poids"
+            type="number"
+            step="0.01"
+            name="objectif_poids"
+            title="remplissez ce champs"
+            placeholder="poids saine visé"
+            required
+            oninvalid="this.setCustomValidity('Entrez votre objectif de poids')"
+            oninput="this.setCustomValidity('')"
+          /><br />
+          <input
+            type="button"
+            onclick="calculerTDEE()"
+            value="calculer Calorie quotidien"
+          />
+        </div>
+        <div id="caloriesConsommesQuotidienne"></div>
       </div>
       <div class="tab">
         Choisissez un nom d'utilisateur:
@@ -299,6 +339,7 @@
       </div>
       <!-- Circles which indicates the steps of the form: -->
       <div style="text-align: center; margin-top: 40px">
+        <span class="step"></span>
         <span class="step"></span>
         <span class="step"></span>
         <span class="step"></span>
