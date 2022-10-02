@@ -18,10 +18,10 @@ function soummettreFormulaire() {
 					//si le resultat de route post est existant on vide le champs de courriel
 					document.getElementById("email").value = "";
 					//si le nom d utilisateur est existant le champs d avertissement va contenir un avertissement sinon il sera vide
-					document.getElementById("avertirEmail").innerHTML =
-						result.msg;
+					document.getElementById("avertirEmail").innerHTML = result.msg;
 				} else {
 					//si le compte a ete cree avec succes on va a la page d accueil
+					alert('votre compte a été crée avec succès');
 					location.replace("/");
 				}
 			},
@@ -99,10 +99,10 @@ function validerTab() {
 	// verifie si les inputs d un tab ne sont pas vides
 	for (i = 0; i < y.length; i++) {
 		// si vide le nom de la classe de l input change a invalid et par css la couleur de background est mis a rouge
-		if (y[i].className == "invalid") {
+		if (y[i].className == "invalid" && !y[i].disabled) {
 			// valid est mis a faux
 			return false;
-		} else if (y[i].value == "" || y[i].value.trim() == "") {
+		} else if (y[i].value == "" || y[i].value.trim() == "" & !y[i].disabled) {
 			y[i].className = "invalid"
 			valide = false;
 		}
@@ -142,16 +142,16 @@ function validerForm(element) {
 function validerAgeTaillePoids(element) {
 
 	if (element.value < parseInt(element.min)) {
-		document.getElementById("message " + element.name).className = "invalid";
-		document.getElementById("message " + element.name).innerHTML = "Votre " + element.name + " doit etre plus que " + element.min;
+		document.getElementById("message " + element.id).className = "invalid";
+		document.getElementById("message " + element.id).innerHTML = "Votre " + element.name + " doit etre plus que " + element.min + " " + element.id;
 		return false;
 	} else if (element.value > parseInt(element.max)) {
-		document.getElementById("message " + element.name).className = "invalid";
-		document.getElementById("message " + element.name).innerHTML = "Votre " + element.name + " doit etre moins que " + element.max;
+		document.getElementById("message " + element.id).className = "invalid";
+		document.getElementById("message " + element.id).innerHTML = "Votre " + element.name + " doit etre moins que " + element.max + " " + element.id;
 		return false;
 	}
-	document.getElementById("message " + element.name).className = "";
-	document.getElementById("message " + element.name).innerHTML = "";
+	document.getElementById("message " + element.id).className = "";
+	document.getElementById("message " + element.id).innerHTML = "";
 	return true;
 }
 function validerCourriel(element) {
