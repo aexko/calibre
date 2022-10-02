@@ -186,21 +186,9 @@
         </p>
       </div>
       <div class="tab">
-        Choisissez un nom d'utilisateur:
         <div id="ImcDescription"></div>
-
-        <input
-          id="atteindre"
-          onclick="atteindreUnpoids()"
-          type="button"
-          value="Atteindre un poids saine"
-        />
-        <input
-          id="maintenir"
-          type="button"
-          onclick="maintenirUnPoids()"
-          value="Maintenir le poids actuel"
-        />
+        <button id="atteindre" onclick="atteindreUnpoids()">Atteindre un poids saine</button>
+        <button id="maintenir" onclick="maintenirUnPoids()">Maintenir le poids actuel</button>
         <br /><br />
         <div id="atteindreUnpoids" style="display: none">
           <input
@@ -329,10 +317,10 @@
       </div>
       <div style="overflow: auto">
         <div style="float: right">
-          <button type="button" id="prevBtn" onclick="changerTab(-1)">
+          <button type="button" id="prevBtn" onclick="changerTab(-1),calculerIMC()">
             Précédent
           </button>
-          <button type="button" id="nextBtn" onclick="changerTab(1)">
+          <button type="button" id="nextBtn" onclick="changerTab(1),calculerIMC()">
             Prochain
           </button>
         </div>
@@ -349,6 +337,7 @@
     </form>
     <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
     <script src="../js/index.js"></script>
+    <script src="../js/calculsCaloriesQuot.js"></script>
     <footer><%- include('../partials/footer'); %></footer>
   </body>
 </html>
