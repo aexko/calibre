@@ -100,8 +100,20 @@ app.get("/profil", checkAuthenticated, (req, res) => {
 	});
 });
 
+/**
+ * Route: génère la page de la recherche des recettes
+ */
 app.get("/recettes", (req, res) => {
 	res.render("pages/recettes", {
+		utilisateurconnecte: utilisateurCourant,
+	});
+});
+
+/**
+ * Route: génère la page de la recherche des nutriments
+ */
+app.get("/nutriments", (req, res) => {
+	res.render("pages/nutriments", {
 		utilisateurconnecte: utilisateurCourant,
 	});
 });

@@ -14,7 +14,13 @@
     <main>
         <div class="jumbotron">
             <h1>Recherche de nutriments</h1>
+            <input id="recherche">
 
+            <!-- Bouton avec la fonction getNutriment(query) -->
+            <button onclick="getRecette(document.getElementById('recherche').value)">Trouver un nutriment</button>
+
+            <!-- Résultat de la requête -->
+            <div id="sortie"></div>
 
         </div>
     </main>
