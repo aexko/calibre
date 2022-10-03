@@ -119,7 +119,7 @@ function validerForm(element) {
 
 	// verifie si les inputs d un tab ne sont pas vides
 	// si vide le nom de la classe de l input change a invalid et par css la couleur de background est mis a rouge
-	if (element.name == "age" || element.name == "taille" || element.name == "poids" || element.name == "objectif_de_poids") {
+	if (element.name == "age" || element.name == "taille" || element.name == "poids" || element.name == "objectif_de_poids" || element.name== "objectif_par_semaine") {
 		valide = validerAgeTaillePoids(element)
 	} else if (element.name == "email") {
 		valide = validerCourriel(element);
@@ -141,20 +141,20 @@ function validerForm(element) {
 
 function validerAgeTaillePoids(element) {
 	titre = element.id;
-if(element.id == "objectif_poids"){
+if(element.id == "objectif_poids" || "objectifSemaine"){
 	unite = document.getElementById("unitePrefere");
     uniteSelectionne = unite.options[unite.selectedIndex].value;
 	if(uniteSelectionne == "metrique"){
 		titre='kg'
 	}else{
-		titre='kg'
+		titre='lbs'
 	}
 }
-	if (element.value < parseInt(element.min)) {
+	if (element.value < parseFloat(element.min)) {
 		document.getElementById("message " + element.id).className = "invalid";
 		document.getElementById("message " + element.id).innerHTML = "Votre " + element.name.replaceAll("_"," ") + " doit etre plus que " + element.min + " " + titre;
 		return false;
-	} else if (element.value > parseInt(element.max)) {
+	} else if (element.value > parseFloat(element.max)) {
 		document.getElementById("message " + element.id).className = "invalid";
 		document.getElementById("message " + element.id).innerHTML = "Votre " + element.name.replaceAll("_"," ") + " doit etre moins que " + element.max + " " + titre;
 		return false;

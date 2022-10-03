@@ -1,3 +1,4 @@
+TDEE=0
 function calculerIMC() {
 
     unite = document.getElementById("unitePrefere")
@@ -73,7 +74,7 @@ function maintenirUnPoids() {
     } else if (uniteSelectionne == "imperial") {
         document.getElementById("objectif_poids").value = document.getElementById("lbs").value;
     }
-    document.getElementById("objectif_poids").className=''
+    document.getElementById("objectif_poids").className = ''
     validerForm(document.getElementById("objectif_poids"))
     calculerTDEE();
 }
@@ -102,14 +103,23 @@ function calculerTDEE() {
             valeurActivite = 1.9;
     }
     TDEE = (BMR * valeurActivite).toFixed(0);
-        divCalorie.innerHTML =''
-        divCalorie.style.display = "block"
-        const paragraphe = document.createElement("p");
-        const node = document.createTextNode("votre BMR(taux métabolique de base) estimé est de " + Bmr +
-            " et votre TDEE(dépense énergétique quotidienne totale) estimé est de " + TDEE);
-        paragraphe.appendChild(node);
-        divCalorie.appendChild(paragraphe);
-        calculerCalories(TDEE);
+    divCalorie.innerHTML = ''
+    divCalorie.style.display = "block"
+    const paragraphe = document.createElement("p");
+    const node = document.createTextNode("votre BMR(taux métabolique de base) estimé est de " + Bmr +
+        " et votre TDEE(dépense énergétique quotidienne totale) estimé est de " + TDEE);
+    paragraphe.appendChild(node);
+    divCalorie.appendChild(paragraphe);
+    atteindrepoids = document.getElementById("objectifPoids").style.display = "none";
+    unite = document.getElementById("unitePrefere");
+    uniteSelectionne = unite.options[unite.selectedIndex].value;
+    if (uniteSelectionne == "metrique") {
+
+        document.getElementById("objectifSemaine").max = 1;
+    } else if (uniteSelectionne == "imperial") {
+
+        document.getElementById("objectifSemaine").max = 2;
+    }
 
     //taux métabolique de base
     //dépense énergétique quotidienne totale
@@ -142,12 +152,14 @@ function calculerBMR() {
     }
     return Bmr;
 }
-function calculerCalories(TDEE) {
+function calculerCalories() {
     unite = document.getElementById("unitePrefere");
     uniteSelectionne = unite.options[unite.selectedIndex].value;
     poidsVisee = parseFloat(document.getElementById("objectif_poids").value);
     poids = 0;
     calories = 0;
+    totalJour=0
+    parsemaine =parseFloat(document.getElementById("objectifSemaine").value)
     if (uniteSelectionne == "metrique") {
         poids = parseFloat(document.getElementById("kg").value);
         calories = 7700;
@@ -157,20 +169,23 @@ function calculerCalories(TDEE) {
         calories = 3500;
     }
     if (poidsVisee > poids) {
-        parsemaine = 1;
         difference = poidsVisee - poids;
         DifferenceEnCalories = difference * calories;
         joursRequis = difference / parsemaine * 7;
         ajouterParJour = DifferenceEnCalories / joursRequis
+        totalJour=ajouterParJour+parseFloat(TDEE)
+        document.getElementById("consommerParJour").innerHTML= "Afin d'arriver à votre objectif, vous devez consommer "+totalJour+" calories par jour, soit "+ajouterParJour+" de plus par jour, dans "+joursRequis+" jours"
 
     } else if (poidsVisee == poids) {
-
+        totalJour=TDEE
+        document.getElementById("consommerParJour").innerHTML= "Afin d'arriver à votre objectif, vous devez consommer "+TDEE+" par jour"
     } else {
-        parsemaine = 1;
         difference = poids - poidsVisee;
         DifferenceEnCalories = difference * calories;
         joursRequis = difference / parsemaine * 7;
         enleverParJour = DifferenceEnCalories / joursRequis
+        totalJour=enleverParJour+parseFloat(TDEE)
+        document.getElementById("consommerParJour").innerHTML= "Afin d'arriver à votre objectif, vous devez consommer "+totalJour+" calories par jour, soit "+enleverParJour+" de moins par jour, dans "+joursRequis+" jours"
     }
 
 
