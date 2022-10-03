@@ -14,10 +14,16 @@
     <main>
         <div class="jumbotron">
             <h1>Recherche de recettes</h1>
+
             <input id="recherche">
-            <button onclick="getRecette(document.getElementById('recherche').value)">Recherche
-            </button>
+
+            <!-- Bouton avec la fonction getRecette(query) -->
+            <button onclick="getRecette(document.getElementById('recherche').value)">Trouver une recette</button>
+
+            <!-- Résultat de la requête -->
             <div id="sortie"></div>
+
+            <!-- Source de la recette -->
             <a href="" id="source"></a>
         </div>
     </main>
@@ -27,7 +33,10 @@
     </footer>
 
     <script>
-        
+        /**
+         * Fonction qui trouve la source de la recette
+         * @params {number} id - ID de la recette
+         */
         function getSource(id) {
             $.ajax({
                 url: "https://api.spoonacular.com/recipes/" + id + "/information?apiKey=3b2c9d7b94d24ca785d5fccdfce53e3a",
@@ -38,19 +47,23 @@
             });
         }
 
-        function getRecette(q) {
+        /**
+         * Fonction qui trouve une recette
+         * @params {string} query - Requête entrée par l'utilisateur
+         */
+        function getRecette(query) {
             $.ajax({
-                url: "https://api.spoonacular.com/recipes/search?apiKey=3b2c9d7b94d24ca785d5fccdfce53e3a&number=1&query=" + q,
+                url: "https://api.spoonacular.com/recipes/search?apiKey=3b2c9d7b94d24ca785d5fccdfce53e3a&number=1&query=" + query,
                 success: function (res) {
                     try {
                         document.getElementById("sortie").innerHTML = "<br><h2>" + res.results[0].title + "</h2><img src='" + res.baseUri + res.results[0].image + "'width='400' /><br> Durée : " + res.results[0].readyInMinutes + " minutes"
                         if (res.results[0] != null) {
                             getSource(res.results[0].id)
                         } else {
-                            document.getElementById("sortie").innerHTML = "Pas de recettes trouvées";
+                            alert("Désolé, pas de recettes trouvées!")
                         }
                     } catch (err) {
-                        console.log("Erreur: " + err.name)
+                        console.log("Erreur: " + err.name + " - Aucune recette trouvée dans la base de données de SpoonacularAPI")
                     }
                 }
             })
@@ -58,6 +71,5 @@
     </script>
 
 </body>
-
 
 </html>
