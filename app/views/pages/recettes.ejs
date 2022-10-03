@@ -59,11 +59,10 @@
                         document.getElementById("sortie").innerHTML = "<br><h2>" + res.results[0].title + "</h2><img src='" + res.baseUri + res.results[0].image + "'width='400' /><br> Durée : " + res.results[0].readyInMinutes + " minutes"
                         if (res.results[0] != null) {
                             getSource(res.results[0].id)
-                        } else {
-                            alert("Désolé, pas de recettes trouvées!")
                         }
                     } catch (err) {
                         console.log("Erreur: " + err.name + " - Aucune recette trouvée dans la base de données de SpoonacularAPI")
+                        alert("Désolé, pas de recettes trouvées. Veuillez réessayer avec des mots en anglais, merci!")
                     }
                 }
             })
