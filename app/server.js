@@ -137,6 +137,7 @@ app.get("/inscription", checkNotAuthenticated, (req, res) => {
         utilisateurconnecte: utilisateurCourant,
     });
 });
+
 //cette routage permet de verifier si le nom d utilisateur est redondant
 app.get("/inscription/:nomUtilisateur", checkNotAuthenticated, (req, res) => {
     //on verifie dans la bd si le nom d utilisateur est existant

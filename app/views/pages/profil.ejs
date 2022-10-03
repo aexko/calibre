@@ -19,6 +19,16 @@
         <%=utilisateurCourant.prenom%>
             <%=utilisateurCourant.nom%>
     </h3>
+    <h3>Calories consommées aujourdhui </h3>
+    <h4>
+        <%=utilisateurCourant.
+        calorie_quotidien_consommee%>
+            <p>/</p>
+            <%=utilisateurCourant.
+            
+calorie_quotidien_recommendee
+%>
+    </h4>
     <h5>Mes informations</h5>
     <p>Nom d'utilisateur:
         <%=utilisateurCourant.nom_utilisateur%>
@@ -30,6 +40,25 @@
                             <%=utilisateurCourant.imc%>
 
     </p>
+
+    <div class="progress-bar">
+        <div class="outer">
+            <div class="inner">
+                <div id="number">
+                    65%
+                </div>
+            </div>
+        </div>
+    </div>
+    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="160px" height="160px">
+        <defs>
+           <linearGradient id="GradientColor">
+              <stop offset="0%" stop-color="#e91e63" />
+              <stop offset="100%" stop-color="#673ab7" />
+           </linearGradient>
+        </defs>
+        <circle cx="80" cy="80" r="70" stroke-linecap="round" />
+</svg>
     <footer>
         <%- include('../partials/footer'); %>
     </footer>
