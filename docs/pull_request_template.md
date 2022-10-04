@@ -2,7 +2,7 @@
 
 Veuillez inclure un résumé de la modification et du problème résolu. Veuillez également inclure la motivation et le contexte pertinents. Répertoriez toutes les dépendances requises pour ce changement.
 
-Corrections # (problème)
+# Corrections
 
 ## Type de changement
 
