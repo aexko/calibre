@@ -47,7 +47,7 @@
                 url:
                     "https://api.spoonacular.com/food/ingredients/" +
                     id +
-                    "/information?apiKey=3b2c9d7b94d24ca785d5fccdfce53e3a&amount=150&unit=grams",
+                    "/information?apiKey=1cc034bf9a734f59995c4b72466c33ab&amount=150&unit=grams",
                 success: function (res) {
                     document.getElementById("id_nutriment").textContent = id;
                     document.getElementById("nom_nutriment").textContent = res.name;
@@ -66,7 +66,7 @@
         function getNutrimentID(query) {
             $.ajax({
                 url:
-                    "https://api.spoonacular.com/food/ingredients/search?apiKey=3b2c9d7b94d24ca785d5fccdfce53e3a&query=" +
+                    "https://api.spoonacular.com/food/ingredients/search?apiKey=1cc034bf9a734f59995c4b72466c33ab&query=" +
                     query,
                 success: function (res) {
                     try {
