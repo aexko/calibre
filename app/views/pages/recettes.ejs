@@ -44,7 +44,7 @@
 				url:
 					"https://api.spoonacular.com/recipes/" +
 					id +
-					"/information?apiKey=3b2c9d7b94d24ca785d5fccdfce53e3a",
+					"/information?apiKey=1cc034bf9a734f59995c4b72466c33ab",
 				success: function (res) {
 					document.getElementById("source").innerHTML = res.sourceUrl;
 					document.getElementById("source").href = res.sourceUrl;
@@ -60,7 +60,7 @@
 		function getRecette(query) {
 			$.ajax({
 				url:
-					"https://api.spoonacular.com/recipes/search?apiKey=3b2c9d7b94d24ca785d5fccdfce53e3a&number=1&query=" +
+					"https://api.spoonacular.com/recipes/search?apiKey=1cc034bf9a734f59995c4b72466c33ab&number=1&query=" +
 					query,
 				success: function (res) {
 					try {
