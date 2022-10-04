@@ -10,6 +10,6 @@ describe("Chercher un nutriment", () => {
 	});
 
 	it('Les données sont correctes"', () => {
-		cy.get(".jumbotron > p > span > #nom_nutriment")
+		cy.get(".jumbotron > p > span")
 	});
 });
