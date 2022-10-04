@@ -30,6 +30,7 @@
         "vue": "^3.2.38"
     },
     "devDependencies": {
+        "better-docs": "^2.7.2",
         "cypress": "^10.9.0",
         "dotenv": "^16.0.2",
         "jsdoc": "^3.6.11",
