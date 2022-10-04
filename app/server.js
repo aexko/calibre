@@ -29,10 +29,14 @@ const initialiserPassport = require("./passport-config");
 );
 */
 //connection compass
+/**
+ * Connexion MongoDB à la base de données (LOCALE) nommée "calibre"
+ */
 mongoose.connect("mongodb://127.0.0.1:27017/" + nomDb, {
 	useNewUrlParser: true,
 	useUnifiedTopology: true,
 });
+
 //route permettant de servir les fichier statiques
 app.use(express.static(__dirname + "/public/"));
 
