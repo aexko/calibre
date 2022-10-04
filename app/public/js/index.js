@@ -119,7 +119,7 @@ function validerForm(element) {
 
 	// verifie si les inputs d un tab ne sont pas vides
 	// si vide le nom de la classe de l input change a invalid et par css la couleur de background est mis a rouge
-	if (element.name == "age" || element.name == "taille" || element.name == "poids" || element.name == "objectif_de_poids_saine" || element.name== "objectif_par_semaine") {
+	if (element.name == "age" || element.name == "taille" || element.name == "poids" || element.name == "objectif_de_poids_saine" || element.name== "objectif_par_semaine" || element.name== "repas_par_jour" ) {
 		valide = validerAgeTaillePoids(element)
 	} else if (element.name == "email") {
 		valide = validerCourriel(element);

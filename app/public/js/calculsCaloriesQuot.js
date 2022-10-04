@@ -184,7 +184,7 @@ function calculerCalories() {
         DifferenceEnCalories = difference * calories;
         joursRequis = difference / parsemaine * 7;
         enleverParJour = DifferenceEnCalories / joursRequis
-        totalJour=enleverParJour+parseFloat(TDEE)
+        totalJour=parseFloat(TDEE)-enleverParJour
         document.getElementById("consommerParJour").innerHTML= "Afin d'arriver à votre objectif, vous devez consommer "+totalJour+" calories par jour, soit "+enleverParJour+" de moins par jour, dans "+joursRequis+" jours"
     }
 
