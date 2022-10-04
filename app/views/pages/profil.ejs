@@ -6,7 +6,7 @@
 </head>
 <php></php>
 
-<body class="container">
+<body class="container" onload="progress_bar() ">
     <header>
         <%- include('../partials/header'); %>
     </header>
@@ -21,47 +21,87 @@
     </h3>
     <h3>Calories consommées aujourdhui </h3>
     <h4>
-        <%=utilisateurCourant.
-        calorie_quotidien_consommee%>
-            <p>/</p>
-            <%=utilisateurCourant.
-            
-calorie_quotidien_recommendee
-%>
+        <p style="display:inline" id="calorie_consomme">
+            <%=utilisateurCourant.calorie_quotidien_consommee%>
+        </p>
+        <p style="display:inline">
+            /
+        </p>
+        <p style="display:inline" id="calorie_recommendee">
+            <%=utilisateurCourant.calorie_quotidien_recommendee%>
+        </p>
+
+
+
     </h4>
+
+    <div class="progress">
+        <div class="progress-done" id="progress-done">
+
+        </div>
+    </div>
+    <button onclick="  afficherDiv('AjouterCalorie')">Ajouter des Calories</button>
+
+    <form action="" id="AjouterCalorie" style="display:none;" method="post">
+        <p>Ajouter manuellement les calories de votre repas</p>
+
+        <input type="text" id="calorie" name="calorie" placeholder="expl: 150 kCal" />
+        <input type="submit" value="Ajouter"> </button>
+
+    </form>
     <h5>Mes informations</h5>
     <p>Nom d'utilisateur:
         <%=utilisateurCourant.nom_utilisateur%>
             <br> Adresse courriel:
             <%=utilisateurCourant.email%> <br> Age:
                 <%=utilisateurCourant.age%> <br>Taille:
-                    <%=utilisateurCourant.taille_cm%> <br> Poids:
-                        <%=utilisateurCourant.poids_kg%> <br> IMC:
+                    <%=utilisateurCourant.taille%> <br> Poids:
+                        <%=utilisateurCourant.poids%> <br> IMC:
                             <%=utilisateurCourant.imc%>
+                                <p></p>
+                                <button onclick=" afficherDiv('modifier_infos')">Modifier mes informations</button>
+                                <div class="modifier_infos" id="modifier_infos" style="display:none;">
+                                    hola
+                                </div>
 
-    </p>
 
-    <div class="progress-bar">
-        <div class="outer">
-            <div class="inner">
-                <div id="number">
-                    65%
-                </div>
-            </div>
-        </div>
-    </div>
-    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="160px" height="160px">
-        <defs>
-           <linearGradient id="GradientColor">
-              <stop offset="0%" stop-color="#e91e63" />
-              <stop offset="100%" stop-color="#673ab7" />
-           </linearGradient>
-        </defs>
-        <circle cx="80" cy="80" r="70" stroke-linecap="round" />
-</svg>
-    <footer>
-        <%- include('../partials/footer'); %>
-    </footer>
+                                <footer>
+                                    <%- include('../partials/footer'); %>
+                                </footer>
+
+                                <script>
+                                    function afficherDiv(id_div) {
+                                        var x = document.getElementById(id_div);
+                                        console.log("hola")
+                                        if (x.style.display === "none") {
+                                            x.style.display = "block";
+                                        } else {
+                                            x.style.display = "none";
+                                        }
+
+                                    }
+
+
+                                    function progress_bar() {
+                                        console.log("#");
+                                        const valeur = document.getElementById("calorie_consomme");
+                                        const max = document.getElementById("calorie_recommendee");
+                                        console.log(max)
+                                        let valeurFinale = 0;
+                                        let maximum = 0;
+
+
+                                        valeurFinale = parseInt(valeur.value, 10);
+                                        maximum = parseInt(max.value, 10);
+                                        var pourcentage = valeurFinale / maximum * 100;
+                                        let largeur = pourcentage + "%";
+
+                                        document.getElementById("progress-done").style.width = "40%"
+
+                                        //  return pourcentage
+                                    }
+                                </script>
+
 
 </body>
 

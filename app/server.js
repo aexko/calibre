@@ -163,47 +163,28 @@ app.get("/inscription/:nomUtilisateur", checkNotAuthenticated, (req, res) => {
         }
     );
 });
+
+app.post("/profil", checkAuthenticated, async(req, res) => {
+
+    var calorie = (parseInt(req.body.calorie) + utilisateurCourant.calorie_quotidien_consommee);
+    utilisateurCourant.calorie_quotidien_consommee = calorie;
+    await modelUtilisateur.findOneAndUpdate({ email: utilisateurCourant.email }, { calorie_quotidien_consommee: calorie });
+
+    res.redirect("/profil");
+});
 //cette routage permet de recevoir un formulaire d inscription et de les stocker dans la bd
 app.post("/inscription", checkNotAuthenticated, async(req, res) => {
     //les donnes a stocker dans la bd
     const instance_utilisateur = new modelUtilisateur(req.body);
-    var activite = niveauActivite(req.body.id_niveau_activite_physique);
+    //var activite = niveauActivite(req.body.id_niveau_activite_physique);
 
-
-    instance_utilisateur.imc = calculIMC(req.body.taille_cm, req.body.poids_kg)
-    instance_utilisateur.calorie_quotidien_recommendee = calculCalorie(req.body.taille_cm, req.body.poids_kg, req.body.age, activite)
-    instance_utilisateur.calorie_quotidien_consommee = 0
-        // on verifie si le courriel est redondant  
-    modelUtilisateur.findOne({ email: req.body.email }, async function(err, docs) {
-        if (err) {
-            console.log(err)
-        } else {
-            if (docs) {
-                console.log("Result : ", docs);
-                res.json({
-                    //si ou on retorune le message suivant et l affiche apres a l aide d une alert
-                    titre: 'existant',
-                    msg: 'cette courriel est déjà liée à un compte.'
-                });
-            } else {
-                try {
-                    instance_utilisateur.mot_passe = await bcrypt.hash(instance_utilisateur.mot_passe, 10)
-
-                } catch {
-
-                }
-                //sinon on sauvegarde le nouveau compte dans la bd
-                instance_utilisateur.save((err) => {
-                    if (err) throw err;
-                });
-                res.json({
-                    //et on retorune le message suivant et l affiche apres a l aide d une alert
-                    titre: 'succes',
-                    msg: 'votre compte a été crée avec succes',
-                });
-            }
-        }
-    });
+    //instance_utilisateur.imc = calculIMC(req.body.taille_cm, req.body.poids_kg);
+    /*	instance_utilisateur.calorie_quotidien_recommendee = calculCalorie(
+    	req.body.taille_cm,
+    	req.body.poids_kg,
+    	req.body.age,
+    	activite
+    );*/
     // on verifie si le courriel est redondant
     modelUtilisateur.findOne({ email: req.body.email },
         async function(err, docs) {
@@ -219,6 +200,8 @@ app.post("/inscription", checkNotAuthenticated, async(req, res) => {
                     });
                 } else {
                     try {
+                        instance_utilisateur.calorie_quotidien_consommee = 0
+                        instance_utilisateur.calorie_quotidien_recommendee = 1854
                         instance_utilisateur.mot_passe = await bcrypt.hash(
                             instance_utilisateur.mot_passe,
                             10
@@ -257,37 +240,4 @@ async function StockerUtilisateur(req, res, next) {
     }
 
     next();
-}
-
-function niveauActivite(frequence_activite) {
-    var activite;
-    if ((frequence_activite = 0)) {
-        activite = 1.37;
-    } else if ((frequence_activite = 1)) {
-        activite = 1.55;
-    } else if ((frequence_activite = 2)) {
-        activite = 1.8;
-    } else if ((frequence_activite = 3)) {
-        activite = 2.0;
-    }
-    return activite;
-}
-
-function calculIMC(taille, poids) {
-    var taille_m = taille / 100;
-    var imc = poids / Math.pow(taille_m, 2);
-    imc = imc.toFixed(2);
-    return imc;
-}
-
-function calculCalorie(taille, poids, age, activite) {
-    var taille_m = taille / 100;
-    var calorie =
-        activite *
-        (230 *
-            Math.pow(poids, 0.48) *
-            Math.pow(taille_m, 0.5) *
-            Math.pow(age, -0.13));
-
-    return Math.round(calorie);
 }

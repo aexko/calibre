@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require("mongoose")
 
 const schemaUtilisateur = mongoose.Schema({
     prenom: String,
@@ -7,13 +7,14 @@ const schemaUtilisateur = mongoose.Schema({
     email: String,
     nom_utilisateur: String,
     mot_passe: String,
-    poids_kg: Number,
-    taille_cm: Number,
-    genre: String,
-    id_niveau_activite_physique: Number,
-    calorie_quotidien_recommendee: Number,
+    unitePrefere: String,
+    poids: Number,
     calorie_quotidien_consommee: Number,
+    taille: Number,
+    genre: String,
+    id_niveau_activite_physique: String,
     imc: Number,
+    calorie_quotidien_recommendee: Number,
     restrictions_alim: [{
         id: Number,
         nom: String,
@@ -32,4 +33,6 @@ const schemaUtilisateur = mongoose.Schema({
     }]
 });
 
-module.exports = mongoose.model("Utilisateur", schemaUtilisateur);
+
+const Utilisateur = mongoose.model("Utilisateur", schemaUtilisateur);
+module.exports = Utilisateur;
