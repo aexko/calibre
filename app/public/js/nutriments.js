@@ -1,4 +1,10 @@
 /**
+ * Références
+ *    - API Query with User Input (https://youtu.be/4UoUqnjUC2c)
+ *    - JSON - Working with Data and APIs in JavaScript (https://youtu.be/uxf0--uiX0I)
+ *  */
+
+/**
  * Fonction qui trouve la source du nutriment
  * @author Alex Kao
  * @param {number} id - ID du nutriment
