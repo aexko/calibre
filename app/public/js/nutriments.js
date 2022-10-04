@@ -1,5 +1,6 @@
 /**
  * Fonction qui trouve la source du nutriment
+ * @author Alex Kao
  * @param {number} id - ID du nutriment
  */
 function getNutrimentInfo(id) {
@@ -21,6 +22,8 @@ function getNutrimentInfo(id) {
 
 /**
  * Fonction qui trouve un nutriment
+ *
+ * @author Alex Kao
  * @param {string} query - Entrée de l'utilisateur
  */
 function getNutrimentID(query) {
