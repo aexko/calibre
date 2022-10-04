@@ -20,15 +20,18 @@ const {
 	checkNotAuthenticated,
 } = require("./middlewares/auth");
 const initialiserPassport = require("./passport-config");
-//connection atlas
-/*mongoose.connect(
-    `mongodb+srv://${nomUtilisateur}:${motPasse}@${cluster}.unyolim.mongodb.net/${nomDb}?retryWrites=true&w=majority`, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-    }
-);
-*/
-//connection compass
+
+/**
+ * Connexion MongoDB à la base de données (CLOUD - MongoDB Atlas) nommée "calibre"
+ */
+// mongoose.connect(
+// "mongodb+srv://${nomUtilisateur}:${motPasse}@${cluster}.unyolim.mongodb.net/${nomDb}?retryWrites=true&w=majority",
+// 	{
+// 		useNewUrlParser: true,
+// 		useUnifiedTopology: true,
+// 	}
+// );
+
 /**
  * Connexion MongoDB à la base de données (LOCALE) nommée "calibre"
  */
