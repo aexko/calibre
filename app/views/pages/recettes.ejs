@@ -15,10 +15,11 @@
         <div class="jumbotron">
             <h1>Recherche de recettes</h1>
 
-            <input id="recherche">
+            <input id="recherche_recettes">
 
             <!-- Bouton avec la fonction getRecette(query) -->
-            <button onclick="getRecette(document.getElementById('recherche').value)">Trouver une recette</button>
+            <button onclick="getRecette(document.getElementById('recherche_recettes').value)">Trouver une
+                recette</button>
 
             <!-- Résultat de la requête -->
             <div id="sortie"></div>
@@ -44,12 +45,12 @@
                     document.getElementById("source").innerHTML = res.sourceUrl
                     document.getElementById("source").href = res.sourceUrl
                 }
-            });
+            })
         }
 
         /**
          * Fonction qui trouve une recette
-         * @params {string} query - Requête entrée par l'utilisateur
+         * @params {string} query - Entrée de l'utilisateur
          */
         function getRecette(query) {
             $.ajax({
