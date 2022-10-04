@@ -110,7 +110,7 @@ function calculerTDEE() {
         " et votre TDEE(dépense énergétique quotidienne totale) estimé est de " + TDEE);
     paragraphe.appendChild(node);
     divCalorie.appendChild(paragraphe);
-    atteindrepoids = document.getElementById("objectifPoids").style.display = "none";
+    //atteindrepoids = //document.getElementById("objectifPoids").style.display = "none";
     unite = document.getElementById("unitePrefere");
     uniteSelectionne = unite.options[unite.selectedIndex].value;
     if (uniteSelectionne == "metrique") {

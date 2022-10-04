@@ -22,19 +22,26 @@ const {
     checkNotAuthenticated,
 } = require("./middlewares/auth");
 const initialiserPassport = require("./passport-config");
-//connection atlas
-/*mongoose.connect(
-    `mongodb+srv://${nomUtilisateur}:${motPasse}@${cluster}.unyolim.mongodb.net/${nomDb}?retryWrites=true&w=majority`, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-    }
-);
-*/
-//connection compass
+
+/**
+ * Connexion MongoDB à la base de données (CLOUD - MongoDB Atlas) nommée "calibre"
+ */
+// mongoose.connect(
+// "mongodb+srv://${nomUtilisateur}:${motPasse}@${cluster}.unyolim.mongodb.net/${nomDb}?retryWrites=true&w=majority",
+// 	{
+// 		useNewUrlParser: true,
+// 		useUnifiedTopology: true,
+// 	}
+// );
+
+/**
+ * Connexion MongoDB à la base de données (LOCALE) nommée "calibre"
+ */
 mongoose.connect("mongodb://127.0.0.1:27017/" + nomDb, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 });
+
 //route permettant de servir les fichier statiques
 app.use(express.static(__dirname + "/public/"));
 
@@ -104,10 +111,22 @@ app.get("/profil", checkAuthenticated, (req, res) => {
     });
 });
 
+/**
+ * Route: génère la page de la recherche des recettes
+ */
 app.get("/recettes", (req, res) => {
     res.render("pages/recettes", {
         utilisateurconnecte: utilisateurCourant,
     });
+});
+
+/**
+ * Route: génère la page de la recherche des nutriments
+ */
+app.get("/nutriments", (req, res) => {
+	res.render("pages/nutriments", {
+		utilisateurconnecte: utilisateurCourant,
+	});
 });
 
 app.post(
