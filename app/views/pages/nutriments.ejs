@@ -36,7 +36,23 @@
     </footer>
 
     <script>
-        
+
+        /**
+         * Fonction qui trouve la source du nutriment
+         * @params {number} id - ID du nutriment
+         */
+        function getNutrimentInfo(id) {
+            $.ajax({
+                url: "https://api.spoonacular.com/food/ingredients/" + id + "/information?apiKey=3b2c9d7b94d24ca785d5fccdfce53e3a&amount=150&unit=grams",
+                success: function (res) {
+                    document.getElementById('id_nutriment').textContent = id
+                    document.getElementById('nom_nutriment').textContent = res.name
+                    document.getElementById('quantite_calories').textContent = res.nutrition.nutrients[20].amount
+                    document.getElementById('type_nutriment').textContent = res.categoryPath[0]
+                }
+            });
+        }
+
     </script>
 
 </body>
