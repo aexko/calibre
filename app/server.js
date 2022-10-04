@@ -10,14 +10,16 @@ const motPasse = "admin";
 const nomDb = "Calibre";
 const cluster = "Calibre";
 const passport = require("passport");
+//const ProgressBar = require("./progress");
 const flash = require("express-flash");
 const bcrypt = require("bcryptjs");
+
 const session = require("express-session");
 const methodOverride = require("method-override");
 utilisateurCourant = null;
 const {
-	checkAuthenticated,
-	checkNotAuthenticated,
+    checkAuthenticated,
+    checkNotAuthenticated,
 } = require("./middlewares/auth");
 const initialiserPassport = require("./passport-config");
 
@@ -36,8 +38,8 @@ const initialiserPassport = require("./passport-config");
  * Connexion MongoDB à la base de données (LOCALE) nommée "calibre"
  */
 mongoose.connect("mongodb://127.0.0.1:27017/" + nomDb, {
-	useNewUrlParser: true,
-	useUnifiedTopology: true,
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
 });
 
 //route permettant de servir les fichier statiques
@@ -48,22 +50,22 @@ app.set("view engine", "ejs");
 //ceci permet de savoir si la bd est bien connectee
 const bd = mongoose.connection;
 bd.on("error", console.error.bind(console, "Erreur de connection: "));
-bd.once("open", function () {
-	console.log("Connexion réussie à MongoDB");
+bd.once("open", function() {
+    console.log("Connexion réussie à MongoDB");
 });
 
 initialiserPassport(
-	passport,
-	async (email) => {
-		const utilisateurTrouvee = await modelUtilisateur.findOne({
-			email: email,
-		});
-		return utilisateurTrouvee;
-	},
-	async (id) => {
-		const utilisateurTrouvee = await modelUtilisateur.findOne({ _id: id });
-		return utilisateurTrouvee;
-	}
+    passport,
+    async(email) => {
+        const utilisateurTrouvee = await modelUtilisateur.findOne({
+            email: email,
+        });
+        return utilisateurTrouvee;
+    },
+    async(id) => {
+        const utilisateurTrouvee = await modelUtilisateur.findOne({ _id: id });
+        return utilisateurTrouvee;
+    }
 );
 // pour activer le module ejs
 
@@ -71,12 +73,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(flash());
 app.use(
-	session({
-		name: "sessionUtilisateur",
-		secret: "twt",
-		resave: false,
-		saveUninitialized: false,
-	})
+    session({
+        name: "sessionUtilisateur",
+        secret: "twt",
+        resave: false,
+        saveUninitialized: false,
+    })
 );
 
 app.use(passport.initialize());
@@ -84,36 +86,38 @@ app.use(passport.session());
 app.use(methodOverride("_method"));
 
 app.get("/", (req, res) => {
-	res.render("pages/index", {
-		utilisateurconnecte: utilisateurCourant,
-	});
+    res.render("pages/index", {
+        utilisateurconnecte: utilisateurCourant,
+    });
 });
 
 app.get("/about", (req, res) => {
-	res.render("pages/about", {
-		utilisateurconnecte: utilisateurCourant,
-	});
+    res.render("pages/about", {
+        utilisateurconnecte: utilisateurCourant,
+    });
 });
 // ce routage permet de servir la page de connexion
 app.get("/connexion", checkNotAuthenticated, (req, res) => {
-	res.render("pages/connexion", {
-		utilisateurconnecte: utilisateurCourant,
-	});
+    res.render("pages/connexion", {
+        utilisateurconnecte: utilisateurCourant,
+    });
 });
 app.get("/profil", checkAuthenticated, (req, res) => {
-	res.render("pages/profil", {
-		prenom: req.user.prenom,
-		utilisateurconnecte: utilisateurCourant,
-	});
+    res.render("pages/profil", {
+        utilisateur: utilisateurCourant,
+        utilisateurconnecte: utilisateurCourant,
+
+
+    });
 });
 
 /**
  * Route: génère la page de la recherche des recettes
  */
 app.get("/recettes", (req, res) => {
-	res.render("pages/recettes", {
-		utilisateurconnecte: utilisateurCourant,
-	});
+    res.render("pages/recettes", {
+        utilisateurconnecte: utilisateurCourant,
+    });
 });
 
 /**
@@ -126,156 +130,133 @@ app.get("/nutriments", (req, res) => {
 });
 
 app.post(
-	"/connexion",
-	StockerUtilisateur,
-	checkNotAuthenticated,
-	passport.authenticate("local", {
-		successRedirect: "/profil",
-		failureRedirect: "/connexion",
-		failureFlash: true,
-	}),
-	async (req, res) => {}
+    "/connexion",
+    StockerUtilisateur,
+    checkNotAuthenticated,
+    passport.authenticate("local", {
+        successRedirect: "/profil",
+        failureRedirect: "/connexion",
+        failureFlash: true,
+    }),
+    async(req, res) => {}
 );
 
 app.delete("/deconnexion", checkAuthenticated, (req, res) => {
-	req.logout(function (err) {
-		if (err) {
-			return next(err);
-		}
-		(utilisateurCourant = null), res.redirect("/connexion");
-	});
+    req.logout(function(err) {
+        if (err) {
+            return next(err);
+        }
+        (utilisateurCourant = null), res.redirect("/connexion");
+    });
 });
 
 //ce routage permet de servir la page d inscription
 app.get("/inscription", checkNotAuthenticated, (req, res) => {
-	res.render("pages/inscription", {
-		utilisateurconnecte: utilisateurCourant,
-	});
+    res.render("pages/inscription", {
+        utilisateurconnecte: utilisateurCourant,
+    });
 });
+
 //cette routage permet de verifier si le nom d utilisateur est redondant
 app.get("/inscription/:nomUtilisateur", checkNotAuthenticated, (req, res) => {
-	//on verifie dans la bd si le nom d utilisateur est existant
-	modelUtilisateur.findOne(
-		{ nom_utilisateur: req.params.nomUtilisateur },
-		function (err, docs) {
-			if (err) {
-				console.log(err);
-			} else {
-				if (docs) {
-					//si existant on envoie une message qui va etre afficher a l utilisateur
-					res.json({
-						titre: "existant",
-						msg: "un compte avec le même nom d'utilisateur existe",
-					});
-				} else {
-					res.json({
-						//si existant on envoie une message vide
-						titre: "succes",
-						msg: "",
-					});
-				}
-			}
-		}
-	);
+    //on verifie dans la bd si le nom d utilisateur est existant
+    modelUtilisateur.findOne({ nom_utilisateur: req.params.nomUtilisateur },
+        function(err, docs) {
+            if (err) {
+                console.log(err);
+            } else {
+                if (docs) {
+                    //si existant on envoie une message qui va etre afficher a l utilisateur
+                    res.json({
+                        titre: "existant",
+                        msg: "un compte avec le même nom d'utilisateur existe",
+                    });
+                } else {
+                    res.json({
+                        //si existant on envoie une message vide
+                        titre: "succes",
+                        msg: "",
+                    });
+                }
+            }
+        }
+    );
+});
+
+app.post("/profil", checkAuthenticated, async(req, res) => {
+
+    var calorie = (parseInt(req.body.calorie) + utilisateurCourant.calorie_quotidien_consommee);
+    utilisateurCourant.calorie_quotidien_consommee = calorie;
+    await modelUtilisateur.findOneAndUpdate({ email: utilisateurCourant.email }, { calorie_quotidien_consommee: calorie });
+
+    res.redirect("/profil");
 });
 //cette routage permet de recevoir un formulaire d inscription et de les stocker dans la bd
-app.post("/inscription", checkNotAuthenticated, async (req, res) => {
-	//les donnes a stocker dans la bd
-	const instance_utilisateur = new modelUtilisateur(req.body);
-	//var activite = niveauActivite(req.body.id_niveau_activite_physique);
+app.post("/inscription", checkNotAuthenticated, async(req, res) => {
+    //les donnes a stocker dans la bd
+    const instance_utilisateur = new modelUtilisateur(req.body);
+    //var activite = niveauActivite(req.body.id_niveau_activite_physique);
 
-	//instance_utilisateur.imc = calculIMC(req.body.taille_cm, req.body.poids_kg);
-	/*	instance_utilisateur.calorie_quotidien_recommendee = calculCalorie(
-		req.body.taille_cm,
-		req.body.poids_kg,
-		req.body.age,
-		activite
-	);*/
-	// on verifie si le courriel est redondant
-	modelUtilisateur.findOne(
-		{ email: req.body.email },
-		async function (err, docs) {
-			if (err) {
-				console.log(err);
-			} else {
-				if (docs) {
-					console.log("Result : ", docs);
-					res.json({
-						//si ou on retorune le message suivant et l affiche apres a l aide d une alert
-						titre: "existant",
-						msg: "cette courriel est déjà liée à un compte.",
-					});
-				} else {
-					try {
-						instance_utilisateur.mot_passe = await bcrypt.hash(
-							instance_utilisateur.mot_passe,
-							10
-						);
-					} catch {}
-					//sinon on sauvegarde le nouveau compte dans la bd
-					instance_utilisateur.save((err) => {
-						if (err) throw err;
-					});
-					res.json({
-						//et on retorune le message suivant et l affiche apres a l aide d une alert
-						titre: "succes",
-						msg: "votre compte a été crée avec succes",
-					});
-				}
-			}
-		}
-	);
+    //instance_utilisateur.imc = calculIMC(req.body.taille_cm, req.body.poids_kg);
+    /*	instance_utilisateur.calorie_quotidien_recommendee = calculCalorie(
+    	req.body.taille_cm,
+    	req.body.poids_kg,
+    	req.body.age,
+    	activite
+    );*/
+    // on verifie si le courriel est redondant
+    modelUtilisateur.findOne({ email: req.body.email },
+        async function(err, docs) {
+            if (err) {
+                console.log(err);
+            } else {
+                if (docs) {
+                    console.log("Result : ", docs);
+                    res.json({
+                        //si ou on retorune le message suivant et l affiche apres a l aide d une alert
+                        titre: "existant",
+                        msg: "cette courriel est déjà liée à un compte.",
+                    });
+                } else {
+                    try {
+                        instance_utilisateur.calorie_quotidien_consommee = 0
+                        instance_utilisateur.calorie_quotidien_recommendee = 1854
+                        instance_utilisateur.mot_passe = await bcrypt.hash(
+                            instance_utilisateur.mot_passe,
+                            10
+                        );
+                    } catch {}
+                    //sinon on sauvegarde le nouveau compte dans la bd
+                    instance_utilisateur.save((err) => {
+                        if (err) throw err;
+                    });
+                    res.json({
+                        //et on retorune le message suivant et l affiche apres a l aide d une alert
+                        titre: "succes",
+                        msg: "votre compte a été crée avec succes",
+                    });
+                }
+            }
+        }
+    );
 });
 
 // For website access
 app.listen(port, () => {
-	console.log(`Le serveur est sur localhost:${port}`);
+    console.log(`Le serveur est sur localhost:${port}`);
 });
 
 async function StockerUtilisateur(req, res, next) {
-	const userFound = await modelUtilisateur.findOne({ email: req.body.email });
-	const mdp = req.body.mot_passe;
+    const userFound = await modelUtilisateur.findOne({ email: req.body.email });
+    const mdp = req.body.mot_passe;
 
-	if (userFound) {
-		if (await bcrypt.compare(mdp, userFound.mot_passe)) {
-			utilisateurCourant = userFound;
-		}
-	} else {
-		currentlyConnectedUser = null;
-	}
+    if (userFound) {
+        if (await bcrypt.compare(mdp, userFound.mot_passe)) {
+            utilisateurCourant = userFound;
+        }
+    } else {
+        currentlyConnectedUser = null;
+    }
 
-	next();
-}
-
-function niveauActivite(frequence_activite) {
-	var activite;
-	if ((frequence_activite = 0)) {
-		activite = 1.37;
-	} else if ((frequence_activite = 1)) {
-		activite = 1.55;
-	} else if ((frequence_activite = 2)) {
-		activite = 1.8;
-	} else if ((frequence_activite = 3)) {
-		activite = 2.0;
-	}
-	return activite;
-}
-
-function calculIMC(taille, poids) {
-	var taille_m = taille / 100;
-	var imc = poids / Math.pow(taille_m, 2);
-	imc = imc.toFixed(2);
-	return imc;
-}
-
-function calculCalorie(taille, poids, age, activite) {
-	var taille_m = taille / 100;
-	var calorie =
-		activite *
-		(230 *
-			Math.pow(poids, 0.48) *
-			Math.pow(taille_m, 0.5) *
-			Math.pow(age, -0.13));
-
-	return Math.round(calorie);
+    next();
 }

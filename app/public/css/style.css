@@ -1,99 +1,201 @@
-* {
-  box-sizing: border-box;
-}
-
-body {
-  background-color: #f1f1f1;
-}
-
-#regForm {
-  background-color: #ffffff;
-  margin: 100px auto;
-  font-family: Raleway;
-  padding: 40px;
-  width: 70%;
-  min-width: 300px;
-}
-
-h1 {
-  text-align: center;  
-}
-
-input {
-  padding: 10px;
-  width: 100%;
-  font-size: 17px;
-  font-family: Raleway;
-  border: 1px solid #aaaaaa;
-}
-
-/* Mark input boxes that gets an error on validation: */
-input.invalid {
-  background-color: #ffdddd;
-}
-
-/* Hide all steps by default: */
-.tab {
-  display: none;
-}
-
-button {
-  background-color: #04AA6D;
-  color: #ffffff;
-  border: none;
-  padding: 10px 20px;
-  font-size: 17px;
-  font-family: Raleway;
-  cursor: pointer;
-}
-
-button:hover {
-  opacity: 0.8;
-}
-
-#prevBtn {
-  background-color: #bbbbbb;
-}
-
-/* Make circles that indicate the steps of the form: */
-.step {
-  height: 15px;
-  width: 15px;
-  margin: 0 2px;
-  background-color: #bbbbbb;
-  border: none;  
-  border-radius: 50%;
-  display: inline-block;
-  opacity: 0.5;
-}
-
-.step.active {
-  opacity: 1;
-}
-
-/* Mark the steps that are finished and valid: */
-.step.finish {
-  background-color: #04AA6D;
-}
-
-/* Add a green text color and a checkmark when the requirements are right */
-.valid {
-  color: green;
-}
-
-.valid:before {
-  position: relative;
-  left: -35px;
-  content: "✔";
-}
-
-/* Add a red text color and an "x" icon when the requirements are wrong */
-.invalid {
-  color: red;
-}
-
-.invalid:before {
-  position: relative;
-  left: -35px;
-  content: "❌";
-}
+                                * {
+                                    box-sizing: border-box;
+                                }
+                                
+                                body {
+                                    background-color: #f1f1f1;
+                                }
+                                
+                                #regForm {
+                                    background-color: #ffffff;
+                                    margin: 100px auto;
+                                    font-family: Raleway;
+                                    padding: 40px;
+                                    width: 70%;
+                                    min-width: 300px;
+                                }
+                                
+                                p {
+                                    font-size: large;
+                                }
+                                
+                                h1 {
+                                    text-align: center;
+                                }
+                                
+                                input {
+                                    padding: 10px;
+                                    width: 100%;
+                                    font-size: 17px;
+                                    font-family: Raleway;
+                                    border: 1px solid #aaaaaa;
+                                }
+                                /* Mark input boxes that gets an error on validation: */
+                                
+                                input.invalid {
+                                    background-color: #ffdddd;
+                                }
+                                /* Hide all steps by default: */
+                                
+                                .tab {
+                                    display: none;
+                                }
+                                
+                                button {
+                                    background-color: #04AA6D;
+                                    color: #ffffff;
+                                    border: none;
+                                    padding: 10px 20px;
+                                    font-size: 17px;
+                                    font-family: Raleway;
+                                    cursor: pointer;
+                                }
+                                
+                                button:hover {
+                                    opacity: 0.8;
+                                }
+                                
+                                #prevBtn {
+                                    background-color: #bbbbbb;
+                                }
+                                /* Make circles that indicate the steps of the form: */
+                                
+                                .step {
+                                    height: 15px;
+                                    width: 15px;
+                                    margin: 0 2px;
+                                    background-color: #bbbbbb;
+                                    border: none;
+                                    border-radius: 50%;
+                                    display: inline-block;
+                                    opacity: 0.5;
+                                }
+                                
+                                .step.active {
+                                    opacity: 1;
+                                }
+                                /* Mark the steps that are finished and valid: */
+                                
+                                .step.finish {
+                                    background-color: #04AA6D;
+                                }
+                                
+                                * {
+                                    box-sizing: border-box;
+                                }
+                                
+                                body {
+                                    background-color: #f1f1f1;
+                                }
+                                
+                                #regForm {
+                                    background-color: #ffffff;
+                                    margin: 100px auto;
+                                    font-family: Raleway;
+                                    padding: 40px;
+                                    width: 70%;
+                                    min-width: 300px;
+                                }
+                                
+                                h1 {
+                                    text-align: center;
+                                }
+                                
+                                input {
+                                    padding: 10px;
+                                    width: 100%;
+                                    font-size: 17px;
+                                    font-family: Raleway;
+                                    border: 1px solid #aaaaaa;
+                                }
+                                /* Mark input boxes that gets an error on validation: */
+                                
+                                input.invalid {
+                                    background-color: #ffdddd;
+                                }
+                                /* Hide all steps by default: */
+                                
+                                .tab {
+                                    display: none;
+                                }
+                                
+                                button {
+                                    background-color: #04AA6D;
+                                    color: #ffffff;
+                                    border: none;
+                                    padding: 10px 20px;
+                                    font-size: 17px;
+                                    font-family: Raleway;
+                                    cursor: pointer;
+                                }
+                                
+                                button:hover {
+                                    opacity: 0.8;
+                                }
+                                
+                                #prevBtn {
+                                    background-color: #bbbbbb;
+                                }
+                                /* Make circles that indicate the steps of the form: */
+                                
+                                .step {
+                                    height: 15px;
+                                    width: 15px;
+                                    margin: 0 2px;
+                                    background-color: #bbbbbb;
+                                    border: none;
+                                    border-radius: 50%;
+                                    display: inline-block;
+                                    opacity: 0.5;
+                                }
+                                
+                                .step.active {
+                                    opacity: 1;
+                                }
+                                /* Mark the steps that are finished and valid: */
+                                
+                                .step.finish {
+                                    background-color: #04AA6D;
+                                }
+                                /* Add a green text color and a checkmark when the requirements are right */
+                                
+                                .valid {
+                                    color: green;
+                                }
+                                
+                                .valid:before {
+                                    position: relative;
+                                    left: -35px;
+                                    content: "✔";
+                                }
+                                /* Add a red text color and an "x" icon when the requirements are wrong */
+                                
+                                .invalid {
+                                    color: red;
+                                }
+                                
+                                .invalid:before {
+                                    position: relative;
+                                    left: -35px;
+                                    content: "❌";
+                                }
+                                
+                                .progress {
+                                    background-color: grey;
+                                    border-radius: 20px;
+                                    height: 30px;
+                                    width: 300px;
+                                }
+                                
+                                .progress-done {
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                    background-image: repeating-linear-gradient(to left, #225630, #37914f, #52bb6e);
+                                    box-shadow: 05px 5px -6px #225630, 0 3px 7px #37914f;
+                                    border-radius: 20px;
+                                    color: #fff;
+                                    height: 100%;
+                                    width: 0%;
+                                    transition: 1s ease 0.3s;
+                                }
