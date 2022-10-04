@@ -119,7 +119,7 @@ function validerForm(element) {
 
 	// verifie si les inputs d un tab ne sont pas vides
 	// si vide le nom de la classe de l input change a invalid et par css la couleur de background est mis a rouge
-	if (element.name == "age" || element.name == "taille" || element.name == "poids" || element.name == "objectif_de_poids" || element.name== "objectif_par_semaine") {
+	if (element.name == "age" || element.name == "taille" || element.name == "poids" || element.name == "objectif_de_poids_saine" || element.name== "objectif_par_semaine") {
 		valide = validerAgeTaillePoids(element)
 	} else if (element.name == "email") {
 		valide = validerCourriel(element);
@@ -141,7 +141,7 @@ function validerForm(element) {
 
 function validerAgeTaillePoids(element) {
 	titre = element.id;
-if(element.id == "objectif_poids" || "objectifSemaine"){
+if(element.id == "objectif_poids" || element.id =="objectifSemaine"){
 	unite = document.getElementById("unitePrefere");
     uniteSelectionne = unite.options[unite.selectedIndex].value;
 	if(uniteSelectionne == "metrique"){
