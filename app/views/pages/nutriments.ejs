@@ -17,6 +17,9 @@
             <input id="recherche_nutriments">
 
             <!-- Bouton avec la fonction getNutriment(query) -->
+            <button id="envoyer" onclick="getNutrimentID(document.getElementById('recherche_nutriments').value)">Trouver
+                un nutriment</button><br>
+
             <!-- Affichage des informations du nutriment trouvé -->
             <p>
                 Nom du nutriment: <span id="nom_nutriment"></span><br>
@@ -27,7 +30,6 @@
 
             <!-- Résultat de la requête -->
             <div id="sortie"></div>
-
         </div>
     </main>
 
