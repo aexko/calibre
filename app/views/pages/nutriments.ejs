@@ -14,10 +14,16 @@
     <main>
         <div class="jumbotron">
             <h1>Recherche de nutriments</h1>
-            <input id="recherche">
+            <input id="recherche_nutriments">
 
             <!-- Bouton avec la fonction getNutriment(query) -->
-            <button onclick="getRecette(document.getElementById('recherche').value)">Trouver un nutriment</button>
+            <!-- Affichage des informations du nutriment trouvé -->
+            <p>
+                Nom du nutriment: <span id="nom_nutriment"></span><br>
+                ID du nutriment: <span id="id_nutriment"></span><br>
+                Nombre de calories: <span id="quantite_calories"></span><br>
+                Type de nutriment: <span id="type_nutriment"></span>
+            </p>
 
             <!-- Résultat de la requête -->
             <div id="sortie"></div>
