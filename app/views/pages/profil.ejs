@@ -3,7 +3,7 @@
 
 <head>
     <%- include('../partials/head'); %>
-    <link type="text/css" rel="stylesheet" href="../css/style.css" />
+        <link type="text/css" rel="stylesheet" href="../css/style.css" />
 
 </head>
 <php></php>
@@ -42,67 +42,70 @@
 
         </div>
     </div>
+    <p></p>
     <button onclick="  afficherDiv('AjouterCalorie')">Ajouter des Calories</button>
 
     <form action="" id="AjouterCalorie" style="display:none;" method="post">
         <p>Ajouter manuellement les calories de votre repas</p>
 
-        <input type="text" id="calorie" name="calorie" placeholder="expl: 150 kCal" />
-        <input type="submit" value="Ajouter"> </button>
+        <input type="text" id="calorie" name="calorie" placeholder="expl: 150 (KCal)" />
+        <input type="submit" value="Ajouter" name="action"> </button>
 
     </form>
+    <p></p>
     <h5>Mes informations</h5>
-    <p>Nom d'utilisateur:
-        <%=utilisateurCourant.nom_utilisateur%>
-            <br> Adresse courriel:
-            <%=utilisateurCourant.email%> <br> Age:
-                <%=utilisateurCourant.age%> <br>Taille:
-                    <%=utilisateurCourant.taille%> <br> Poids:
-                        <%=utilisateurCourant.poids%> <br> IMC:
-                            <%=utilisateurCourant.imc%>
-                                <p></p>
-                                <button onclick=" afficherDiv('modifier_infos')">Modifier mes informations</button>
-                                <div class="modifier_infos" id="modifier_infos" style="display:none;">
-                                    hola
-                                </div>
+    <p style="display:inline ;">Nom d'utilisateur:
+    </p>
+    <%=utilisateurCourant.nom_utilisateur%>
+        <br> Adresse courriel:
+        <%=utilisateurCourant.email%> <br> Age:
+            <%=utilisateurCourant.age%> <br>Taille:
+                <%=utilisateurCourant.taille%> <br> Poids actuel:
+                    <%=utilisateurCourant.poids%> <button onclick=" afficherDiv('modifier_poids')">+</button>
+                        <form class="modifier_poids" id="modifier_poids" style="display:none;" method="post">
+                            <input type="number" id="poids" max="200" min="15" placeholder="entrez votre nouveau poids">
 
 
-                                <footer>
-                                    <%- include('../partials/footer'); %>
-                                </footer>
+                        </form> <br> IMC:
+                        <%=utilisateurCourant.imc%>
+                            <p></p>
 
-                                <script>
-                                    function afficherDiv(id_div) {
-                                        var x = document.getElementById(id_div);
-                                        console.log("hola")
-                                        if (x.style.display === "none") {
-                                            x.style.display = "block";
-                                        } else {
-                                            x.style.display = "none";
-                                        }
 
+                            <footer>
+                                <%- include('../partials/footer'); %>
+                            </footer>
+
+                            <script>
+                                function afficherDiv(id_div) {
+                                    var x = document.getElementById(id_div);
+
+                                    if (x.style.display === "none") {
+                                        x.style.display = "block";
+                                    } else {
+                                        x.style.display = "none";
                                     }
 
-
-                                    function progress_bar() {
-                                        console.log("#");
-                                        const valeur = document.getElementById("calorie_consomme");
-                                        const max = document.getElementById("calorie_recommendee");
-                                        console.log(max)
-                                        let valeurFinale = 0;
-                                        let maximum = 0;
+                                }
 
 
-                                        valeurFinale = parseInt(valeur.value, 10);
-                                        maximum = parseInt(max.value, 10);
-                                        var pourcentage = valeurFinale / maximum * 100;
-                                        let largeur = pourcentage + "%";
+                                function progress_bar() {
+                                    const valeur = document.getElementById("calorie_consomme");
+                                    const max = document.getElementById("calorie_recommendee");
+                                    console.log(max)
+                                    let valeurFinale = 0;
+                                    let maximum = 0;
 
-                                        document.getElementById("progress-done").style.width = "40%"
 
-                                        //  return pourcentage
-                                    }
-                                </script>
+                                    valeurFinale = parseInt(valeur.value, 10);
+                                    maximum = parseInt(max.value, 10);
+                                    var pourcentage = valeurFinale / maximum * 100;
+                                    let largeur = pourcentage + "%";
+
+                                    document.getElementById("progress-done").style.width = "40%"
+
+                                    //  return pourcentage
+                                }
+                            </script>
 
 
 </body>

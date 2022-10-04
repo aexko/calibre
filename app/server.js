@@ -124,9 +124,9 @@ app.get("/recettes", (req, res) => {
  * Route: génère la page de la recherche des nutriments
  */
 app.get("/nutriments", (req, res) => {
-	res.render("pages/nutriments", {
-		utilisateurconnecte: utilisateurCourant,
-	});
+    res.render("pages/nutriments", {
+        utilisateurconnecte: utilisateurCourant,
+    });
 });
 
 app.post(
@@ -185,9 +185,12 @@ app.get("/inscription/:nomUtilisateur", checkNotAuthenticated, (req, res) => {
 
 app.post("/profil", checkAuthenticated, async(req, res) => {
 
+
     var calorie = (parseInt(req.body.calorie) + utilisateurCourant.calorie_quotidien_consommee);
     utilisateurCourant.calorie_quotidien_consommee = calorie;
     await modelUtilisateur.findOneAndUpdate({ email: utilisateurCourant.email }, { calorie_quotidien_consommee: calorie });
+
+
 
     res.redirect("/profil");
 });
