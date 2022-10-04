@@ -56,7 +56,7 @@
                 url: "https://api.spoonacular.com/recipes/search?apiKey=3b2c9d7b94d24ca785d5fccdfce53e3a&number=1&query=" + query,
                 success: function (res) {
                     try {
-                        document.getElementById("sortie").innerHTML = "<br><h2>" + res.results[0].title + "</h2><img src='" + res.baseUri + res.results[0].image + "'width='400' /><br> Durée : " + res.results[0].readyInMinutes + " minutes"
+                        document.getElementById("sortie").innerHTML = "<br><h2>" + res.results[0].title + "</h2><img src='" + res.baseUri + res.results[0].image + "'width='400' /><br> Durée : " + res.results[0].readyInMinutes + " minutes" + "<br> Portions : " + res.results[0].servings
                         if (res.results[0] != null) {
                             getSource(res.results[0].id)
                         }
