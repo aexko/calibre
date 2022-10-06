@@ -46,9 +46,9 @@ function validerNomUtilisateur(nomUtilisateur) {
 }
 
 var tabcourant = 0; // le tab courant est 0 au debut
-document.getElementById("body").onload = montrerTab(tabcourant); // affichage du tab courant
  // affichage du tab courant
 function montrerTab(n) {
+	tabcourant = n;
 	// cette fonction affiche le tab courant
 	var x = document.getElementsByClassName("tab");
 	x[n].style.display = "block";
