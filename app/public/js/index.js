@@ -46,7 +46,8 @@ function validerNomUtilisateur(nomUtilisateur) {
 }
 
 var tabcourant = 0; // le tab courant est 0 au debut
-montrerTab(tabcourant); // affichage du tab courant
+document.getElementById("body").onload = montrerTab(tabcourant); // affichage du tab courant
+ // affichage du tab courant
 function montrerTab(n) {
 	// cette fonction affiche le tab courant
 	var x = document.getElementsByClassName("tab");
@@ -280,4 +281,7 @@ function afficherUnite(unite) {
 		imperial.style.display = "block"
 		metrique.style.display = "none"
 	}
-}
+}function sum(a, b) {
+	return a + b;
+  }
+  module.exports = sum;

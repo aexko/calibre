@@ -5,10 +5,13 @@
     "main": "server.js",
     "scripts": {
         "dev": "nodemon server.js",
-        "test": "start-server-and-test start http://127.0.0.1:3000 cypress:open",
+        "test": "jest",
         "start": "node server.js",
         "cypress:open": "cypress open",
         "doc": "jsdoc -c jsdoc.json"
+    },
+    "jest": {
+        "testEnvironment": "jsdom"
     },
     "author": "Abdelaziz, Lyna - Kao, Alex - Sabbagh Ziarani, Narges",
     "license": "ISC",
