@@ -1,7 +1,11 @@
-const sum = require('../public/js/index');
+const validerCourriel = require('../public/js/index');
 
-test('adds 1 + 2 to equal 3', () => {
-  expect(sum(1, 2)).toBe(3);
+test('a@ est un courriel invalide', () => {
+  document.body.innerHTML = '<input id=courriel type="email" value="a@"/><p id="messageCourriel" class="invalid" style="display: none">'
+  expect(validerCourriel(document.getElementById('courriel'))).toBe(false);
 });
 
-        //"test": "start-server-and-test start http://127.0.0.1:3000 cypress:open"
+test('a@d.c est un courriel valide', () => {
+  document.body.innerHTML = '<input id=courriel type="email" value="a@d.c"/><p id="messageCourriel" class="invalid" style="display: none">'
+  expect(validerCourriel(document.getElementById('courriel'))).toBe(true);
+});

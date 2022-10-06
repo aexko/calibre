@@ -1,3 +1,5 @@
+const { ALL } = require("dns");
+
 /*cette methode permet de faire un requete post ajax au route inscription et si le courriel n est pas existant dans la bd 
 le compte de client va etre cree sinon l utilisateur devrait changer le courriel jusqu a ce qu il soit unique
 l utilisation d ajax permet de faire des requetes sans la rechargement de la page et pour que l utilisateur n aie
@@ -284,4 +286,4 @@ function afficherUnite(unite) {
 }function sum(a, b) {
 	return a + b;
   }
-  module.exports = sum;
+  module.exports = validerCourriel;
