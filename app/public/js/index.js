@@ -131,7 +131,7 @@ function validerForm(element) {
 	// verifie si les inputs d un tab ne sont pas vides
 	// si vide le nom de la classe de l input change a invalid et par css la couleur de background est mis a rouge
 	if (element.name in { "age": '', "taille": '', "poids": '', "objectif_de_poids_saine": '', "objectif_par_semaine": '', "repas_par_jour": '' }) {
-		ageTaillePoids = validerAgeTaillePoids(element.value,element.min,element.max,element.id)
+		ageTaillePoids = validerAgeTaillePoids(element.value,element.min,element.max,element.id,unitePrefere)
 		valide = ageTaillePoids.validite
 		changerValidite("message " + element.id, ageTaillePoids.valide)
 		ecrireMessage(element, ageTaillePoids.titre, ageTaillePoids.minOuMax, ageTaillePoids.combien)
@@ -166,12 +166,12 @@ function validerForm(element) {
 // si valid l indicateur etape indique le fin de l etape
 // retourn si validee ou pas
 
-function validerAgeTaillePoids(valeur,min,max,id) {
+function validerAgeTaillePoids(valeur,min,max,id,unitePrefere) {
 	titre =id;
 	if (id == "objectif_poids" || id == "objectifSemaine") {
 		if (unitePrefere == "metrique") {
 			titre = 'kg'
-		} else {
+		} else if (unitePrefere == "imperial"){
 			titre = 'lbs'
 		}
 	}
