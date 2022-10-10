@@ -1,4 +1,5 @@
 const index = require('../public/js/index');
+
 //import {validerAgeTaillePoids,validerCourriel,validerMotPasse,validerNomUtilisateur} from '../public/js/index';
 
 test('a@ est un courriel invalide', () => {
@@ -123,4 +124,58 @@ test("62 kg est un objectif de poids invalide si min 50 kg et max 60 kg.", () =>
   expect(fonction.validite).toBe(false);
   expect(fonction. titre).toBe('kg');
   expect(fonction. minOuMax).toBe(max);
+});
+
+describe("Ajax verification de dupplication du nom d'utilisateur", () => {
+  beforeEach(() => {
+    jest.restoreAllMocks();
+    $ = require('jquery');
+    global.$ = $;
+    document.body.innerHTML='<input id="nomUtilisateur" value="fgfdfdfjjj"/><p id="avertirNomUtilisateur"></p>';
+    nomUtilisateur = document.getElementById('nomUtilisateur');
+  });
+  it("la methode est appelé", () => {
+    const ajaxSpy = jest.spyOn($, "ajax");
+    index.validerNomUtilisateur(nomUtilisateur);
+    expect(ajaxSpy).toBeCalledWith({
+      type: "GET",
+      dataType: "json",
+      url: "http://localhost:3000/inscription/" + nomUtilisateur.value,
+      success: expect.any(Function),
+    });
+  });
+
+  it("gere le succes", () => {
+    const nomUtilisateur = { nomUtilisateur: 'fgfdfdfjjj' };
+    const logSpy = jest.spyOn(console, "log");
+    index.gererSucces(nomUtilisateur);
+    expect(logSpy).toBeCalledWith(nomUtilisateur);
+  });
+});
+
+describe("Ajax verification de dupplication du courriel", () => {
+  beforeEach(() => {
+    jest.restoreAllMocks();
+    $ = require('jquery');
+    global.$ = $;
+    document.body.innerHTML='<input id="nomUtilisateur" value="fgfdfdfjjj"/><p id="avertirNomUtilisateur"></p>';
+    nomUtilisateur = document.getElementById('nomUtilisateur');
+  });
+  it("la methode est appelé", () => {
+    const ajaxSpy = jest.spyOn($, "ajax");
+    index.validerNomUtilisateur(nomUtilisateur);
+    expect(ajaxSpy).toBeCalledWith({
+      type: "GET",
+      dataType: "json",
+      url: "http://localhost:3000/inscription/" + nomUtilisateur.value,
+      success: expect.any(Function),
+    });
+  });
+
+  it("gere le succes", () => {
+    const nomUtilisateur = { nomUtilisateur: 'fgfdfdfjjj' };
+    const logSpy = jest.spyOn(console, "log");
+    index.gererSucces(nomUtilisateur);
+    expect(logSpy).toBeCalledWith(nomUtilisateur);
+  });
 });

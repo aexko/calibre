@@ -6,28 +6,28 @@ l utilisation d ajax permet de faire des requetes sans la rechargement de la pag
 function soummettreFormulaire() {
 	/*si le champs d avertissement de nom d utilisateur est vide on fait une requete post sinon on attend jusqu a
 	 ce qu il sois vide pour proceder avec la requete post ajax*/
-	if (document.getElementById("avertirNomUtilisateur").innerHTML == "") {
-		var formulaire = $("#formulaireInscription");
-		$.ajax({
-			url: "http://localhost:3000/inscription",
-			type: "POST",
-			data: formulaire.serialize(),
-			dataType: "json",
-			success: function (result) {
-				//on alert le resultat sois : courriel deja existant ou creation avec succes
-				if (result.titre == "existant") {
-					//si le resultat de route post est existant on vide le champs de courriel
-					document.getElementById("email").value = "";
-					//si le nom d utilisateur est existant le champs d avertissement va contenir un avertissement sinon il sera vide
-					document.getElementById("avertirEmail").innerHTML = result.msg;
-				} else {
-					//si le compte a ete cree avec succes on va a la page d accueil
-					alert('votre compte a été crée avec succès');
-					location.replace("/");
-				}
-			},
-		});
-	}
+	//if (document.getElementById("avertirNomUtilisateur").innerHTML == "") {
+	var formulaire = $("#formulaireInscription");
+	$.ajax({
+		url: "http://localhost:3000/inscription",
+		type: "POST",
+		data: formulaire.serialize(),
+		dataType: "json",
+		success: function (result) {
+			//on alert le resultat sois : courriel deja existant ou creation avec succes
+			if (result.titre == "existant") {
+				//si le resultat de route post est existant on vide le champs de courriel
+				document.getElementById("email").value = "";
+				//si le nom d utilisateur est existant le champs d avertissement va contenir un avertissement sinon il sera vide
+				document.getElementById("avertirEmail").innerHTML = result.msg;
+			} else {
+				//si le compte a ete cree avec succes on va a la page d accueil
+				alert('votre compte a été crée avec succès');
+				location.replace("/");
+			}
+		},
+	});
+	//}
 }
 //cette methode permet de valider le nom d utilisateur et elle est appelee a chaque keyup dans le champs de nom d utilisateur
 function validerNomUtilisateur(nomUtilisateur) {
@@ -36,20 +36,23 @@ function validerNomUtilisateur(nomUtilisateur) {
 		url: "http://localhost:3000/inscription/" + nomUtilisateur.value,
 		type: "GET",
 		dataType: "json",
-		success: function (result) {
-			//si le nom d utilisateur est existant le champs d avertissement va contenir un avertissement sinon il sera vide
-			document.getElementById("avertirNomUtilisateur").innerHTML =
-				result.msg;
-			validerForm(nomUtilisateur);
-		},
-
+		success: gererSucces,
 	});
+	validerForm(nomUtilisateur)
+}
+const gererSucces = (result) => {
+	//si le nom d utilisateur est existant le champs d avertissement va contenir un avertissement sinon il sera vide
+	console.log(result)
+	document.getElementById("avertirNomUtilisateur").innerHTML =
+		result.msg;
 }
 
-
 var tabcourant = 0; // le tab courant est 0 au debut
+var unite = ''
 var unitePrefere = ''
 document.addEventListener('DOMContentLoaded', function () {
+	unite = document.getElementById("unitePrefere");
+	unitePrefere = unite.options[unite.selectedIndex].value;
 	document.getElementById('unitePrefere').addEventListener("change", function () {
 		unite = document.getElementById("unitePrefere");
 		unitePrefere = unite.options[unite.selectedIndex].value;
@@ -131,7 +134,7 @@ function validerForm(element) {
 	// verifie si les inputs d un tab ne sont pas vides
 	// si vide le nom de la classe de l input change a invalid et par css la couleur de background est mis a rouge
 	if (element.name in { "age": '', "taille": '', "poids": '', "objectif_de_poids_saine": '', "objectif_par_semaine": '', "repas_par_jour": '' }) {
-		ageTaillePoids = validerAgeTaillePoids(element.value,element.min,element.max,element.id,unitePrefere)
+		ageTaillePoids = validerAgeTaillePoids(element.value, element.min, element.max, element.id, unitePrefere)
 		valide = ageTaillePoids.validite
 		changerValidite("message " + element.id, ageTaillePoids.valide)
 		ecrireMessage(element, ageTaillePoids.titre, ageTaillePoids.minOuMax, ageTaillePoids.combien)
@@ -141,8 +144,8 @@ function validerForm(element) {
 		valide = courriel.validite;
 		changerMessage(courriel.id, courriel.display)
 	} else if (element.name == "nom_utilisateur") {
-		nomUtilisateurNonExistant=document.getElementById("avertirNomUtilisateur").innerHTML == "";
-		utilisateur = validerUtilisateur(element.value,nomUtilisateurNonExistant);
+		nomUtilisateurNonExistant = document.getElementById("avertirNomUtilisateur").innerHTML == "";
+		utilisateur = validerUtilisateur(element.value, nomUtilisateurNonExistant);
 		valide = utilisateur.validite
 		changerValidite(utilisateur.MinMaj.id, utilisateur.MinMaj.validite)
 		changerValidite(utilisateur.LongMax.id, utilisateur.LongMax.validite)
@@ -166,12 +169,12 @@ function validerForm(element) {
 // si valid l indicateur etape indique le fin de l etape
 // retourn si validee ou pas
 
-function validerAgeTaillePoids(valeur,min,max,id,unitePrefere) {
-	titre =id;
+function validerAgeTaillePoids(valeur, min, max, id, unitePrefere) {
+	titre = id;
 	if (id == "objectif_poids" || id == "objectifSemaine") {
 		if (unitePrefere == "metrique") {
 			titre = 'kg'
-		} else if (unitePrefere == "imperial"){
+		} else if (unitePrefere == "imperial") {
 			titre = 'lbs'
 		}
 	}
@@ -179,7 +182,7 @@ function validerAgeTaillePoids(valeur,min,max,id,unitePrefere) {
 		//document.getElementById("message " + element.id).className = "invalid";
 		//document.getElementById("message " + element.id).innerHTML = "Votre " + element.name.replaceAll("_", " ") + " doit etre plus que " + element.min + " " + titre;
 		return { 'validite': false, 'titre': titre, 'minOuMax': min, 'valide': 'invalid', 'combien': 'plus que ' };
-	} else if (valeur> parseFloat(max)) {
+	} else if (valeur > parseFloat(max)) {
 		//document.getElementById("message " + element.id).className = "invalid";
 		//document.getElementById("message " + element.id).innerHTML = "Votre " + element.name.replaceAll("_", " ") + " doit etre moins que " + element.max + " " + titre;
 		return { 'validite': false, 'titre': titre, 'minOuMax': max, 'valide': 'invalid', 'combien': 'moins que ' };
@@ -258,7 +261,7 @@ function validerMotPasse(valeur) {
 	}
 	return { 'validite': valideLongueur && valideMin && valideMaj && valideNombre, 'nombre': nombre, 'longueurMin': longueurMin, 'maj': maj, 'min': min };
 }
-function validerUtilisateur(valeur,nomUtilisateurNonExistant) {
+function validerUtilisateur(valeur, nomUtilisateurNonExistant) {
 	//peut contenir juste des nombres, lettres majuscules et lettres miniscules et underscore doit etre entre 8 et 20 caracteres
 	//^[a-zA-Z0-9_]{8,20}$
 	valideMinMaj = true;
@@ -357,4 +360,4 @@ function afficherUnite() {
 		metrique.style.display = "none"
 	}
 }
-module.exports = { validerAgeTaillePoids, validerCourriel, validerMotPasse, validerUtilisateur }
+//module.exports = { validerAgeTaillePoids, validerCourriel, validerMotPasse, validerUtilisateur,validerNomUtilisateur,gererSucces}
