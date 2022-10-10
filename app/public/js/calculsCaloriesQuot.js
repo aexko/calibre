@@ -1,12 +1,15 @@
 TDEE=0
+var unitePrefere = ''
+document.getElementById('unitePrefere').addEventListener("change", function () {
+	unite = document.getElementById("unitePrefere");
+	unitePrefere = unite.options[unite.selectedIndex].value;
+	afficherUnite();
+});
 function calculerIMC() {
-
-    unite = document.getElementById("unitePrefere")
-    uniteSelectionne = unite.options[unite.selectedIndex].value
     ImcElement = document.getElementById("Imc")
     Imc = 0;
 
-    if (uniteSelectionne == "metrique") {
+    if (unitePrefere == "metrique") {
         poids = parseFloat(document.getElementById("kg").value)
         taille = parseFloat(document.getElementById("cm").value)
         Imc += +(poids / ((taille / 100) ** 2)).toFixed(2)
@@ -17,7 +20,7 @@ function calculerIMC() {
             afficherIMC(Imc, minEchelle, maxEchelle)
         }
     }
-    else if (uniteSelectionne == "imperial") {
+    else if (unitePrefere == "imperial") {
         poids = parseFloat(document.getElementById("lbs").value)
         tailleFeet = parseFloat(document.getElementById("feet").value)
         tailleInch = parseFloat(document.getElementById("inch").value)
@@ -67,11 +70,9 @@ function atteindreUnpoids() {
 }
 function maintenirUnPoids() {
     atteindrepoids = document.getElementById("objectifPoids").style.display = "none";
-    unite = document.getElementById("unitePrefere");
-    uniteSelectionne = unite.options[unite.selectedIndex].value;
-    if (uniteSelectionne == "metrique") {
+    if (unitePrefere == "metrique") {
         document.getElementById("objectif_poids").value = document.getElementById("kg").value;
-    } else if (uniteSelectionne == "imperial") {
+    } else if (unitePrefere == "imperial") {
         document.getElementById("objectif_poids").value = document.getElementById("lbs").value;
     }
     document.getElementById("objectif_poids").className = ''
@@ -111,12 +112,11 @@ function calculerTDEE() {
     paragraphe.appendChild(node);
     divCalorie.appendChild(paragraphe);
     //atteindrepoids = //document.getElementById("objectifPoids").style.display = "none";
-    unite = document.getElementById("unitePrefere");
-    uniteSelectionne = unite.options[unite.selectedIndex].value;
-    if (uniteSelectionne == "metrique") {
+
+    if (unitePrefere == "metrique") {
 
         document.getElementById("objectifSemaine").max = 1;
-    } else if (uniteSelectionne == "imperial") {
+    } else if (unitePrefere == "imperial") {
 
         document.getElementById("objectifSemaine").max = 2;
     }
@@ -125,13 +125,11 @@ function calculerTDEE() {
     //dépense énergétique quotidienne totale
 }
 function calculerBMR() {
-    unite = document.getElementById("unitePrefere");
-    uniteSelectionne = unite.options[unite.selectedIndex].value;
     genre = document.getElementById("genre");
     genreSelectionne = genre.options[genre.selectedIndex].value;
     age = parseFloat(document.getElementById("ans").value);
     Bmr = 0;
-    if (uniteSelectionne == "metrique") {
+    if (unitePrefere == "metrique") {
         poids = parseFloat(document.getElementById("kg").value)
         taille = parseFloat(document.getElementById("cm").value)
         if (genreSelectionne == "Femme") {
@@ -140,7 +138,7 @@ function calculerBMR() {
             Bmr = (10 * poids) + (6.25 * taille) - (5 * age) + 5;
         }
 
-    } else if (uniteSelectionne == "imperial") {
+    } else if (unitePrefere == "imperial") {
         poids = parseFloat(document.getElementById("lbs").value)
         tailleFeet = parseFloat(document.getElementById("feet").value)
         tailleInch = parseFloat(document.getElementById("inch").value)
@@ -153,14 +151,12 @@ function calculerBMR() {
     return Bmr;
 }
 function calculerCalories() {
-    unite = document.getElementById("unitePrefere");
-    uniteSelectionne = unite.options[unite.selectedIndex].value;
     poidsVisee = parseFloat(document.getElementById("objectif_poids").value);
     poids = 0;
     calories = 0;
     totalJour=0
     parsemaine =parseFloat(document.getElementById("objectifSemaine").value)
-    if (uniteSelectionne == "metrique") {
+    if (unitePrefere == "metrique") {
         poids = parseFloat(document.getElementById("kg").value);
         calories = 7700;
 

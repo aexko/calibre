@@ -6,7 +6,7 @@
 
   </head>
 
-  <body class="container">
+  <body class="container" onload="montrerTab(0);">
     <header><%- include('../partials/header'); %></header>
     <form id="formulaireInscription" method="post">
       <h1>Inscrivez-vous:</h1>
@@ -68,7 +68,6 @@
         <select
           name="unitePrefere"
           id="unitePrefere"
-          onchange="afficherUnite(this.value)"
         >
           <option value="metrique">système métrique</option>
           <option value="imperial">système impérial</option>
