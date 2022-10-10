@@ -6,28 +6,14 @@ l utilisation d ajax permet de faire des requetes sans la rechargement de la pag
 function soummettreFormulaire() {
 	/*si le champs d avertissement de nom d utilisateur est vide on fait une requete post sinon on attend jusqu a
 	 ce qu il sois vide pour proceder avec la requete post ajax*/
-	//if (document.getElementById("avertirNomUtilisateur").innerHTML == "") {
 	var formulaire = $("#formulaireInscription");
 	$.ajax({
 		url: "http://localhost:3000/inscription",
 		type: "POST",
 		data: formulaire.serialize(),
 		dataType: "json",
-		success: function (result) {
-			//on alert le resultat sois : courriel deja existant ou creation avec succes
-			if (result.titre == "existant") {
-				//si le resultat de route post est existant on vide le champs de courriel
-				document.getElementById("email").value = "";
-				//si le nom d utilisateur est existant le champs d avertissement va contenir un avertissement sinon il sera vide
-				document.getElementById("avertirEmail").innerHTML = result.msg;
-			} else {
-				//si le compte a ete cree avec succes on va a la page d accueil
-				alert('votre compte a été crée avec succès');
-				location.replace("/");
-			}
-		},
+		success: gererSuccesCourriel,
 	});
-	//}
 }
 //cette methode permet de valider le nom d utilisateur et elle est appelee a chaque keyup dans le champs de nom d utilisateur
 function validerNomUtilisateur(nomUtilisateur) {
@@ -45,6 +31,20 @@ const gererSucces = (result) => {
 	console.log(result)
 	document.getElementById("avertirNomUtilisateur").innerHTML =
 		result.msg;
+}
+const gererSuccesCourriel = (result)=> {
+	//on alert le resultat sois : courriel deja existant ou creation avec succes
+	if (result.titre == "existant") {
+		//si le resultat de route post est existant on vide le champs de courriel
+		document.getElementById("email").value = "";
+		//si le nom d utilisateur est existant le champs d avertissement va contenir un avertissement sinon il sera vide
+		document.getElementById("avertirEmail").innerHTML = result.msg;
+	} else {
+		//si le compte a ete cree avec succes on va a la page d accueil
+		alert('votre compte a été crée avec succès');
+		console.log('votre compte a été crée avec succès')
+		location.replace("/");
+	}
 }
 
 var tabcourant = 0; // le tab courant est 0 au debut
@@ -360,4 +360,4 @@ function afficherUnite() {
 		metrique.style.display = "none"
 	}
 }
-//module.exports = { validerAgeTaillePoids, validerCourriel, validerMotPasse, validerUtilisateur,validerNomUtilisateur,gererSucces}
+module.exports = { validerAgeTaillePoids, validerCourriel, validerMotPasse, validerUtilisateur, validerNomUtilisateur, gererSucces,gererSuccesCourriel,soummettreFormulaire }

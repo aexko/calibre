@@ -158,24 +158,34 @@ describe("Ajax verification de dupplication du courriel", () => {
     jest.restoreAllMocks();
     $ = require('jquery');
     global.$ = $;
-    document.body.innerHTML='<input id="nomUtilisateur" value="fgfdfdfjjj"/><p id="avertirNomUtilisateur"></p>';
-    nomUtilisateur = document.getElementById('nomUtilisateur');
+    document.body.innerHTML='<input id="email" value="p@qc.ca"/><p id="avertirEmail"></p><form id="formulaireInscription"><form/>';
+    formulaire = $("#formulaireInscription");
+    email = document.getElementById('email');
+    avertirEmail=document.getElementById('avertirEmail');
   });
   it("la methode est appelé", () => {
     const ajaxSpy = jest.spyOn($, "ajax");
-    index.validerNomUtilisateur(nomUtilisateur);
+    index.soummettreFormulaire(nomUtilisateur);
     expect(ajaxSpy).toBeCalledWith({
-      type: "GET",
+      type: "POST",
+      data: formulaire.serialize(),
       dataType: "json",
-      url: "http://localhost:3000/inscription/" + nomUtilisateur.value,
+      url: "http://localhost:3000/inscription",
       success: expect.any(Function),
     });
   });
 
-  it("gere le succes", () => {
-    const nomUtilisateur = { nomUtilisateur: 'fgfdfdfjjj' };
+  it("gere le succes, courriel deja existant", () => {
+    const resultat = {titre:'existant',msg:'cette courriel a deja ete prise'};
+    index.gererSuccesCourriel(resultat);
+    expect(email.value).toBe('');
+    expect(avertirEmail.innerHTML).toBe(resultat.msg);
+  });
+  it("gere le succes, courriel non existant", () => {
+    const resultat = {titre:'',msg:''};    
     const logSpy = jest.spyOn(console, "log");
-    index.gererSucces(nomUtilisateur);
-    expect(logSpy).toBeCalledWith(nomUtilisateur);
+    index.gererSuccesCourriel(resultat);
+    expect(email.value).toBe('p@qc.ca');
+    expect(logSpy).toBeCalledWith('votre compte a été crée avec succès');
   });
 });
