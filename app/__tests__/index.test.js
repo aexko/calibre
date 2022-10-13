@@ -146,10 +146,10 @@ describe("Ajax verification de dupplication du nom d'utilisateur", () => {
   });
 
   it("gere le succes", () => {
-    const nomUtilisateur = { nomUtilisateur: 'fgfdfdfjjj' };
+    const message = { msg: '' };
     const logSpy = jest.spyOn(console, "log");
-    index.gererSucces(nomUtilisateur);
-    expect(logSpy).toBeCalledWith(nomUtilisateur);
+    index.gererSucces(message);
+    expect(logSpy).toBeCalledWith(message.msg);
   });
 });
 
@@ -183,9 +183,9 @@ describe("Ajax verification de dupplication du courriel", () => {
   });
   it("gere le succes, courriel non existant", () => {
     const resultat = {titre:'',msg:''};    
-    const logSpy = jest.spyOn(console, "log");
+    const alertSpy = jest.spyOn(window, 'alert').mockImplementation(() => {});
     index.gererSuccesCourriel(resultat);
     expect(email.value).toBe('p@qc.ca');
-    expect(logSpy).toBeCalledWith('votre compte a été crée avec succès');
+    expect(alertSpy).toBeCalledWith('votre compte a été crée avec succès');
   });
 });

@@ -28,7 +28,7 @@ async function validerNomUtilisateur(nomUtilisateur) {
 }
 const gererSucces = (result) => {
 	//si le nom d utilisateur est existant le champs d avertissement va contenir un avertissement sinon il sera vide
-	console.log(result)
+	console.log(result.msg)
 	document.getElementById("avertirNomUtilisateur").innerHTML =
 		result.msg;
 }
@@ -42,7 +42,6 @@ const gererSuccesCourriel = (result)=> {
 	} else {
 		//si le compte a ete cree avec succes on va a la page d accueil
 		alert('votre compte a été crée avec succès');
-		console.log('votre compte a été crée avec succès')
 		location.replace("/");
 	}
 }
