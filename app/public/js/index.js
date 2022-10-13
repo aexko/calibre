@@ -106,12 +106,12 @@ function changerTab(n) {
 }
 function validerTab() {
 	// cette fonction permet de valider le tab courant
-	valide = true;
+	var valide = true;
 	var x, y, i;
 	x = document.getElementsByClassName("tab");
 	y = x[tabcourant].getElementsByTagName("input");
 	// verifie si les inputs d un tab ne sont pas vides
-	for (i = 0; i < y.length; i++) {
+	for (let i = 0; i < y.length; i++) {
 		// si vide le nom de la classe de l input change a invalid et par css la couleur de background est mis a rouge
 		if (y[i].className == "invalid" && !y[i].disabled) {
 			// valid est mis a faux
@@ -128,31 +128,31 @@ function validerTab() {
 	return valide; // retourn si validee ou pas
 }
 function validerForm(element) {
-	valide = true;
+	var valide = true;
 	// cette fonction permet de valider le tab courant
 
 	// verifie si les inputs d un tab ne sont pas vides
 	// si vide le nom de la classe de l input change a invalid et par css la couleur de background est mis a rouge
 	if (element.name in { "age": '', "taille": '', "poids": '', "objectif_de_poids_saine": '', "objectif_par_semaine": '', "repas_par_jour": '' }) {
-		ageTaillePoids = validerAgeTaillePoids(element.value, element.min, element.max, element.id, unitePrefere)
+		let ageTaillePoids = validerAgeTaillePoids(element.value, element.min, element.max, element.id, unitePrefere)
 		valide = ageTaillePoids.validite
 		changerValidite("message " + element.id, ageTaillePoids.valide)
 		ecrireMessage(element, ageTaillePoids.titre, ageTaillePoids.minOuMax, ageTaillePoids.combien)
 
 	} else if (element.name == "email") {
-		courriel = validerCourriel(element.value);
+		let courriel = validerCourriel(element.value);
 		valide = courriel.validite;
 		changerMessage(courriel.id, courriel.display)
 	} else if (element.name == "nom_utilisateur") {
-		nomUtilisateurNonExistant = document.getElementById("avertirNomUtilisateur").innerHTML == "";
-		utilisateur = validerUtilisateur(element.value, nomUtilisateurNonExistant);
+		let nomUtilisateurNonExistant = document.getElementById("avertirNomUtilisateur").innerHTML == "";
+		let utilisateur = validerUtilisateur(element.value, nomUtilisateurNonExistant);
 		valide = utilisateur.validite
 		changerValidite(utilisateur.MinMaj.id, utilisateur.MinMaj.validite)
 		changerValidite(utilisateur.LongMax.id, utilisateur.LongMax.validite)
 		changerValidite(utilisateur.LongMin.id, utilisateur.LongMin.validite)
 		changerMessage("patternUtilisateur", "block")
 	} else if (element.name == "mot_passe") {
-		motPasse = validerMotPasse(element.value);
+		let motPasse = validerMotPasse(element.value);
 		valide = motPasse.validite
 		changerValidite(motPasse.min.id, motPasse.min.validite)
 		changerValidite(motPasse.maj.id, motPasse.maj.validite)
@@ -170,7 +170,7 @@ function validerForm(element) {
 // retourn si validee ou pas
 
 function validerAgeTaillePoids(valeur, min, max, id, unitePrefere) {
-	titre = id;
+	var titre = id;
 	if (id == "objectif_poids" || id == "objectifSemaine") {
 		if (unitePrefere == "metrique") {
 			titre = 'kg'
@@ -192,7 +192,7 @@ function validerAgeTaillePoids(valeur, min, max, id, unitePrefere) {
 	return { 'validite': true, 'titre': '', 'minOuMax': '', 'valide': 'valid', 'combien': '' };
 }
 function validerCourriel(valeur) {
-	pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/g;
+	var pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/g;
 	if (valeur.match(pattern)) {
 		//document.getElementById("messageCourriel").style.display = "none"
 		return { 'id': "messageCourriel", 'display': "none", 'validite': true };
@@ -204,12 +204,12 @@ function validerCourriel(valeur) {
 }
 function validerMotPasse(valeur) {
 	//pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-	valideMin = true;
-	min = { id: '', validite: '' }
-	maj = { id: '', validite: '' }
-	nombre = { id: '', validite: '' }
-	longueurMin = { id: '', validite: '' }
-	pattern = /[a-z]/g;
+	var valideMin = true;
+	var min = { id: '', validite: '' }
+	var maj = { id: '', validite: '' }
+	var nombre = { id: '', validite: '' }
+	var longueurMin = { id: '', validite: '' }
+	var pattern = /[a-z]/g;
 	if (valeur.match(pattern)) {
 		//document.getElementById("minisculeMotPasse").className = "valid";
 		min.id = "minisculeMotPasse"
@@ -264,11 +264,11 @@ function validerMotPasse(valeur) {
 function validerUtilisateur(valeur, nomUtilisateurNonExistant) {
 	//peut contenir juste des nombres, lettres majuscules et lettres miniscules et underscore doit etre entre 8 et 20 caracteres
 	//^[a-zA-Z0-9_]{8,20}$
-	valideMinMaj = true;
-	MinMaj = { id: '', validite: '' }
-	LongMin = { id: '', validite: '' }
-	LongMax = { id: '', validite: '' }
-	commenceMiniscule = /^[a-zA-Z0-9_]+$/g;
+	var valideMinMaj = true;
+	var MinMaj = { id: '', validite: '' }
+	var LongMin = { id: '', validite: '' }
+	var LongMax = { id: '', validite: '' }
+	var commenceMiniscule = /^[a-zA-Z0-9_]+$/g;
 	if (valeur.match(commenceMiniscule)) {
 		//document.getElementById("minisculeUtilisateur").className = "valid";
 		MinMaj.id = "minisculeUtilisateur"
@@ -326,18 +326,19 @@ function ecrireMessage(element, titre, maxouMin, combien) {
 }
 function indiquerEtap(n) {
 	// cette methode permet d afficher l indicateur d etape
-	var i, x = document.getElementsByClassName("step");
-	for (i = 0; i < x.length; i++) {
+	var i, x
+	i, x = document.getElementsByClassName("step");
+	for (let i = 0; i < x.length; i++) {
 		x[i].className = x[i].className.replace(" active", "");
 	}
 	//ajout active au nom de classe 
 	x[n].className += " active";
 }
 function afficherUnite() {
-	imperial = document.getElementById("imperial");
-	imperialInputs = imperial.getElementsByTagName("input");
-	metrique = document.getElementById("metrique");
-	metriqueInputs = metrique.getElementsByTagName("input");
+	var imperial = document.getElementById("imperial");
+	var imperialInputs = imperial.getElementsByTagName("input");
+	var metrique = document.getElementById("metrique");
+	var metriqueInputs = metrique.getElementsByTagName("input");
 
 	if (unitePrefere == "metrique") {
 		for (const input of imperialInputs) {

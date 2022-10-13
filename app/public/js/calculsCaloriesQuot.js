@@ -66,7 +66,6 @@ function afficherIMC(Imc, minEchelle, maxEchelle) {
     ImcDescription.appendChild(paragraphe);
     document.getElementById("objectif_poids").max = maxEchelle;
     document.getElementById("objectif_poids").min = minEchelle;
-    alert(maxEchelle + '' + maxEchelle)
 }
 function atteindreUnpoids() {
     document.getElementById("objectifPoids").style.display = "block";
