@@ -16,9 +16,9 @@ function soummettreFormulaire() {
 	});
 }
 //cette methode permet de valider le nom d utilisateur et elle est appelee a chaque keyup dans le champs de nom d utilisateur
-function validerNomUtilisateur(nomUtilisateur) {
+async function validerNomUtilisateur(nomUtilisateur) {
 	//on fait une requete get ajax pour verifier si le nom d utilisateur est deja existant dans la bd
-	$.ajax({
+	await $.ajax({
 		url: "http://localhost:3000/inscription/" + nomUtilisateur.value,
 		type: "GET",
 		dataType: "json",
