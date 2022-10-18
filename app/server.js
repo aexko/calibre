@@ -194,6 +194,14 @@ app.post("/profil", checkAuthenticated, async (req, res) => {
 
 	res.redirect("/profil");
 });
+app.post("/metre_a_jour_poid", checkAuthenticated, async(req, res) => {
+
+    var nouveau_poids = parseInt(req.body.poids);
+    utilisateurCourant.poids = nouveau_poids;
+    await modelUtilisateur.findOneAndUpdate({ email: utilisateurCourant.email }, { poids: nouveau_poids });
+    // console.log("allo")
+    res.redirect("/profil");
+});
 //cette routage permet de recevoir un formulaire d inscription et de les stocker dans la bd
 app.post("/inscription", checkNotAuthenticated, async (req, res) => {
 	//les donnes a stocker dans la bd

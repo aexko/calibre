@@ -45,7 +45,7 @@
     <p></p>
     <button onclick="  afficherDiv('AjouterCalorie')">Ajouter des Calories</button>
 
-    <form action="" id="AjouterCalorie" style="display:none;" method="post">
+    <form action="/ajouter_calorie" id="AjouterCalorie" style="display:none;" method="post">
         <p>Ajouter manuellement les calories de votre repas</p>
 
         <input type="text" id="calorie" name="calorie" placeholder="expl: 150 (KCal)" />
@@ -62,8 +62,9 @@
             <%=utilisateurCourant.age%> <br>Taille:
                 <%=utilisateurCourant.taille%> <br> Poids actuel:
                     <%=utilisateurCourant.poids%> <button onclick=" afficherDiv('modifier_poids')">+</button>
-                        <form class="modifier_poids" id="modifier_poids" style="display:none;" method="post">
-                            <input type="number" id="poids" max="200" min="15" placeholder="entrez votre nouveau poids">
+                        <form action="/metre_a_jour_poid" class="modifier_poids" id="modifier_poids" style="display:none;" method="post">
+                            <input type="number" id="poids" name="poids" max="200" min="15" placeholder="entrez votre nouveau poids">
+                            <input type="submit" value="Modifier" name="action"> </button>
 
 
                         </form> <br> IMC:

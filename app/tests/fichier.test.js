@@ -46,12 +46,24 @@ test("tester encryption des mots de passe", () => {
 });
 test("tester mise jour des calories", async() => {
     try {
-        utilisateur_test = new utilisateur({ username: "paul", email: "paul@gmail.com", calorie_quotidien_consommee: 278 })
+        utilisateur_test = new utilisateur({ username: "paul", email: "paul@gmail.com", calorie_quotidien_consommee: 250 })
         utilisateur_test.save()
-        utilisateur_test.calorie_quotidien_consommee += 670
 
+        utilisateur_test.calorie_quotidien_consommee += 400
         let resultat = utilisateur_test.calorie_quotidien_consommee
-        expect(resultat).toEqual(948)
+        expect(resultat).toEqual(650)
+    } catch (err) {
+        throw new Error(err)
+    }
+});
+test("tester mise a jour poids", async() => {
+    try {
+        const utilisateur_test = await utilisateur.findOne({ email: "lyna@lyna.a" });
+
+        utilisateur_test.poids = 60
+        utilisateur_test.save()
+
+        expect(utilisateur_test.poids).toEqual(60)
     } catch (err) {
         throw new Error(err)
     }
