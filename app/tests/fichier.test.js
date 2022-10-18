@@ -56,3 +56,15 @@ test("tester mise jour des calories", async() => {
         throw new Error(err)
     }
 });
+test("tester mise a jour poids", async() => {
+    try {
+        const utilisateur_test = await utilisateur.findOne({ email: "lyna@lyna.a" });
+
+        utilisateur_test.poids = 60
+        utilisateur_test.save()
+
+        expect(utilisateur_test.poids).toEqual(60)
+    } catch (err) {
+        throw new Error(err)
+    }
+});
