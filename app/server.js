@@ -263,3 +263,7 @@ async function StockerUtilisateur(req, res, next) {
 
     next();
 }
+
+
+const utilisateurRoutes = require("./routes/utilisateur");
+
