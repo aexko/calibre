@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include('../partials/head'); %>
+</head>
+
+<body class="container">
+
+  <header>
+    <%- include('../partials/header'); %>
+  </header>
+
+  <main>
+    <div class="jumbotron">
+      <h1>Log des activites</h1>
+      <form action="/create" method="post" id="form_activites">
+        <div id="field">
+
+          <input type="text" placeholder="Titre de l'activité physique" id="titre_activite">
+        </div>
+        <br>
+        <input type="text" placeholder="Durée de l'activité" id="duree_activite"> <br>
+
+        <button type="submit">Envoyer</button>
+      </form>
+    </div>
+  </main>
+
+  <footer>
+    <%- include('../partials/footer'); %>
+  </footer>
+  <script src="gestionActivites.js"></script>
+</body>
+
+</html>
