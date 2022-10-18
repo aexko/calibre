@@ -1,9 +1,14 @@
-TDEE=0
+TDEE = 0
+var unite = ''
 var unitePrefere = ''
-document.getElementById('unitePrefere').addEventListener("change", function () {
+document.addEventListener('DOMContentLoaded', function () {
 	unite = document.getElementById("unitePrefere");
 	unitePrefere = unite.options[unite.selectedIndex].value;
-	afficherUnite();
+	document.getElementById('unitePrefere').addEventListener("change", function () {
+		unite = document.getElementById("unitePrefere");
+		unitePrefere = unite.options[unite.selectedIndex].value;
+		afficherUnite();
+	});
 });
 function calculerIMC() {
     ImcElement = document.getElementById("Imc")
@@ -61,7 +66,6 @@ function afficherIMC(Imc, minEchelle, maxEchelle) {
     ImcDescription.appendChild(paragraphe);
     document.getElementById("objectif_poids").max = maxEchelle;
     document.getElementById("objectif_poids").min = minEchelle;
-
 }
 function atteindreUnpoids() {
     document.getElementById("objectifPoids").style.display = "block";
@@ -154,8 +158,8 @@ function calculerCalories() {
     poidsVisee = parseFloat(document.getElementById("objectif_poids").value);
     poids = 0;
     calories = 0;
-    totalJour=0
-    parsemaine =parseFloat(document.getElementById("objectifSemaine").value)
+    totalJour = 0
+    parsemaine = parseFloat(document.getElementById("objectifSemaine").value)
     if (unitePrefere == "metrique") {
         poids = parseFloat(document.getElementById("kg").value);
         calories = 7700;
@@ -169,19 +173,19 @@ function calculerCalories() {
         DifferenceEnCalories = difference * calories;
         joursRequis = difference / parsemaine * 7;
         ajouterParJour = DifferenceEnCalories / joursRequis
-        totalJour=ajouterParJour+parseFloat(TDEE)
-        document.getElementById("consommerParJour").innerHTML= "Afin d'arriver à votre objectif, vous devez consommer "+totalJour+" calories par jour, soit "+ajouterParJour+" de plus par jour, dans "+joursRequis+" jours"
+        totalJour = ajouterParJour + parseFloat(TDEE)
+        document.getElementById("consommerParJour").innerHTML = "Afin d'arriver à votre objectif, vous devez consommer " + totalJour + " calories par jour, soit " + ajouterParJour + " de plus par jour, dans " + joursRequis + " jours"
 
     } else if (poidsVisee == poids) {
-        totalJour=TDEE
-        document.getElementById("consommerParJour").innerHTML= "Afin d'arriver à votre objectif, vous devez consommer "+TDEE+" par jour"
+        totalJour = TDEE
+        document.getElementById("consommerParJour").innerHTML = "Afin d'arriver à votre objectif, vous devez consommer " + TDEE + " par jour"
     } else {
         difference = poids - poidsVisee;
         DifferenceEnCalories = difference * calories;
         joursRequis = difference / parsemaine * 7;
         enleverParJour = DifferenceEnCalories / joursRequis
-        totalJour=parseFloat(TDEE)-enleverParJour
-        document.getElementById("consommerParJour").innerHTML= "Afin d'arriver à votre objectif, vous devez consommer "+totalJour+" calories par jour, soit "+enleverParJour+" de moins par jour, dans "+joursRequis+" jours"
+        totalJour = parseFloat(TDEE) - enleverParJour
+        document.getElementById("consommerParJour").innerHTML = "Afin d'arriver à votre objectif, vous devez consommer " + totalJour + " calories par jour, soit " + enleverParJour + " de moins par jour, dans " + joursRequis + " jours"
     }
 
 

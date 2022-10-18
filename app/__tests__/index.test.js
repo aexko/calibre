@@ -1,4 +1,5 @@
 const index = require('../public/js/index');
+
 //import {validerAgeTaillePoids,validerCourriel,validerMotPasse,validerNomUtilisateur} from '../public/js/index';
 
 test('a@ est un courriel invalide', () => {
@@ -123,4 +124,68 @@ test("62 kg est un objectif de poids invalide si min 50 kg et max 60 kg.", () =>
   expect(fonction.validite).toBe(false);
   expect(fonction. titre).toBe('kg');
   expect(fonction. minOuMax).toBe(max);
+});
+
+describe("Ajax verification de dupplication du nom d'utilisateur", () => {
+  beforeEach(() => {
+    jest.restoreAllMocks();
+    $ = require('jquery');
+    global.$ = $;
+    document.body.innerHTML='<input id="nomUtilisateur" value="fgfdfdfjjj"/><p id="avertirNomUtilisateur"></p>';
+    nomUtilisateur = document.getElementById('nomUtilisateur');
+  });
+  it("la methode est appelé", () => {
+    const ajaxSpy = jest.spyOn($, "ajax");
+    index.validerNomUtilisateur(nomUtilisateur);
+    expect(ajaxSpy).toBeCalledWith({
+      type: "GET",
+      dataType: "json",
+      url: "http://localhost:3000/inscription/" + nomUtilisateur.value,
+      success: expect.any(Function),
+    });
+  });
+
+  it("gere le succes", () => {
+    const message = { msg: '' };
+    const logSpy = jest.spyOn(console, "log");
+    index.gererSucces(message);
+    expect(logSpy).toBeCalledWith(message.msg);
+  });
+});
+
+describe("Ajax verification de dupplication du courriel", () => {
+  beforeEach(() => {
+    jest.restoreAllMocks();
+    $ = require('jquery');
+    global.$ = $;
+    document.body.innerHTML='<input id="email" value="p@qc.ca"/><p id="avertirEmail"></p><form id="formulaireInscription"><form/>';
+    formulaire = $("#formulaireInscription");
+    email = document.getElementById('email');
+    avertirEmail=document.getElementById('avertirEmail');
+  });
+  it("la methode est appelé", () => {
+    const ajaxSpy = jest.spyOn($, "ajax");
+    index.soummettreFormulaire(nomUtilisateur);
+    expect(ajaxSpy).toBeCalledWith({
+      type: "POST",
+      data: formulaire.serialize(),
+      dataType: "json",
+      url: "http://localhost:3000/inscription",
+      success: expect.any(Function),
+    });
+  });
+
+  it("gere le succes, courriel deja existant", () => {
+    const resultat = {titre:'existant',msg:'cette courriel a deja ete prise'};
+    index.gererSuccesCourriel(resultat);
+    expect(email.value).toBe('');
+    expect(avertirEmail.innerHTML).toBe(resultat.msg);
+  });
+  it("gere le succes, courriel non existant", () => {
+    const resultat = {titre:'',msg:''};    
+    const alertSpy = jest.spyOn(window, 'alert').mockImplementation(() => {});
+    index.gererSuccesCourriel(resultat);
+    expect(email.value).toBe('p@qc.ca');
+    expect(alertSpy).toBeCalledWith('votre compte a été crée avec succès');
+  });
 });

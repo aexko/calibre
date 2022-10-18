@@ -7,10 +7,10 @@ const schemaUtilisateur = mongoose.Schema({
     email: String,
     nom_utilisateur: String,
     mot_passe: String,
-    unitePrefere: String,
+    unitePrefere:String,
     poids: Number,
-    calorie_quotidien_consommee: Number,
-    taille: Number,
+    taille: [{
+    }],
     genre: String,
     id_niveau_activite_physique: String,
     imc: Number,
@@ -32,7 +32,6 @@ const schemaUtilisateur = mongoose.Schema({
         }],
     }]
 });
-
 
 const Utilisateur = mongoose.model("Utilisateur", schemaUtilisateur);
 module.exports = Utilisateur;
