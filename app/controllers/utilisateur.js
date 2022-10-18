@@ -65,3 +65,12 @@ exports.getActivite = (req, res, next) => {
 		.catch((err) => console.log(err));
 };
 
+exports.deleteActivite = (req, res, next) => {
+	const activiteId = req.body.activiteId;
+	Activite.findByIdAndRemove(activiteId)
+		.then(() => {
+			console.log("Activite supprimee");
+			res.redirect("/ajouter-activite");
+		})
+		.catch((err) => console.log(err));
+};
