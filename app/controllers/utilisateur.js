@@ -52,3 +52,16 @@ exports.editActivite = (req, res, next) => {
 		});
 };
 
+exports.getActivite = (req, res, next) => {
+	const activiteId = req.params.activiteId;
+	Activite.findById(activiteId)
+		.then((activite) => {
+			res.render("ajouter-activite", {
+				pageTitle: "Afficher une activité",
+				path: "/ajouter-activite",
+				activite: activite,
+			});
+		})
+		.catch((err) => console.log(err));
+};
+
