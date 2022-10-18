@@ -4,11 +4,11 @@
 <head>
     <%- include('../partials/head'); %>
         <link type="text/css" rel="stylesheet" href="../css/style.css" />
-
+        <script src="../js/progress_barjs"></script>
 </head>
 <php></php>
 
-<body class="container" onload="progress_bar() ">
+<body class="container">
     <header>
         <%- include('../partials/header'); %>
     </header>
@@ -91,17 +91,19 @@
                                 function progress_bar() {
                                     const valeur = document.getElementById("calorie_consomme");
                                     const max = document.getElementById("calorie_recommendee");
+                                    const maximum = "30%";
+                                    var bar = document.getElementById("progress-done");
                                     console.log(max)
                                     let valeurFinale = 0;
-                                    let maximum = 0;
+
 
 
                                     valeurFinale = parseInt(valeur.value, 10);
                                     maximum = parseInt(max.value, 10);
                                     var pourcentage = valeurFinale / maximum * 100;
-                                    let largeur = pourcentage + "%";
+                                    var largeur = maximum + "%";
 
-                                    document.getElementById("progress-done").style.width = "40%"
+                                    bar.style.width = "20%";
 
                                     //  return pourcentage
                                 }
