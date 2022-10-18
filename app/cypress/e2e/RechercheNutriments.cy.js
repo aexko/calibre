@@ -10,6 +10,9 @@ describe("Chercher un nutriment", () => {
 	});
 
 	it('Les données sont correctes"', () => {
-		cy.get(".jumbotron > p > span")
+		cy.get("#nom_nutriment").should("have.text", "banana");
+		cy.get("#id_nutriment").should("have.text", "9040");
+		cy.get("#quantite_calories").should("have.text", "0.12");
+		cy.get("#type_nutriment").should("have.text", "tropical fruit");
 	});
 });
