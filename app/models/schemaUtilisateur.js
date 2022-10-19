@@ -7,14 +7,14 @@ const schemaUtilisateur = mongoose.Schema({
     email: String,
     nom_utilisateur: String,
     mot_passe: String,
-    unitePrefere:String,
+    unitePrefere: String,
     poids: Number,
-    taille: [{
-    }],
+    taille: [{}],
     genre: String,
     id_niveau_activite_physique: String,
     imc: Number,
     calorie_quotidien_recommendee: Number,
+    calorie_quotidien_consommee: Number,
     restrictions_alim: [{
         id: Number,
         nom: String,
