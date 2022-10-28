@@ -435,6 +435,7 @@ var Vue = (function (exports) {
   let activeEffectScope;
   class EffectScope {
       constructor(detached = false) {
+          this.detached = detached;
           /**
            * @internal
            */
@@ -447,8 +448,8 @@ var Vue = (function (exports) {
            * @internal
            */
           this.cleanups = [];
+          this.parent = activeEffectScope;
           if (!detached && activeEffectScope) {
-              this.parent = activeEffectScope;
               this.index =
                   (activeEffectScope.scopes || (activeEffectScope.scopes = [])).push(this) - 1;
           }
@@ -497,7 +498,7 @@ var Vue = (function (exports) {
                   }
               }
               // nested scope, dereference from parent to avoid memory leaks
-              if (this.parent && !fromParent) {
+              if (!this.detached && this.parent && !fromParent) {
                   // optimized O(1) removal
                   const last = this.parent.scopes.pop();
                   if (last && last !== this) {
@@ -505,6 +506,7 @@ var Vue = (function (exports) {
                       last.index = this.index;
                   }
               }
+              this.parent = undefined;
               this.active = false;
           }
       }
@@ -2203,8 +2205,15 @@ var Vue = (function (exports) {
   const devtoolsComponentAdded = /*#__PURE__*/ createDevtoolsComponentHook("component:added" /* DevtoolsHooks.COMPONENT_ADDED */);
   const devtoolsComponentUpdated = 
   /*#__PURE__*/ createDevtoolsComponentHook("component:updated" /* DevtoolsHooks.COMPONENT_UPDATED */);
-  const devtoolsComponentRemoved = 
-  /*#__PURE__*/ createDevtoolsComponentHook("component:removed" /* DevtoolsHooks.COMPONENT_REMOVED */);
+  const _devtoolsComponentRemoved = /*#__PURE__*/ createDevtoolsComponentHook("component:removed" /* DevtoolsHooks.COMPONENT_REMOVED */);
+  const devtoolsComponentRemoved = (component) => {
+      if (exports.devtools &&
+          typeof exports.devtools.cleanupBuffer === 'function' &&
+          // remove the component if it wasn't buffered
+          !exports.devtools.cleanupBuffer(component)) {
+          _devtoolsComponentRemoved(component);
+      }
+  };
   function createDevtoolsComponentHook(hook) {
       return (component) => {
           emit(hook, component.appContext.app, component.uid, component.parent ? component.parent.uid : undefined, component);
@@ -2419,10 +2428,15 @@ var Vue = (function (exports) {
               setBlockTracking(-1);
           }
           const prevInstance = setCurrentRenderingInstance(ctx);
-          const res = fn(...args);
-          setCurrentRenderingInstance(prevInstance);
-          if (renderFnWithContext._d) {
-              setBlockTracking(1);
+          let res;
+          try {
+              res = fn(...args);
+          }
+          finally {
+              setCurrentRenderingInstance(prevInstance);
+              if (renderFnWithContext._d) {
+                  setBlockTracking(1);
+              }
           }
           {
               devtoolsComponentUpdated(ctx);
@@ -2759,7 +2773,8 @@ var Vue = (function (exports) {
       normalize: normalizeSuspenseChildren
   };
   // Force-casted public typing for h and TSX props inference
-  const Suspense = (SuspenseImpl );
+  const Suspense = (SuspenseImpl
+      );
   function triggerEvent(vnode, name) {
       const eventListener = vnode.props && vnode.props[name];
       if (isFunction(eventListener)) {
@@ -4251,7 +4266,7 @@ var Vue = (function (exports) {
   const createHook = (lifecycle) => (hook, target = currentInstance) => 
   // post-create lifecycle registrations are noops during SSR (except for serverPrefetch)
   (!isInSSRComponentSetup || lifecycle === "sp" /* LifecycleHooks.SERVER_PREFETCH */) &&
-      injectHook(lifecycle, hook, target);
+      injectHook(lifecycle, (...args) => hook(...args), target);
   const onBeforeMount = createHook("bm" /* LifecycleHooks.BEFORE_MOUNT */);
   const onMounted = createHook("m" /* LifecycleHooks.MOUNTED */);
   const onBeforeUpdate = createHook("bu" /* LifecycleHooks.BEFORE_UPDATE */);
@@ -4474,7 +4489,10 @@ var Vue = (function (exports) {
               slots[slot.name] = slot.key
                   ? (...args) => {
                       const res = slot.fn(...args);
-                      res.key = slot.key;
+                      // attach branch key so each conditional branch is considered a
+                      // different fragment
+                      if (res)
+                          res.key = slot.key;
                       return res;
                   }
                   : slot.fn;
@@ -5711,7 +5729,7 @@ var Vue = (function (exports) {
           return rawSlot;
       }
       const normalized = withCtx((...args) => {
-          if (currentInstance) {
+          if (true && currentInstance) {
               warn$1(`Slot "${key}" invoked outside of the render function: ` +
                   `this will not track dependencies used in the slot. ` +
                   `Invoke the slot function inside the render function instead.`);
@@ -6042,7 +6060,11 @@ var Vue = (function (exports) {
           if (_isString || _isRef) {
               const doSet = () => {
                   if (rawRef.f) {
-                      const existing = _isString ? refs[ref] : ref.value;
+                      const existing = _isString
+                          ? hasOwn(setupState, ref)
+                              ? setupState[ref]
+                              : refs[ref]
+                          : ref.value;
                       if (isUnmount) {
                           isArray(existing) && remove(existing, refValue);
                       }
@@ -6126,7 +6148,7 @@ var Vue = (function (exports) {
           const isFragmentStart = isComment(node) && node.data === '[';
           const onMismatch = () => handleMismatch(node, vnode, parentComponent, parentSuspense, slotScopeIds, isFragmentStart);
           const { type, ref, shapeFlag, patchFlag } = vnode;
-          const domType = node.nodeType;
+          let domType = node.nodeType;
           vnode.el = node;
           if (patchFlag === -2 /* PatchFlags.BAIL */) {
               optimized = false;
@@ -6166,10 +6188,12 @@ var Vue = (function (exports) {
                   }
                   break;
               case Static:
-                  if (domType !== 1 /* DOMNodeTypes.ELEMENT */ && domType !== 3 /* DOMNodeTypes.TEXT */) {
-                      nextNode = onMismatch();
+                  if (isFragmentStart) {
+                      // entire template is static but SSRed as a fragment
+                      node = nextSibling(node);
+                      domType = node.nodeType;
                   }
-                  else {
+                  if (domType === 1 /* DOMNodeTypes.ELEMENT */ || domType === 3 /* DOMNodeTypes.TEXT */) {
                       // determine anchor, adopt content
                       nextNode = node;
                       // if the static vnode has its content stripped during build,
@@ -6186,7 +6210,10 @@ var Vue = (function (exports) {
                           }
                           nextNode = nextSibling(nextNode);
                       }
-                      return nextNode;
+                      return isFragmentStart ? nextSibling(nextNode) : nextNode;
+                  }
+                  else {
+                      onMismatch();
                   }
                   break;
               case Fragment:
@@ -6511,7 +6538,7 @@ var Vue = (function (exports) {
       {
           setDevtoolsHook(target.__VUE_DEVTOOLS_GLOBAL_HOOK__, target);
       }
-      const { insert: hostInsert, remove: hostRemove, patchProp: hostPatchProp, createElement: hostCreateElement, createText: hostCreateText, createComment: hostCreateComment, setText: hostSetText, setElementText: hostSetElementText, parentNode: hostParentNode, nextSibling: hostNextSibling, setScopeId: hostSetScopeId = NOOP, cloneNode: hostCloneNode, insertStaticContent: hostInsertStaticContent } = options;
+      const { insert: hostInsert, remove: hostRemove, patchProp: hostPatchProp, createElement: hostCreateElement, createText: hostCreateText, createComment: hostCreateComment, setText: hostSetText, setElementText: hostSetElementText, parentNode: hostParentNode, nextSibling: hostNextSibling, setScopeId: hostSetScopeId = NOOP, insertStaticContent: hostInsertStaticContent } = options;
       // Note: functions inside this closure should use `const xxx = () => {}`
       // style in order to prevent being inlined by minifiers.
       const patch = (n1, n2, container, anchor = null, parentComponent = null, parentSuspense = null, isSVG = false, slotScopeIds = null, optimized = isHmrUpdating ? false : !!n2.dynamicChildren) => {
@@ -6638,46 +6665,44 @@ var Vue = (function (exports) {
       const mountElement = (vnode, container, anchor, parentComponent, parentSuspense, isSVG, slotScopeIds, optimized) => {
           let el;
           let vnodeHook;
-          const { type, props, shapeFlag, transition, patchFlag, dirs } = vnode;
-          {
-              el = vnode.el = hostCreateElement(vnode.type, isSVG, props && props.is, props);
-              // mount children first, since some props may rely on child content
-              // being already rendered, e.g. `<select value>`
-              if (shapeFlag & 8 /* ShapeFlags.TEXT_CHILDREN */) {
-                  hostSetElementText(el, vnode.children);
-              }
-              else if (shapeFlag & 16 /* ShapeFlags.ARRAY_CHILDREN */) {
-                  mountChildren(vnode.children, el, null, parentComponent, parentSuspense, isSVG && type !== 'foreignObject', slotScopeIds, optimized);
-              }
-              if (dirs) {
-                  invokeDirectiveHook(vnode, null, parentComponent, 'created');
-              }
-              // props
-              if (props) {
-                  for (const key in props) {
-                      if (key !== 'value' && !isReservedProp(key)) {
-                          hostPatchProp(el, key, null, props[key], isSVG, vnode.children, parentComponent, parentSuspense, unmountChildren);
-                      }
-                  }
-                  /**
-                   * Special case for setting value on DOM elements:
-                   * - it can be order-sensitive (e.g. should be set *after* min/max, #2325, #4024)
-                   * - it needs to be forced (#1471)
-                   * #2353 proposes adding another renderer option to configure this, but
-                   * the properties affects are so finite it is worth special casing it
-                   * here to reduce the complexity. (Special casing it also should not
-                   * affect non-DOM renderers)
-                   */
-                  if ('value' in props) {
-                      hostPatchProp(el, 'value', null, props.value);
-                  }
-                  if ((vnodeHook = props.onVnodeBeforeMount)) {
-                      invokeVNodeHook(vnodeHook, parentComponent, vnode);
-                  }
-              }
-              // scopeId
-              setScopeId(el, vnode, vnode.scopeId, slotScopeIds, parentComponent);
+          const { type, props, shapeFlag, transition, dirs } = vnode;
+          el = vnode.el = hostCreateElement(vnode.type, isSVG, props && props.is, props);
+          // mount children first, since some props may rely on child content
+          // being already rendered, e.g. `<select value>`
+          if (shapeFlag & 8 /* ShapeFlags.TEXT_CHILDREN */) {
+              hostSetElementText(el, vnode.children);
           }
+          else if (shapeFlag & 16 /* ShapeFlags.ARRAY_CHILDREN */) {
+              mountChildren(vnode.children, el, null, parentComponent, parentSuspense, isSVG && type !== 'foreignObject', slotScopeIds, optimized);
+          }
+          if (dirs) {
+              invokeDirectiveHook(vnode, null, parentComponent, 'created');
+          }
+          // props
+          if (props) {
+              for (const key in props) {
+                  if (key !== 'value' && !isReservedProp(key)) {
+                      hostPatchProp(el, key, null, props[key], isSVG, vnode.children, parentComponent, parentSuspense, unmountChildren);
+                  }
+              }
+              /**
+               * Special case for setting value on DOM elements:
+               * - it can be order-sensitive (e.g. should be set *after* min/max, #2325, #4024)
+               * - it needs to be forced (#1471)
+               * #2353 proposes adding another renderer option to configure this, but
+               * the properties affects are so finite it is worth special casing it
+               * here to reduce the complexity. (Special casing it also should not
+               * affect non-DOM renderers)
+               */
+              if ('value' in props) {
+                  hostPatchProp(el, 'value', null, props.value);
+              }
+              if ((vnodeHook = props.onVnodeBeforeMount)) {
+                  invokeVNodeHook(vnodeHook, parentComponent, vnode);
+              }
+          }
+          // scopeId
+          setScopeId(el, vnode, vnode.scopeId, slotScopeIds, parentComponent);
           {
               Object.defineProperty(el, '__vnode', {
                   value: vnode,
@@ -6863,6 +6888,13 @@ var Vue = (function (exports) {
       };
       const patchProps = (el, vnode, oldProps, newProps, parentComponent, parentSuspense, isSVG) => {
           if (oldProps !== newProps) {
+              if (oldProps !== EMPTY_OBJ) {
+                  for (const key in oldProps) {
+                      if (!isReservedProp(key) && !(key in newProps)) {
+                          hostPatchProp(el, key, oldProps[key], null, isSVG, vnode.children, parentComponent, parentSuspense, unmountChildren);
+                      }
+                  }
+              }
               for (const key in newProps) {
                   // empty string is not valid prop
                   if (isReservedProp(key))
@@ -6872,13 +6904,6 @@ var Vue = (function (exports) {
                   // defer patching value
                   if (next !== prev && key !== 'value') {
                       hostPatchProp(el, key, prev, next, isSVG, vnode.children, parentComponent, parentSuspense, unmountChildren);
-                  }
-              }
-              if (oldProps !== EMPTY_OBJ) {
-                  for (const key in oldProps) {
-                      if (!isReservedProp(key) && !(key in newProps)) {
-                          hostPatchProp(el, key, oldProps[key], null, isSVG, vnode.children, parentComponent, parentSuspense, unmountChildren);
-                      }
                   }
               }
               if ('value' in newProps) {
@@ -8404,7 +8429,10 @@ var Vue = (function (exports) {
   }
   // optimized normalization for template-compiled render fns
   function cloneIfMounted(child) {
-      return child.el === null || child.memo ? child : cloneVNode(child);
+      return (child.el === null && child.patchFlag !== -1 /* PatchFlags.HOISTED */) ||
+          child.memo
+          ? child
+          : cloneVNode(child);
   }
   function normalizeChildren(vnode, children) {
       let type = 0;
@@ -9297,7 +9325,7 @@ var Vue = (function (exports) {
   }
 
   // Core API ------------------------------------------------------------------
-  const version = "3.2.39";
+  const version = "3.2.41";
   /**
    * SSR utils for \@vue/server-renderer. Only exposed in ssr-possible builds.
    * @internal
@@ -9347,22 +9375,6 @@ var Vue = (function (exports) {
       querySelector: selector => doc.querySelector(selector),
       setScopeId(el, id) {
           el.setAttribute(id, '');
-      },
-      cloneNode(el) {
-          const cloned = el.cloneNode(true);
-          // #3072
-          // - in `patchDOMProp`, we store the actual value in the `el._value` property.
-          // - normally, elements using `:value` bindings will not be hoisted, but if
-          //   the bound value is a constant, e.g. `:value="true"` - they do get
-          //   hoisted.
-          // - in production, hoisted nodes are cloned when subsequent inserts, but
-          //   cloneNode() does not copy the custom property we attached.
-          // - This may need to account for other custom DOM properties we attach to
-          //   elements in addition to `_value` in the future.
-          if (`_value` in el) {
-              cloned._value = el._value;
-          }
-          return cloned;
       },
       // __UNSAFE__
       // Reason: innerHTML.
@@ -9575,7 +9587,6 @@ var Vue = (function (exports) {
           }
           else if (type === 'number') {
               // e.g. <img :width="null">
-              // the value of some IDL attr must be greater than 0, e.g. input.size = 0 -> error
               value = 0;
               needRemove = true;
           }
@@ -9587,7 +9598,8 @@ var Vue = (function (exports) {
           el[key] = value;
       }
       catch (e) {
-          {
+          // do not warn if value is auto-coerced from nullish values
+          if (!needRemove) {
               warn$1(`Failed setting prop "${key}" on <${el.tagName.toLowerCase()}>: ` +
                   `value ${value} is invalid.`, e);
           }
@@ -9595,36 +9607,6 @@ var Vue = (function (exports) {
       needRemove && el.removeAttribute(key);
   }
 
-  // Async edge case fix requires storing an event listener's attach timestamp.
-  const [_getNow, skipTimestampCheck] = /*#__PURE__*/ (() => {
-      let _getNow = Date.now;
-      let skipTimestampCheck = false;
-      if (typeof window !== 'undefined') {
-          // Determine what event timestamp the browser is using. Annoyingly, the
-          // timestamp can either be hi-res (relative to page load) or low-res
-          // (relative to UNIX epoch), so in order to compare time we have to use the
-          // same timestamp type when saving the flush timestamp.
-          if (Date.now() > document.createEvent('Event').timeStamp) {
-              // if the low-res timestamp which is bigger than the event timestamp
-              // (which is evaluated AFTER) it means the event is using a hi-res timestamp,
-              // and we need to use the hi-res version for event listeners as well.
-              _getNow = performance.now.bind(performance);
-          }
-          // #3485: Firefox <= 53 has incorrect Event.timeStamp implementation
-          // and does not fire microtasks in between event propagation, so safe to exclude.
-          const ffMatch = navigator.userAgent.match(/firefox\/(\d+)/i);
-          skipTimestampCheck = !!(ffMatch && Number(ffMatch[1]) <= 53);
-      }
-      return [_getNow, skipTimestampCheck];
-  })();
-  // To avoid the overhead of repeatedly calling performance.now(), we cache
-  // and use the same timestamp for all event listeners attached in the same tick.
-  let cachedNow = 0;
-  const p = /*#__PURE__*/ Promise.resolve();
-  const reset = () => {
-      cachedNow = 0;
-  };
-  const getNow = () => cachedNow || (p.then(reset), (cachedNow = _getNow()));
   function addEventListener(el, event, handler, options) {
       el.addEventListener(event, handler, options);
   }
@@ -9667,18 +9649,32 @@ var Vue = (function (exports) {
       const event = name[2] === ':' ? name.slice(3) : hyphenate(name.slice(2));
       return [event, options];
   }
+  // To avoid the overhead of repeatedly calling Date.now(), we cache
+  // and use the same timestamp for all event listeners attached in the same tick.
+  let cachedNow = 0;
+  const p = /*#__PURE__*/ Promise.resolve();
+  const getNow = () => cachedNow || (p.then(() => (cachedNow = 0)), (cachedNow = Date.now()));
   function createInvoker(initialValue, instance) {
       const invoker = (e) => {
-          // async edge case #6566: inner click event triggers patch, event handler
+          // async edge case vuejs/vue#6566
+          // inner click event triggers patch, event handler
           // attached to outer element during patch, and triggered again. This
           // happens because browsers fire microtask ticks between event propagation.
-          // the solution is simple: we save the timestamp when a handler is attached,
-          // and the handler would only fire if the event passed to it was fired
+          // this no longer happens for templates in Vue 3, but could still be
+          // theoretically possible for hand-written render functions.
+          // the solution: we save the timestamp when a handler is attached,
+          // and also attach the timestamp to any event that was handled by vue
+          // for the first time (to avoid inconsistent event timestamp implementations
+          // or events fired from iframes, e.g. #2513)
+          // The handler would only fire if the event passed to it was fired
           // AFTER it was attached.
-          const timeStamp = e.timeStamp || _getNow();
-          if (skipTimestampCheck || timeStamp >= invoker.attached - 1) {
-              callWithAsyncErrorHandling(patchStopImmediatePropagation(e, invoker.value), instance, 5 /* ErrorCodes.NATIVE_EVENT_HANDLER */, [e]);
+          if (!e._vts) {
+              e._vts = Date.now();
           }
+          else if (e._vts <= invoker.attached) {
+              return;
+          }
+          callWithAsyncErrorHandling(patchStopImmediatePropagation(e, invoker.value), instance, 5 /* ErrorCodes.NATIVE_EVENT_HANDLER */, [e]);
       };
       invoker.value = initialValue;
       invoker.attached = getNow();
@@ -11064,7 +11060,6 @@ var Vue = (function (exports) {
   const IS_MEMO_SAME = Symbol(`isMemoSame` );
   // Name mapping for runtime helpers that need to be imported from 'vue' in
   // generated code. Make sure these are correctly exported in the runtime!
-  // Using `any` here because TS doesn't allow symbols as index type.
   const helperNameMap = {
       [FRAGMENT]: `Fragment`,
       [TELEPORT]: `Teleport`,
@@ -11797,34 +11792,42 @@ var Vue = (function (exports) {
           const shouldCondense = context.options.whitespace !== 'preserve';
           for (let i = 0; i < nodes.length; i++) {
               const node = nodes[i];
-              if (!context.inPre && node.type === 2 /* NodeTypes.TEXT */) {
-                  if (!/[^\t\r\n\f ]/.test(node.content)) {
-                      const prev = nodes[i - 1];
-                      const next = nodes[i + 1];
-                      // Remove if:
-                      // - the whitespace is the first or last node, or:
-                      // - (condense mode) the whitespace is adjacent to a comment, or:
-                      // - (condense mode) the whitespace is between two elements AND contains newline
-                      if (!prev ||
-                          !next ||
-                          (shouldCondense &&
-                              (prev.type === 3 /* NodeTypes.COMMENT */ ||
-                                  next.type === 3 /* NodeTypes.COMMENT */ ||
-                                  (prev.type === 1 /* NodeTypes.ELEMENT */ &&
-                                      next.type === 1 /* NodeTypes.ELEMENT */ &&
-                                      /[\r\n]/.test(node.content))))) {
-                          removedWhitespace = true;
-                          nodes[i] = null;
+              if (node.type === 2 /* NodeTypes.TEXT */) {
+                  if (!context.inPre) {
+                      if (!/[^\t\r\n\f ]/.test(node.content)) {
+                          const prev = nodes[i - 1];
+                          const next = nodes[i + 1];
+                          // Remove if:
+                          // - the whitespace is the first or last node, or:
+                          // - (condense mode) the whitespace is adjacent to a comment, or:
+                          // - (condense mode) the whitespace is between two elements AND contains newline
+                          if (!prev ||
+                              !next ||
+                              (shouldCondense &&
+                                  (prev.type === 3 /* NodeTypes.COMMENT */ ||
+                                      next.type === 3 /* NodeTypes.COMMENT */ ||
+                                      (prev.type === 1 /* NodeTypes.ELEMENT */ &&
+                                          next.type === 1 /* NodeTypes.ELEMENT */ &&
+                                          /[\r\n]/.test(node.content))))) {
+                              removedWhitespace = true;
+                              nodes[i] = null;
+                          }
+                          else {
+                              // Otherwise, the whitespace is condensed into a single space
+                              node.content = ' ';
+                          }
                       }
-                      else {
-                          // Otherwise, the whitespace is condensed into a single space
-                          node.content = ' ';
+                      else if (shouldCondense) {
+                          // in condense mode, consecutive whitespaces in text are condensed
+                          // down to a single space.
+                          node.content = node.content.replace(/[\t\r\n\f ]+/g, ' ');
                       }
                   }
-                  else if (shouldCondense) {
-                      // in condense mode, consecutive whitespaces in text are condensed
-                      // down to a single space.
-                      node.content = node.content.replace(/[\t\r\n\f ]+/g, ' ');
+                  else {
+                      // #6410 normalize windows newlines in <pre>:
+                      // in SSR, browsers normalize server-rendered \r\n into a single \n
+                      // in the DOM
+                      node.content = node.content.replace(/\r\n/g, '\n');
                   }
               }
               // Remove comment nodes if desired by configuration.
@@ -12464,11 +12467,6 @@ var Vue = (function (exports) {
                       }
                   }
               }
-          }
-          else if (child.type === 12 /* NodeTypes.TEXT_CALL */ &&
-              getConstantType(child.content, context) >= 2 /* ConstantTypes.CAN_HOIST */) {
-              child.codegenNode = context.hoist(child.codegenNode);
-              hoistedCount++;
           }
           // walk further
           if (child.type === 1 /* NodeTypes.ELEMENT */) {
@@ -14480,6 +14478,14 @@ var Vue = (function (exports) {
       let hasDynamicKeys = false;
       let hasVnodeHook = false;
       const dynamicPropNames = [];
+      const pushMergeArg = (arg) => {
+          if (properties.length) {
+              mergeArgs.push(createObjectExpression(dedupeProperties(properties), elementLoc));
+              properties = [];
+          }
+          if (arg)
+              mergeArgs.push(arg);
+      };
       const analyzePatchFlag = ({ key, value }) => {
           if (isStaticExp(key)) {
               const name = key.content;
@@ -14592,16 +14598,14 @@ var Vue = (function (exports) {
               if (!arg && (isVBind || isVOn)) {
                   hasDynamicKeys = true;
                   if (exp) {
-                      if (properties.length) {
-                          mergeArgs.push(createObjectExpression(dedupeProperties(properties), elementLoc));
-                          properties = [];
-                      }
                       if (isVBind) {
+                          // have to merge early for compat build check
+                          pushMergeArg();
                           mergeArgs.push(exp);
                       }
                       else {
                           // v-on="obj" -> toHandlers(obj)
-                          mergeArgs.push({
+                          pushMergeArg({
                               type: 14 /* NodeTypes.JS_CALL_EXPRESSION */,
                               loc,
                               callee: context.helper(TO_HANDLERS),
@@ -14621,7 +14625,12 @@ var Vue = (function (exports) {
                   // has built-in directive transform.
                   const { props, needRuntime } = directiveTransform(prop, node, context);
                   !ssr && props.forEach(analyzePatchFlag);
-                  properties.push(...props);
+                  if (isVOn && arg && !isStaticExp(arg)) {
+                      pushMergeArg(createObjectExpression(props, elementLoc));
+                  }
+                  else {
+                      properties.push(...props);
+                  }
                   if (needRuntime) {
                       runtimeDirectives.push(prop);
                       if (isSymbol(needRuntime)) {
@@ -14643,9 +14652,8 @@ var Vue = (function (exports) {
       let propsExpression = undefined;
       // has v-bind="object" or v-on="object", wrap with mergeProps
       if (mergeArgs.length) {
-          if (properties.length) {
-              mergeArgs.push(createObjectExpression(dedupeProperties(properties), elementLoc));
-          }
+          // close up any not-yet-merged props
+          pushMergeArg();
           if (mergeArgs.length > 1) {
               propsExpression = createCallExpression(context.helper(MERGE_PROPS), mergeArgs, elementLoc);
           }
@@ -14926,9 +14934,9 @@ var Vue = (function (exports) {
                   ? // for component and vnode lifecycle event listeners, auto convert
                       // it to camelCase. See issue #2249
                       toHandlerKey(camelize(rawName))
-                  // preserve case for plain element listeners that have uppercase
-                  // letters, as these may be custom elements' custom events
-                  : `on:${rawName}`;
+                  : // preserve case for plain element listeners that have uppercase
+                      // letters, as these may be custom elements' custom events
+                      `on:${rawName}`;
               eventName = createSimpleExpression(eventString, true, arg.loc);
           }
           else {
