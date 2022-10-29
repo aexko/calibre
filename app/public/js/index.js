@@ -32,7 +32,7 @@ const gererSucces = (result) => {
 	document.getElementById("avertirNomUtilisateur").innerHTML =
 		result.msg;
 }
-const gererSuccesCourriel = (result)=> {
+const gererSuccesCourriel = (result) => {
 	//on alert le resultat sois : courriel deja existant ou creation avec succes
 	if (result.titre == "existant") {
 		//si le resultat de route post est existant on vide le champs de courriel
@@ -70,6 +70,7 @@ function montrerTab(n) {
 	} else {
 		document.getElementById("prevBtn").style.display = "inline";
 	}
+
 	if (n == (x.length - 1)) {
 		document.getElementById("nextBtn").innerHTML = "Soumettre";
 	} else {
@@ -85,8 +86,15 @@ function changerTab(n) {
 	var x = document.getElementsByClassName("tab");
 
 	// si validation echoue pour le tab courant et bouton prochain clique, retourne faux
-	if (n == 1 && !validerTab()) return false;
-	if (n == -1 && !validerTab()) { document.getElementsByClassName("step")[tabcourant].className = document.getElementsByClassName("step")[tabcourant].className.replace(" finish", ""); };
+	tabValider = validerTab()
+	if (tabValider && n == 1) {
+		if (tabcourant == 1) { calculerIMC(unitePrefere),calculerTDEE(unitePrefere)}
+		else if (tabcourant == 3) { calculerCalories() };
+	} else if (!tabValider) {
+		if (n == 1) { return false }
+		else if (n == -1) { document.getElementsByClassName("step")[tabcourant].className = document.getElementsByClassName("step")[tabcourant].className.replace(" finish", ""); }
+	}
+
 	x[tabcourant].style.display = "none";
 	// numero de tabcourant est changee
 	tabcourant = tabcourant + n;
@@ -360,4 +368,4 @@ function afficherUnite() {
 		metrique.style.display = "none"
 	}
 }
-module.exports = { validerAgeTaillePoids, validerCourriel, validerMotPasse, validerUtilisateur, validerNomUtilisateur, gererSucces,gererSuccesCourriel,soummettreFormulaire }
+module.exports = { validerAgeTaillePoids, validerCourriel, validerMotPasse, validerUtilisateur, validerNomUtilisateur, gererSucces, gererSuccesCourriel, soummettreFormulaire }

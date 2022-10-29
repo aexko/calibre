@@ -1,16 +1,7 @@
 TDEE = 0
-var unite = ''
-var unitePrefere = ''
-document.addEventListener('DOMContentLoaded', function () {
-	unite = document.getElementById("unitePrefere");
-	unitePrefere = unite.options[unite.selectedIndex].value;
-	document.getElementById('unitePrefere').addEventListener("change", function () {
-		unite = document.getElementById("unitePrefere");
-		unitePrefere = unite.options[unite.selectedIndex].value;
-		afficherUnite();
-	});
-});
-function calculerIMC() {
+//add event listener pour quand la page de imc bmr et ... recalcul de imc bmr tdee et affichage
+//classe?
+function calculerIMC(unitePrefere) {
     ImcElement = document.getElementById("Imc")
     Imc = 0;
 
@@ -69,8 +60,8 @@ function afficherIMC(Imc, minEchelle, maxEchelle) {
 }
 function atteindreUnpoids() {
     document.getElementById("objectifPoids").style.display = "block";
-    //divCalorie = document.getElementById("caloriesConsommesQuotidienne")
-    //divCalorie.style.display = "none";
+    calculerTDEE();
+
 }
 function maintenirUnPoids() {
     atteindrepoids = document.getElementById("objectifPoids").style.display = "none";
@@ -87,7 +78,7 @@ function maintenirUnPoids() {
 function calculerTDEE() {
     divCalorie = document.getElementById("caloriesConsommesQuotidienne")
     divCalorie.style.display = "none";
-    BMR = calculerBMR();
+    BMR = calculerBMR(unitePrefere);
     niveauActPhys = document.getElementById("id_niveau_activite_physique");
     niveauActPhysSelectionne = niveauActPhys.options[niveauActPhys.selectedIndex].value;
     valeurActivite = 0;
@@ -111,7 +102,7 @@ function calculerTDEE() {
     divCalorie.innerHTML = ''
     divCalorie.style.display = "block"
     const paragraphe = document.createElement("p");
-    const node = document.createTextNode("votre BMR(taux métabolique de base) estimé est de " + Bmr +
+    const node = document.createTextNode("votre BMR(taux métabolique de base) estimé est de " + (BMR).toFixed(0) +
         " et votre TDEE(dépense énergétique quotidienne totale) estimé est de " + TDEE);
     paragraphe.appendChild(node);
     divCalorie.appendChild(paragraphe);
@@ -128,10 +119,10 @@ function calculerTDEE() {
     //taux métabolique de base
     //dépense énergétique quotidienne totale
 }
-function calculerBMR() {
+function calculerBMR(unitePrefere) {
     genre = document.getElementById("genre");
     genreSelectionne = genre.options[genre.selectedIndex].value;
-    age = parseFloat(document.getElementById("ans").value);
+    age = parseInt(document.getElementById("ans").value);
     Bmr = 0;
     if (unitePrefere == "metrique") {
         poids = parseFloat(document.getElementById("kg").value)
@@ -154,7 +145,7 @@ function calculerBMR() {
     }
     return Bmr;
 }
-function calculerCalories() {
+function calculerCalories(unitePrefere) {
     poidsVisee = parseFloat(document.getElementById("objectif_poids").value);
     poids = 0;
     calories = 0;

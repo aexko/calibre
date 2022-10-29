@@ -6,7 +6,7 @@
 
   </head>
 
-  <body class="container" onload="montrerTab(5);">
+  <body class="container" onload="montrerTab(0);">
     <header><%- include('../partials/header'); %></header>
     <form id="formulaireInscription" method="post">
       <h1>Inscrivez-vous:</h1>
@@ -338,7 +338,7 @@
           <button
             type="button"
             id="nextBtn"
-            onclick="changerTab(1),calculerIMC(),calculerTDEE(),calculerCalories()"
+            onclick="changerTab(1)"
           >
             Prochain
           </button>
