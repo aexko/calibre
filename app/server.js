@@ -232,7 +232,7 @@ app.post("/inscription", checkNotAuthenticated, async (req, res) => {
 				} else {
 					try {
 						instance_utilisateur.calorie_quotidien_consommee = 0;
-						instance_utilisateur.calorie_quotidien_recommendee = 1854;
+						//instance_utilisateur.calorie_quotidien_recommendee = 1854;
 						instance_utilisateur.mot_passe = await bcrypt.hash(
 							instance_utilisateur.mot_passe,
 							10

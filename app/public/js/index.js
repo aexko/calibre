@@ -7,10 +7,11 @@ function soummettreFormulaire() {
 	/*si le champs d avertissement de nom d utilisateur est vide on fait une requete post sinon on attend jusqu a
 	 ce qu il sois vide pour proceder avec la requete post ajax*/
 	var formulaire = $("#formulaireInscription");
+
 	$.ajax({
 		url: "http://localhost:3000/inscription",
 		type: "POST",
-		data: formulaire.serialize(),
+		data: formulaire.serialize()+ '&BMR='+BMR+'&imc='+Imc+'&TDEE='+TDEE,
 		dataType: "json",
 		success: gererSuccesCourriel,
 	});
@@ -49,6 +50,9 @@ const gererSuccesCourriel = (result) => {
 var tabcourant = 0; // le tab courant est 0 au debut
 var unite = ''
 var unitePrefere = ''
+var Imc = 0
+var BMR = 0
+var TDEE = 0
 document.addEventListener('DOMContentLoaded', function () {
 	unite = document.getElementById("unitePrefere");
 	unitePrefere = unite.options[unite.selectedIndex].value;
@@ -89,13 +93,16 @@ function changerTab(n) {
 	tabValider = validerTab()
 	if (tabValider && n == 1) {
 		if (tabcourant == 1) { 
-			imcCalculee=calculerIMC(unitePrefere);
+			let imcCalculee=calculerIMC(unitePrefere);
 			Imc = imcCalculee.Imc
-			minEchelle = imcCalculee.minEchelle
-			maxEchelle = imcCalculee.maxEchelle
-			situation = afficherIMC(Imc, minEchelle, maxEchelle);
+			let minEchelle = imcCalculee.minEchelle
+			let maxEchelle = imcCalculee.maxEchelle
+			let situation = afficherIMC(Imc, minEchelle, maxEchelle);
             afficherSituation(Imc,situation);
-			calculerTDEE(unitePrefere)}
+			let calcul = calculerTDEE(unitePrefere)
+			BMR = calcul.BMR
+			TDEE = calcul.TDEE
+		}
 		else if (tabcourant == 3) { calculerCalories() };
 	} else if (!tabValider) {
 		if (n == 1) { return false }
