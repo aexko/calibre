@@ -5,8 +5,8 @@ function calculerIMC(unitePrefere) {
     var Imc = 0;
 
     if (unitePrefere == "metrique") {
-        var poids = parseFloat(document.getElementById("kg").value)
-        var taille = parseFloat(document.getElementById("cm").value)
+        var poids = Math.round(parseFloat(document.getElementById("kg").value)*10)/10
+        var taille =Math.round(parseFloat(document.getElementById("cm").value)) 
         Imc += +(poids / ((taille / 100) ** 2)).toFixed(2)
         if (isNaN(Imc) || Imc == Infinity || Imc == 0) {
         } else {
@@ -17,9 +17,9 @@ function calculerIMC(unitePrefere) {
         }
     }
     else if (unitePrefere == "imperial") {
-        var poids = parseFloat(document.getElementById("lbs").value)
-        var tailleFeet = parseFloat(document.getElementById("feet").value)
-        var tailleInch = parseFloat(document.getElementById("inch").value)
+        var poids = Math.round(parseFloat(document.getElementById("lbs").value)*10)/10
+        var tailleFeet = Math.round(parseFloat(document.getElementById("feet").value)*10)/10
+        var tailleInch = Math.round(parseFloat(document.getElementById("inch").value)*10)/10
         Imc += +(703 * poids / ((12 * tailleFeet) + tailleInch) ** 2).toFixed(2)
         if (isNaN(Imc) || Imc == Infinity || Imc == 0) {
         } else {
@@ -66,7 +66,7 @@ function atteindreUnpoids() {
 
 }
 function maintenirUnPoids() {
-     document.getElementById("objectifPoids").style.display = "none";
+     document.getElementById("objectifPoids").style.display = "block";
     if (unitePrefere == "metrique") {
         document.getElementById("objectif_poids").value = document.getElementById("kg").value;
     } else if (unitePrefere == "imperial") {
@@ -126,8 +126,8 @@ function calculerBMR(unitePrefere) {
     var age = parseInt(document.getElementById("ans").value);
     var Bmr = 0;
     if (unitePrefere == "metrique") {
-        let poids = parseFloat(document.getElementById("kg").value)
-        let taille = parseFloat(document.getElementById("cm").value)
+        let poids = Math.round(parseFloat(document.getElementById("kg").value)*10)/10
+        let taille = Math.round(parseFloat(document.getElementById("cm").value))
         if (genreSelectionne == "Femme") {
             Bmr = (10 * poids) + (6.25 * taille) - (5 * age) - 161;
         } else {
@@ -135,9 +135,9 @@ function calculerBMR(unitePrefere) {
         }
 
     } else if (unitePrefere == "imperial") {
-        let poids = parseFloat(document.getElementById("lbs").value)
-        let tailleFeet = parseFloat(document.getElementById("feet").value)
-        let tailleInch = parseFloat(document.getElementById("inch").value)
+        let poids = parseFloat(document.getElementById("lbs").value).toFixed(1)
+        let tailleFeet = Math.round(parseFloat(document.getElementById("feet").value)*10)/10
+        let tailleInch = Math.round(parseFloat(document.getElementById("inch").value)*10)/10
         if (genreSelectionne == "Femme") {
             Bmr = (4.536 * poids) + (15.88 * (((12 * tailleFeet) + tailleInch))) - (5 * age) - 161;
         } else {
@@ -147,7 +147,7 @@ function calculerBMR(unitePrefere) {
     return Bmr;
 }
 function calculerCalories(unitePrefere) {
-    var poidsVisee = parseFloat(document.getElementById("objectif_poids").value);
+    var poidsVisee = (parseFloat(document.getElementById("objectif_poids").value)).toFixed(0);;
     var poids = 0;
     var calories = 0;
     var totalJour = 0
@@ -157,7 +157,7 @@ function calculerCalories(unitePrefere) {
         calories = 7700;
 
     } else {
-        poids = parseFloat(document.getElementById("lbs").value);
+        poids = Math.round(parseFloat(document.getElementById("lbs").value)*10)/10;
         calories = 3500;
     }
     if (poidsVisee > poids) {
@@ -165,7 +165,7 @@ function calculerCalories(unitePrefere) {
         let DifferenceEnCalories = difference * calories;
         let joursRequis = difference / parsemaine * 7;
         let ajouterParJour = DifferenceEnCalories / joursRequis
-        let totalJour = ajouterParJour + parseFloat(TDEE)
+        totalJour = ajouterParJour + parseFloat(TDEE)
         document.getElementById("consommerParJour").innerHTML = "Afin d'arriver à votre objectif, vous devez consommer " + totalJour + " calories par jour, soit " + ajouterParJour + " de plus par jour, dans " + joursRequis + " jours"
 
     } else if (poidsVisee == poids) {
@@ -175,7 +175,7 @@ function calculerCalories(unitePrefere) {
        let DifferenceEnCalories = difference * calories;
        let joursRequis = difference / parsemaine * 7;
        let enleverParJour = DifferenceEnCalories / joursRequis
-       let totalJour = parseFloat(TDEE) - enleverParJour
+       totalJour = parseFloat(TDEE) - enleverParJour
         document.getElementById("consommerParJour").innerHTML = "Afin d'arriver à votre objectif, vous devez consommer " + totalJour + " calories par jour, soit " + enleverParJour + " de moins par jour, dans " + joursRequis + " jours"
     }
 

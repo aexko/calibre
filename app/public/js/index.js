@@ -1,4 +1,3 @@
-
 /*cette methode permet de faire un requete post ajax au route inscription et si le courriel n est pas existant dans la bd 
 le compte de client va etre cree sinon l utilisateur devrait changer le courriel jusqu a ce qu il soit unique
 l utilisation d ajax permet de faire des requetes sans la rechargement de la page et pour que l utilisateur n aie
@@ -11,7 +10,7 @@ function soummettreFormulaire() {
 	$.ajax({
 		url: "http://localhost:3000/inscription",
 		type: "POST",
-		data: formulaire.serialize()+ '&BMR='+BMR+'&imc='+Imc+'&TDEE='+TDEE,
+		data: formulaire.serialize() + '&BMR=' + BMR + '&imc=' + Imc + '&TDEE=' + TDEE,
 		dataType: "json",
 		success: gererSuccesCourriel,
 	});
@@ -92,18 +91,18 @@ function changerTab(n) {
 	// si validation echoue pour le tab courant et bouton prochain clique, retourne faux
 	tabValider = validerTab()
 	if (tabValider && n == 1) {
-		if (tabcourant == 1) { 
-			let imcCalculee=calculerIMC(unitePrefere);
+		if (tabcourant == 1) {
+			let imcCalculee = calculerIMC(unitePrefere);
 			Imc = imcCalculee.Imc
 			let minEchelle = imcCalculee.minEchelle
 			let maxEchelle = imcCalculee.maxEchelle
 			let situation = afficherIMC(Imc, minEchelle, maxEchelle);
-            afficherSituation(Imc,situation);
+			afficherSituation(Imc, situation);
 			let calcul = calculerTDEE(unitePrefere)
 			BMR = calcul.BMR
 			TDEE = calcul.TDEE
 		}
-		else if (tabcourant == 3) { calculerCalories() };
+		else if (tabcourant == 3) { calculerCalories(unitePrefere) };
 	} else if (!tabValider) {
 		if (n == 1) { return false }
 		else if (n == -1) { document.getElementsByClassName("step")[tabcourant].className = document.getElementsByClassName("step")[tabcourant].className.replace(" finish", ""); }
@@ -199,7 +198,9 @@ function validerAgeTaillePoids(valeur, min, max, id, unitePrefere) {
 			titre = 'lbs'
 		}
 	}
-	if (valeur < parseFloat(min)) {
+	if (id == 'repas' && !Number.isInteger(parseFloat(valeur))) {
+		return { 'validite': false, 'titre': titre, 'minOuMax': '', 'valide': 'invalid', 'combien': 'un entier' };
+	} else if (valeur < parseFloat(min)) {
 		//document.getElementById("message " + element.id).className = "invalid";
 		//document.getElementById("message " + element.id).innerHTML = "Votre " + element.name.replaceAll("_", " ") + " doit etre plus que " + element.min + " " + titre;
 		return { 'validite': false, 'titre': titre, 'minOuMax': min, 'valide': 'invalid', 'combien': 'plus que ' };
@@ -338,9 +339,12 @@ function changerValidite(id, className) {
 	document.getElementById(id).className = className;
 }
 function ecrireMessage(element, titre, maxouMin, combien) {
-	if (titre != "") {
+	if (titre == 'repas') {
+		document.getElementById("message " + element.id).innerHTML = "Votre " + element.name.replaceAll("_", " ") + " doit etre " + combien;
+	} else if (titre != "") {
 		document.getElementById("message " + element.id).innerHTML = "Votre " + element.name.replaceAll("_", " ") + " doit etre " + combien + maxouMin + " " + titre;
-	} else {
+	}
+	else {
 		document.getElementById("message " + element.id).className = "";
 		document.getElementById("message " + element.id).innerHTML = "";
 	}
