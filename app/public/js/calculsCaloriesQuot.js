@@ -2,7 +2,6 @@ TDEE = 0
 //add event listener pour quand la page de imc bmr et ... recalcul de imc bmr tdee et affichage
 //classe?
 function calculerIMC(unitePrefere) {
-    ImcElement = document.getElementById("Imc")
     Imc = 0;
 
     if (unitePrefere == "metrique") {
@@ -13,7 +12,8 @@ function calculerIMC(unitePrefere) {
         } else {
             minEchelle = +(((taille / 100) ** 2) * 18.5).toFixed(2);
             maxEchelle = +(((taille / 100) ** 2) * 25).toFixed(2);
-            afficherIMC(Imc, minEchelle, maxEchelle)
+            return {'Imc':Imc, 'minEchelle':minEchelle, 'maxEchelle':maxEchelle}
+
         }
     }
     else if (unitePrefere == "imperial") {
@@ -25,7 +25,8 @@ function calculerIMC(unitePrefere) {
         } else {
             minEchelle = +(((((12 * tailleFeet) + tailleInch) ** 2) * 18.5) / 703).toFixed(2);
             maxEchelle = +(((((12 * tailleFeet) + tailleInch) ** 2) * 25) / 703).toFixed(2);
-            afficherIMC(Imc, minEchelle, maxEchelle)
+            return {'Imc':Imc, 'minEchelle':minEchelle, 'maxEchelle':maxEchelle}
+
         }
     }
 
@@ -48,6 +49,11 @@ function afficherIMC(Imc, minEchelle, maxEchelle) {
         maintenirPoids.removeAttribute("disabled");
         atteindrePoids.removeAttribute("disabled");
     }
+    document.getElementById("objectif_poids").max = maxEchelle;
+    document.getElementById("objectif_poids").min = minEchelle;
+    return situation
+}
+function afficherSituation(Imc,situation){
     ImcElement = document.getElementById("Imc")
     ImcDescription = document.getElementById("ImcDescription")
     ImcDescription.innerHTML = ''
@@ -55,12 +61,9 @@ function afficherIMC(Imc, minEchelle, maxEchelle) {
     const node = document.createTextNode("votre Imc estimé est de " + Imc + situation);
     paragraphe.appendChild(node);
     ImcDescription.appendChild(paragraphe);
-    document.getElementById("objectif_poids").max = maxEchelle;
-    document.getElementById("objectif_poids").min = minEchelle;
 }
 function atteindreUnpoids() {
     document.getElementById("objectifPoids").style.display = "block";
-    calculerTDEE();
 
 }
 function maintenirUnPoids() {
@@ -72,10 +75,9 @@ function maintenirUnPoids() {
     }
     document.getElementById("objectif_poids").className = ''
     validerForm(document.getElementById("objectif_poids"))
-    calculerTDEE();
 }
 
-function calculerTDEE() {
+function calculerTDEE(unitePrefere) {
     divCalorie = document.getElementById("caloriesConsommesQuotidienne")
     divCalorie.style.display = "none";
     BMR = calculerBMR(unitePrefere);
@@ -168,7 +170,6 @@ function calculerCalories(unitePrefere) {
         document.getElementById("consommerParJour").innerHTML = "Afin d'arriver à votre objectif, vous devez consommer " + totalJour + " calories par jour, soit " + ajouterParJour + " de plus par jour, dans " + joursRequis + " jours"
 
     } else if (poidsVisee == poids) {
-        totalJour = TDEE
         document.getElementById("consommerParJour").innerHTML = "Afin d'arriver à votre objectif, vous devez consommer " + TDEE + " par jour"
     } else {
         difference = poids - poidsVisee;
@@ -182,3 +183,4 @@ function calculerCalories(unitePrefere) {
 
 
 }
+module.exports = {calculerIMC,afficherIMC }

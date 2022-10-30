@@ -88,7 +88,14 @@ function changerTab(n) {
 	// si validation echoue pour le tab courant et bouton prochain clique, retourne faux
 	tabValider = validerTab()
 	if (tabValider && n == 1) {
-		if (tabcourant == 1) { calculerIMC(unitePrefere),calculerTDEE(unitePrefere)}
+		if (tabcourant == 1) { 
+			imcCalculee=calculerIMC(unitePrefere);
+			Imc = imcCalculee.Imc
+			minEchelle = imcCalculee.minEchelle
+			maxEchelle = imcCalculee.maxEchelle
+			situation = afficherIMC(Imc, minEchelle, maxEchelle);
+            afficherSituation(Imc,situation);
+			calculerTDEE(unitePrefere)}
 		else if (tabcourant == 3) { calculerCalories() };
 	} else if (!tabValider) {
 		if (n == 1) { return false }
