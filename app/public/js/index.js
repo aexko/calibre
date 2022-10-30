@@ -52,6 +52,8 @@ var unitePrefere = ''
 var Imc = 0
 var BMR = 0
 var TDEE = 0
+var caloriesRecommendee = 0
+var CaloriesParRepas = 0
 document.addEventListener('DOMContentLoaded', function () {
 	unite = document.getElementById("unitePrefere");
 	unitePrefere = unite.options[unite.selectedIndex].value;
@@ -102,7 +104,10 @@ function changerTab(n) {
 			BMR = calcul.BMR
 			TDEE = calcul.TDEE
 		}
-		else if (tabcourant == 3) { calculerCalories(unitePrefere) };
+		else if (tabcourant == 3) {
+			caloriesRecommendee = calculerCalories(unitePrefere);
+			CaloriesParRepas = calculerCaloriesParRepas(caloriesRecommendee);
+		}
 	} else if (!tabValider) {
 		if (n == 1) { return false }
 		else if (n == -1) { document.getElementsByClassName("step")[tabcourant].className = document.getElementsByClassName("step")[tabcourant].className.replace(" finish", ""); }
