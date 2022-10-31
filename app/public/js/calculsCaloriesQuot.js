@@ -222,6 +222,7 @@ divCalorieRepas.innerHTML = ''
         paragraphe.appendChild(node);
         divCalorieRepas.appendChild(paragraphe);
     }
+return caloriesParRepas;
 
 }
 module.exports = { calculerIMC, afficherIMC }

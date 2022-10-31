@@ -6,11 +6,14 @@ function soummettreFormulaire() {
 	/*si le champs d avertissement de nom d utilisateur est vide on fait une requete post sinon on attend jusqu a
 	 ce qu il sois vide pour proceder avec la requete post ajax*/
 	var formulaire = $("#formulaireInscription");
-
+	calorie_quotidien_recommendee = {
+		total: caloriesRecommendee,
+		repas : CaloriesParRepas
+	}
 	$.ajax({
 		url: "http://localhost:3000/inscription",
 		type: "POST",
-		data: formulaire.serialize() + '&BMR=' + BMR + '&imc=' + Imc + '&TDEE=' + TDEE,
+		data: formulaire.serialize() + '&BMR=' + BMR + '&imc=' + Imc + '&TDEE=' + TDEE + '&calorie_quotidien_recommendee=' + JSON.stringify(calorie_quotidien_recommendee) ,
 		dataType: "json",
 		success: gererSuccesCourriel,
 	});
@@ -53,7 +56,7 @@ var Imc = 0
 var BMR = 0
 var TDEE = 0
 var caloriesRecommendee = 0
-var CaloriesParRepas = 0
+var CaloriesParRepas = {}
 document.addEventListener('DOMContentLoaded', function () {
 	unite = document.getElementById("unitePrefere");
 	unitePrefere = unite.options[unite.selectedIndex].value;
