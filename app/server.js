@@ -1,10 +1,14 @@
 const express = require("express");
-// const mongoose = require("mongoose");
+//connection mongoose
+const mongoose = require("mongoose");
 const app = express();
 const port = 3000;
 //importation de module schemaUtilisateur
 const modelUtilisateur = require("./models/schemaUtilisateur");
-
+const nomUtilisateur = "admin";
+const motPasse = "admin";
+const nomDb = "Calibre";
+const cluster = "Calibre";
 const passport = require("passport");
 //const ProgressBar = require("./progress");
 const flash = require("express-flash");
@@ -19,15 +23,36 @@ const {
 } = require("./middlewares/auth");
 const initialiserPassport = require("./passport-config");
 
+/**
+ * Connexion MongoDB à la base de données (CLOUD - MongoDB Atlas) nommée "calibre"
+ */
+// mongoose.connect(
+// "mongodb+srv://${nomUtilisateur}:${motPasse}@${cluster}.unyolim.mongodb.net/${nomDb}?retryWrites=true&w=majority",
+// 	{
+// 		useNewUrlParser: true,
+// 		useUnifiedTopology: true,
+// 	}
+// );
 
-
-
+/**
+ * Connexion MongoDB à la base de données (LOCALE) nommée "calibre"
+ */
+mongoose.connect("mongodb://127.0.0.1:27017/" + nomDb, {
+	useNewUrlParser: true,
+	useUnifiedTopology: true,
+});
 
 //route permettant de servir les fichier statiques
 app.use(express.static(__dirname + "/public/"));
 
 app.set("view engine", "ejs");
 
+//ceci permet de savoir si la bd est bien connectee
+const bd = mongoose.connection;
+bd.on("error", console.error.bind(console, "Erreur de connection: "));
+bd.once("open", function () {
+	console.log("Connexion réussie à MongoDB");
+});
 
 initialiserPassport(
 	passport,
@@ -251,5 +276,3 @@ async function StockerUtilisateur(req, res, next) {
 const utilisateurRoutes = require("./routes/utilisateur");
 
 app.use(utilisateurRoutes);
-
-// const mongoose = require("./db/mongoose");
