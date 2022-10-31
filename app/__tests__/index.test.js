@@ -184,7 +184,7 @@ describe("Ajax verification de dupplication du courriel", () => {
 		index.soummettreFormulaire(nomUtilisateur);
 		expect(ajaxSpy).toBeCalledWith({
 			type: "POST",
-			data: formulaire.serialize(),
+			data: "&BMR=0&imc=0&TDEE=0&calorie_quotidien_recommendee={\"total\":0,\"repas\":{}}",
 			dataType: "json",
 			url: "http://localhost:3000/inscription",
 			success: expect.any(Function),
