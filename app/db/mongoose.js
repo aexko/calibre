@@ -1,16 +1,16 @@
-const mongoose = require("mongoose");
+// const mongoose = require("mongoose");
 
-/**
- * Connexion MongoDB à la base de données (LOCALE) nommée "calibre"
- */
-module.exports = {
-	connect: () => {
-		mongoose.connect("mongodb://127.0.0.1:27017/" + nomDb, {
-			useNewUrlParser: true,
-			useUnifiedTopology: true,
-		});
-	},
-};
+// /**
+//  * Connexion MongoDB à la base de données (LOCALE) nommée "calibre"
+//  */
+// module.exports = {
+// 	connect: () => {
+// 		mongoose.connect("mongodb://127.0.0.1:27017/" + nomDb, {
+// 			useNewUrlParser: true,
+// 			useUnifiedTopology: true,
+// 		});
+// 	},
+// };
 
 // ============================================================
 
