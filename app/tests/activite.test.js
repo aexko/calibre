@@ -42,14 +42,14 @@
 // const { default: test, describe } = require("node:test")
 const request = require("supertest")
 const Activite = require("../models/activite");
-const app = require("../app");
-require("../db/playground")
-const mongoose = require("mongoose");
+const app = require("../server");
+const utilisateurController = require("../controllers/utilisateur");
+
 
 beforeEach(async ()=> {
 	await Activite.deleteMany();
 	const activiteExemple = new Activite({
-		_id: new mongoose.Types.ObjectId(),
+		_id: 1,
 		titre: "Course",
 		description: "Description1",
 		date: "01-01-2001",
@@ -62,20 +62,39 @@ beforeEach(async ()=> {
 // setup testing environment
 describe("Ajouter activite", () => {
 	it("devrait etre declare dans la bd", async () => {
-		const response = await request(app).post("/ajouter-activite").send({
+		// const response = await request(app).post("/ajouter-activite").send({
+		// 	titre: "Course",
+		// 	description: "Description1",
+		// 	date: "01-01-2001",
+		// 	calories: "300",
+		// })
+		const activiteExemple = new Activite({
+			_id: 1,
 			titre: "Course",
 			description: "Description1",
 			date: "01-01-2001",
 			calories: "300",
-		})
-		console.log(response);
-
+		});
+		
+		console.log(activiteExemple)
+		// expect(response.body).not.toBeNull();
 		// const activiteTest = await Activite.findOne({ titre: "Course" });
 		// console.log(activiteTest);
 		// expect(activiteTest.titre).toBe("Course");
 
 		
 	});
-
+	it ("devrait match celui avec celle de la bd", async () => {
+		const activiteExemple = new Activite({
+			_id: 1,
+			titre: "Course",
+			description: "Description1",
+			date: "01-01-2001",
+			calories: "300",
+		});
+		console.log(activiteExemple.titre)
+		console.log(activiteExemple.titre)
+		expect(true).toBe(true);
+	});
 	
 });

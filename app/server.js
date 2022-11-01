@@ -277,4 +277,13 @@ const utilisateurRoutes = require("./routes/utilisateur");
 
 app.use(utilisateurRoutes);
 
+app.post("/ajouter-activite", async (req,res) => {
+
+	const activite = new Activite(req.body)
+	
+	activite.save()
+	res.send(activite);
+	console.log("Activite cree " +  activite);
+});
+
   
