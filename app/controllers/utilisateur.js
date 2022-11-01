@@ -9,10 +9,22 @@ exports.getActiviteForm = (req, res, next) => {
 };
 
 exports.postActivite = (req, res, next) => {
-	const titre = req.body.titre;
+	const titre = req.body.titre_activite;
 	const description = req.body.description;
 	const date = req.body.date;
 	const calories = req.body.calories;
+
+	console.log(
+		"Informations de l'activité: " +
+			titre +
+			"| " +
+			description +
+			"| " +
+			date +
+			"| " +
+			calories
+	);
+
 	const activite = new Activite({
 		titre: titre,
 		description: description,
@@ -75,3 +87,12 @@ exports.deleteActivite = (req, res, next) => {
 		.catch((err) => console.log(err));
 };
 
+ * Stocke un nouveau produit dans la base de données.
+ * @param {Object} activite objet activité à créer.
+ * @throws {Error} Si l'activité n'est pas créée.
+ */
+module.exports.create = async (activite) => {
+	if (!activite) throw new Error("Activité manquante");
+
+	await Activite.create(activite);
+};
