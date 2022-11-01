@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../partials/head'); %>
+</head>
+
+<body class="container">
+
+    <header>
+        <%- include('../partials/header'); %>
+    </header>
+
+    <main>
+        <div class="jumbotron">
+            <h1>Afficher les activités</h1>
+            <%listeActivites.forEach(activite => {%>
+                <h2><%= activite.titre %></h2>
+                <p>Description: <%= activite.description %></p>
+                <p>Date: <%=activite.date %></p>
+                <p>Nombre de calories: <%= activite.calories %></p>
+
+            <%})%>
+        </div>
+    </main>
+
+    <footer>
+        <%- include('../partials/footer'); %>
+    </footer>
+
+</body>
+
+</html>

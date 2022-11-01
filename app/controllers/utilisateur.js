@@ -56,7 +56,7 @@ exports.editActivite = (req, res, next) => {
 	activite
 		.save()
 		.then((result) => {
-			console.log("Activite cree");
+			console.log("Activite modifiee");
 			res.redirect("/ajouter-activite");
 		})
 		.catch((err) => {
@@ -87,6 +87,24 @@ exports.deleteActivite = (req, res, next) => {
 		.catch((err) => console.log(err));
 };
 
+exports.getAllActivities = (req, res, next) => {
+	Activite.find({}, function (err, activites) {
+		res.render("../views/pages/afficher-activites", {
+			listeActivites: activites,
+			utilisateurconnecte: utilisateurCourant,
+		});
+	});
+	// .then((activites) => {
+	// 	res.render("afficher-activites", {
+	// 		pageTitle: "Afficher une activité",
+	// 		path: "/afficher-activites",
+	// 		activites: activites,
+	// 	});
+	// })
+	// .catch((err) => console.log(err));
+};
+
+/**
  * Stocke un nouveau produit dans la base de données.
  * @param {Object} activite objet activité à créer.
  * @throws {Error} Si l'activité n'est pas créée.
