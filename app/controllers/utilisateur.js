@@ -104,13 +104,3 @@ exports.getAllActivities = (req, res, next) => {
 	// .catch((err) => console.log(err));
 };
 
-/**
- * Stocke un nouveau produit dans la base de données.
- * @param {Object} activite objet activité à créer.
- * @throws {Error} Si l'activité n'est pas créée.
- */
-module.exports.create = async (activite) => {
-	if (!activite) throw new Error("Activité manquante");
-
-	await Activite.create(activite);
-};
