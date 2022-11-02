@@ -9,10 +9,22 @@ exports.getActiviteForm = (req, res, next) => {
 };
 
 exports.postActivite = (req, res, next) => {
-	const titre = req.body.titre;
+	const titre = req.body.titre_activite;
 	const description = req.body.description;
 	const date = req.body.date;
 	const calories = req.body.calories;
+
+	console.log(
+		"Informations de l'activité: " +
+			titre +
+			"| " +
+			description +
+			"| " +
+			date +
+			"| " +
+			calories
+	);
+
 	const activite = new Activite({
 		titre: titre,
 		description: description,
@@ -44,7 +56,7 @@ exports.editActivite = (req, res, next) => {
 	activite
 		.save()
 		.then((result) => {
-			console.log("Activite cree");
+			console.log("Activite modifiee");
 			res.redirect("/ajouter-activite");
 		})
 		.catch((err) => {
@@ -74,3 +86,21 @@ exports.deleteActivite = (req, res, next) => {
 		})
 		.catch((err) => console.log(err));
 };
+
+exports.getAllActivities = (req, res, next) => {
+	Activite.find({}, function (err, activites) {
+		res.render("../views/pages/afficher-activites", {
+			listeActivites: activites,
+			utilisateurconnecte: utilisateurCourant,
+		});
+	});
+	// .then((activites) => {
+	// 	res.render("afficher-activites", {
+	// 		pageTitle: "Afficher une activité",
+	// 		path: "/afficher-activites",
+	// 		activites: activites,
+	// 	});
+	// })
+	// .catch((err) => console.log(err));
+};
+
