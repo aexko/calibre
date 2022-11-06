@@ -216,6 +216,8 @@ app.post("/inscription", checkNotAuthenticated, async (req, res) => {
     	activite
     );*/
 	// on verifie si le courriel est redondant
+	instance_utilisateur.calorie_quotidien_recommendee = JSON.parse(req.body.calorie_quotidien_recommendee)
+
 	modelUtilisateur.findOne(
 		{ email: req.body.email },
 		async function (err, docs) {
@@ -276,4 +278,5 @@ async function StockerUtilisateur(req, res, next) {
 const utilisateurRoutes = require("./routes/utilisateur");
 
 app.use(utilisateurRoutes);
+module.exports = app;
 
