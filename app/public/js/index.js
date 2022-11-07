@@ -8,12 +8,12 @@ function soummettreFormulaire() {
 	var formulaire = $("#formulaireInscription");
 	calorie_quotidien_recommendee = {
 		total: caloriesRecommendee,
-		repas : CaloriesParRepas
+		repas: CaloriesParRepas
 	}
 	$.ajax({
 		url: "http://localhost:3000/inscription",
 		type: "POST",
-		data: formulaire.serialize() + '&BMR=' + BMR + '&imc=' + Imc + '&TDEE=' + TDEE + '&calorie_quotidien_recommendee=' + JSON.stringify(calorie_quotidien_recommendee) ,
+		data: formulaire.serialize() + '&BMR=' + BMR + '&imc=' + Imc + '&TDEE=' + TDEE + '&calorie_quotidien_recommendee=' + JSON.stringify(calorie_quotidien_recommendee),
 		dataType: "json",
 		success: gererSuccesCourriel,
 	});
@@ -60,9 +60,19 @@ var CaloriesParRepas = {}
 document.addEventListener('DOMContentLoaded', function () {
 	unite = document.getElementById("unitePrefere");
 	unitePrefere = unite.options[unite.selectedIndex].value;
+	if (unitePrefere == "metrique") {
+		unitePoids = 'kg'
+	} else {
+		unitePoids = 'lbs'
+	}
 	document.getElementById('unitePrefere').addEventListener("change", function () {
 		unite = document.getElementById("unitePrefere");
 		unitePrefere = unite.options[unite.selectedIndex].value;
+		if (unitePrefere == "metrique") {
+			unitePoids = 'kg'
+		} else {
+			unitePoids = 'lbs'
+		}
 		afficherUnite();
 	});
 });
@@ -106,6 +116,16 @@ function changerTab(n) {
 			let calcul = calculerTDEE(unitePrefere)
 			BMR = calcul.BMR
 			TDEE = calcul.TDEE
+		} else if (tabcourant == 2) {
+			var objectifSemaine = document.getElementById('objSemaine');
+			var input = objectifSemaine.getElementsByTagName('input');
+			if (Math.round(parseFloat(document.getElementById(unitePoids).value) * 10) / 10 == Math.round(parseFloat(document.getElementById('objectif_poids').value) * 10) / 10) {
+				input[0].setAttribute('disabled', '')
+				objectifSemaine.style.display = "none"
+			} else {
+				input[0].removeAttribute("disabled");
+				objectifSemaine.style.display = "block"
+			}
 		}
 		else if (tabcourant == 3) {
 			caloriesRecommendee = calculerCalories(unitePrefere);
@@ -200,11 +220,7 @@ function validerForm(element) {
 function validerAgeTaillePoids(valeur, min, max, id, unitePrefere) {
 	var titre = id;
 	if (id == "objectif_poids" || id == "objectifSemaine") {
-		if (unitePrefere == "metrique") {
-			titre = 'kg'
-		} else if (unitePrefere == "imperial") {
-			titre = 'lbs'
-		}
+		titre = unitePoids
 	}
 	if (id == 'repas' && !Number.isInteger(parseFloat(valeur))) {
 		return { 'validite': false, 'titre': titre, 'minOuMax': '', 'valide': 'invalid', 'combien': 'un entier' };

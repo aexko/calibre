@@ -1,15 +1,15 @@
 var TDEE = 0
 var calorie_recommendee = 0
 document.addEventListener('DOMContentLoaded', function () {
-	document.getElementById('repas').addEventListener("change", function () {
+    document.getElementById('repas').addEventListener("change", function () {
         calculerCaloriesParRepas(calorie_recommendee)
-    	});
+    });
 });
 function calculerIMC(unitePrefere) {
     var Imc = 0;
 
     if (unitePrefere == "metrique") {
-        var poids = Math.round(parseFloat(document.getElementById("kg").value) * 10) / 10
+        var poids = Math.round(parseFloat(document.getElementById(unitePoids).value) * 10) / 10
         var taille = Math.round(parseFloat(document.getElementById("cm").value))
         Imc += +(poids / ((taille / 100) ** 2)).toFixed(2)
         if (isNaN(Imc) || Imc == Infinity || Imc == 0) {
@@ -21,7 +21,7 @@ function calculerIMC(unitePrefere) {
         }
     }
     else if (unitePrefere == "imperial") {
-        var poids = Math.round(parseFloat(document.getElementById("lbs").value) * 10) / 10
+        var poids = Math.round(parseFloat(document.getElementById(unitePoids).value) * 10) / 10
         var tailleFeet = Math.round(parseFloat(document.getElementById("feet").value) * 10) / 10
         var tailleInch = Math.round(parseFloat(document.getElementById("inch").value) * 10) / 10
         Imc += +(703 * poids / ((12 * tailleFeet) + tailleInch) ** 2).toFixed(2)
@@ -72,9 +72,9 @@ function atteindreUnpoids() {
 function maintenirUnPoids() {
     document.getElementById("objectifPoids").style.display = "block";
     if (unitePrefere == "metrique") {
-        document.getElementById("objectif_poids").value = document.getElementById("kg").value;
+        document.getElementById("objectif_poids").value = document.getElementById(unitePoids).value;
     } else if (unitePrefere == "imperial") {
-        document.getElementById("objectif_poids").value = document.getElementById("lbs").value;
+        document.getElementById("objectif_poids").value = document.getElementById(unitePoids).value;
     }
     document.getElementById("objectif_poids").className = ''
     validerForm(document.getElementById("objectif_poids"))
@@ -130,7 +130,7 @@ function calculerBMR(unitePrefere) {
     var age = parseInt(document.getElementById("ans").value);
     var Bmr = 0;
     if (unitePrefere == "metrique") {
-        let poids = Math.round(parseFloat(document.getElementById("kg").value) * 10) / 10
+        let poids = Math.round(parseFloat(document.getElementById(unitePoids).value) * 10) / 10
         let taille = Math.round(parseFloat(document.getElementById("cm").value))
         if (genreSelectionne == "Femme") {
             Bmr = (10 * poids) + (6.25 * taille) - (5 * age) - 161;
@@ -139,7 +139,7 @@ function calculerBMR(unitePrefere) {
         }
 
     } else if (unitePrefere == "imperial") {
-        let poids = parseFloat(document.getElementById("lbs").value).toFixed(1)
+        let poids = parseFloat(document.getElementById(unitePoids).value).toFixed(1)
         let tailleFeet = Math.round(parseFloat(document.getElementById("feet").value) * 10) / 10
         let tailleInch = Math.round(parseFloat(document.getElementById("inch").value) * 10) / 10
         if (genreSelectionne == "Femme") {
@@ -151,24 +151,24 @@ function calculerBMR(unitePrefere) {
     return Bmr;
 }
 function calculerCalories(unitePrefere) {
-    var poidsVisee = (parseFloat(document.getElementById("objectif_poids").value)).toFixed(0);;
+    var poidsVisee =  Math.round(parseFloat(document.getElementById('objectif_poids').value) * 10) / 10;
     var poids = 0;
     var calories = 0;
     var totalJour = 0
-    var parsemaine = Math. round(parseFloat(document.getElementById("objectifSemaine").value)*100)/100
+    var parsemaine = Math.round(parseFloat(document.getElementById("objectifSemaine").value) * 100) / 100
     if (unitePrefere == "metrique") {
-        poids = parseFloat(document.getElementById("kg").value);
+        poids = Math.round(parseFloat(document.getElementById(unitePoids).value) * 10) / 10;
         calories = 7700;
 
     } else {
-        poids = Math.round(parseFloat(document.getElementById("lbs").value) * 10) / 10;
+        poids = Math.round(parseFloat(document.getElementById(unitePoids).value) * 10) / 10;
         calories = 3500;
     }
     if (poidsVisee > poids) {
         let difference = poidsVisee - poids;
         let DifferenceEnCalories = difference * calories;
-        let joursRequis = Math.round((difference / parsemaine * 7)*10)/10;
-        let ajouterParJour = DifferenceEnCalories / joursRequis
+        let joursRequis = Math.round((difference / parsemaine * 7) * 10) / 10;
+        let ajouterParJour = Math.round((DifferenceEnCalories / joursRequis)* 10) / 10;
         totalJour = ajouterParJour + parseFloat(TDEE)
         document.getElementById("consommerParJour").innerHTML = "Afin d'arriver à votre objectif, vous devez consommer " + totalJour + " calories par jour, soit " + ajouterParJour + " de plus par jour, dans " + joursRequis + " jours"
         calorie_recommendee = totalJour
@@ -180,8 +180,8 @@ function calculerCalories(unitePrefere) {
     } else {
         let difference = poids - poidsVisee;
         let DifferenceEnCalories = difference * calories;
-        let joursRequis = Math.round((difference / parsemaine * 7)*10)/10;
-        let enleverParJour = DifferenceEnCalories / joursRequis
+        let joursRequis = Math.round((difference / parsemaine * 7) * 10) / 10;
+        let enleverParJour = Math.round((DifferenceEnCalories / joursRequis)* 10) / 10;
         totalJour = parseFloat(TDEE) - enleverParJour
         document.getElementById("consommerParJour").innerHTML = "Afin d'arriver à votre objectif, vous devez consommer " + totalJour + " calories par jour, soit " + enleverParJour + " de moins par jour, dans " + joursRequis + " jours"
         calorie_recommendee = totalJour
@@ -213,16 +213,16 @@ function calculerCaloriesParRepas(calorieRecommendee) {
             caloriesParRepas['colattion_de_Soir'] = (5 * calorieRecommendee) / 100
             caloriesParRepas['Souper'] = (25 * calorieRecommendee) / 100
     }
-divCalorieRepas = document.getElementById("calorie_par_repas");
-divCalorieRepas.innerHTML = ''
+    divCalorieRepas = document.getElementById("calorie_par_repas");
+    divCalorieRepas.innerHTML = ''
 
-    for (let repasCalo in caloriesParRepas){
+    for (let repasCalo in caloriesParRepas) {
         const paragraphe = document.createElement("p");
-        const node = document.createTextNode((repasCalo+'').replaceAll("_", " ") + ' ' + caloriesParRepas[repasCalo]);
+        const node = document.createTextNode((repasCalo + '').replaceAll("_", " ") + ' ' + caloriesParRepas[repasCalo]);
         paragraphe.appendChild(node);
         divCalorieRepas.appendChild(paragraphe);
     }
-return caloriesParRepas;
+    return caloriesParRepas;
 
 }
-module.exports = { calculerIMC, afficherIMC }
+module.exports ={ calculerIMC, afficherIMC }
