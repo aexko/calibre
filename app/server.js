@@ -37,7 +37,7 @@ const initialiserPassport = require("./passport-config");
 /**
  * Connexion MongoDB à la base de données (LOCALE) nommée "calibre"
  */
-mongoose.connect("mongodb://127.0.0.1:27017/" + nomDb, {
+mongoose.connect("mongodb://localhost:27017/" + nomDb, {
 	useNewUrlParser: true,
 	useUnifiedTopology: true,
 });
