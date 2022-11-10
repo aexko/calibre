@@ -101,11 +101,15 @@ app.get("/nutriments", (req, res) => {
 });
 
 // For website access
-app.listen(port, () => {
+/**app.listen(port, () => {
 	console.log(`Le serveur est sur localhost:${port}`);
-});
+});**/
+if (process.env.NODE_ENV !== 'test') {
+	app.listen(port, () => console.log(`Listening on port ${port}`))
+  }
 
 const utilisateurRoutes = require("./routes/utilisateur");
 
 app.use(utilisateurRoutes);
 
+module.exports=app;

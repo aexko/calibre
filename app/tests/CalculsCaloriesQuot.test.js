@@ -1,3 +1,5 @@
+/** @jest-environment jsdom */
+
 const calculs = require("../public/js/calculsCaloriesQuot");
 
 
@@ -28,5 +30,5 @@ expect(situation).toBe(". Vous êtes en situation de surpoids");
 test("30kg, 170 cm donne la meme imc que 66.1387 lbs, 5 feet et 6.9291 ", () => {
 	document.body.innerHTML =
 	'<input id="lbs" value="66.1387"/><input id="feet" value="5"/><input id="inch" value="6.9291"/><input id="cm" value="170"/><input id="kg" value="30"/>';
-	expect((calculs.calculerIMC('metrique')).Imc).toBe((calculs.calculerIMC('imperial')).Imc);
+	expect((calculs.calculerIMC('metrique','kg')).Imc).toBe((calculs.calculerIMC('imperial','lbs')).Imc);
 })

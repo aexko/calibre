@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function () {
         calculerCaloriesParRepas(calorie_recommendee)
     });
 });
-function calculerIMC(unitePrefere) {
+function calculerIMC(unitePrefere,unitePoids) {
     var Imc = 0;
 
     if (unitePrefere == "metrique") {
@@ -80,10 +80,10 @@ function maintenirUnPoids() {
     validerForm(document.getElementById("objectif_poids"))
 }
 
-function calculerTDEE(unitePrefere) {
+function calculerTDEE(unitePrefere,unitePoids) {
     var divCalorie = document.getElementById("caloriesConsommesQuotidienne")
     divCalorie.style.display = "none";
-    var BMR = calculerBMR(unitePrefere);
+    var BMR = calculerBMR(unitePrefere,unitePoids);
     var niveauActPhys = document.getElementById("id_niveau_activite_physique");
     var niveauActPhysSelectionne = niveauActPhys.options[niveauActPhys.selectedIndex].value;
     var valeurActivite = 0;
@@ -124,7 +124,7 @@ function calculerTDEE(unitePrefere) {
     //taux métabolique de base
     //dépense énergétique quotidienne totale
 }
-function calculerBMR(unitePrefere) {
+function calculerBMR(unitePrefere,unitePoids) {
     var genre = document.getElementById("genre");
     var genreSelectionne = genre.options[genre.selectedIndex].value;
     var age = parseInt(document.getElementById("ans").value);
@@ -150,7 +150,7 @@ function calculerBMR(unitePrefere) {
     }
     return Bmr;
 }
-function calculerCalories(unitePrefere) {
+function calculerCalories(unitePrefere,unitePoids) {
     var poidsVisee =  Math.round(parseFloat(document.getElementById('objectif_poids').value) * 10) / 10;
     var poids = 0;
     var calories = 0;

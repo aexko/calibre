@@ -1,3 +1,5 @@
+/** @jest-environment jsdom */
+
 const index = require("../public/js/index");
 
 //import {validerAgeTaillePoids,validerCourriel,validerMotPasse,validerNomUtilisateur} from '../public/js/index';
@@ -80,8 +82,9 @@ test("18 ans est un age valide", () => {
 	max = 120;
 	id = "age";
 	unitePrefere = "metrique";
+	unitePoids ="kg";
 	expect(
-		index.validerAgeTaillePoids(valeur, min, max, id, unitePrefere).validite
+		index.validerAgeTaillePoids(valeur, min, max, id, unitePrefere,unitePoids).validite
 	).toBe(true);
 });
 test("16.5 ans est plus petit que l'age minimum", () => {
@@ -90,7 +93,8 @@ test("16.5 ans est plus petit que l'age minimum", () => {
 	max = 120;
 	id = "age";
 	unitePrefere = "metrique";
-	fonction = index.validerAgeTaillePoids(valeur, min, max, id, unitePrefere);
+	unitePoids ="kg";
+	fonction = index.validerAgeTaillePoids(valeur, min, max, id, unitePrefere,unitePoids);
 	expect(fonction.validite).toBe(false);
 	expect(fonction.titre).toBe("age");
 	expect(fonction.minOuMax).toBe(min);
@@ -101,7 +105,8 @@ test("120.01 ans est plus grand que l'age maximum", () => {
 	max = 120;
 	id = "age";
 	unitePrefere = "metrique";
-	fonction = index.validerAgeTaillePoids(valeur, min, max, id, unitePrefere);
+	unitePoids ="kg";
+	fonction = index.validerAgeTaillePoids(valeur, min, max, id, unitePrefere,unitePoids);
 	expect(fonction.validite).toBe(false);
 	expect(fonction.titre).toBe("age");
 	expect(fonction.minOuMax).toBe(max);
@@ -112,7 +117,8 @@ test("55 kg est un objectif de poids valide si min 50 kg et max 60 kg.", () => {
 	max = 60;
 	id = "objectif_poids";
 	unitePrefere = "metrique";
-	fonction = index.validerAgeTaillePoids(valeur, min, max, id, unitePrefere);
+	unitePoids ="kg";
+	fonction = index.validerAgeTaillePoids(valeur, min, max, id, unitePrefere,unitePoids);
 	expect(fonction.validite).toBe(true);
 	expect(fonction.titre).toBe("");
 	expect(fonction.minOuMax).toBe("");
@@ -123,7 +129,8 @@ test("48 kg est un objectif de poids invalide si min 50 kg et max 60 kg.", () =>
 	max = 60;
 	id = "objectif_poids";
 	unitePrefere = "metrique";
-	fonction = index.validerAgeTaillePoids(valeur, min, max, id, unitePrefere);
+	unitePoids ="kg";
+	fonction = index.validerAgeTaillePoids(valeur, min, max, id, unitePrefere,unitePoids);
 	expect(fonction.validite).toBe(false);
 	expect(fonction.titre).toBe("kg");
 	expect(fonction.minOuMax).toBe(min);
@@ -134,7 +141,8 @@ test("62 kg est un objectif de poids invalide si min 50 kg et max 60 kg.", () =>
 	max = 60;
 	id = "objectif_poids";
 	unitePrefere = "metrique";
-	fonction = index.validerAgeTaillePoids(valeur, min, max, id, unitePrefere);
+	unitePoids ="kg";
+	fonction = index.validerAgeTaillePoids(valeur, min, max, id, unitePrefere,unitePoids);
 	expect(fonction.validite).toBe(false);
 	expect(fonction.titre).toBe("kg");
 	expect(fonction.minOuMax).toBe(max);

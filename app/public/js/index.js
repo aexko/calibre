@@ -110,15 +110,16 @@ function changerTab(n) {
 	tabValider = validerTab()
 	if (tabValider && n == 1) {
 		if (tabcourant == 1) {
-			let imcCalculee = calculerIMC(unitePrefere);
+			let imcCalculee = calculerIMC(unitePrefere,unitePoids);
 			Imc = imcCalculee.Imc
 			let minEchelle = imcCalculee.minEchelle
 			let maxEchelle = imcCalculee.maxEchelle
 			let situation = afficherIMC(Imc, minEchelle, maxEchelle);
 			afficherSituation(Imc, situation);
-			let calcul = calculerTDEE(unitePrefere)
+			let calcul = calculerTDEE(unitePrefere,unitePoids)
 			BMR = calcul.BMR
 			TDEE = calcul.TDEE
+			validerForm(document.getElementById('objectif_poids'))
 		} else if (tabcourant == 2) {
 			var objectifSemaine = document.getElementById('objSemaine');
 			var input = objectifSemaine.getElementsByTagName('input');
@@ -131,7 +132,7 @@ function changerTab(n) {
 			}
 		}
 		else if (tabcourant == 3) {
-			caloriesRecommendee = calculerCalories(unitePrefere);
+			caloriesRecommendee = calculerCalories(unitePrefere,unitePoids);
 			CaloriesParRepas = calculerCaloriesParRepas(caloriesRecommendee);
 		}
 	} else if (!tabValider) {
@@ -185,7 +186,7 @@ function validerForm(element) {
 	// verifie si les inputs d un tab ne sont pas vides
 	// si vide le nom de la classe de l input change a invalid et par css la couleur de background est mis a rouge
 	if (element.name in { "age": '', "taille": '', "poids": '', "objectif_de_poids_saine": '', "objectif_par_semaine": '', "repas_par_jour": '' }) {
-		let ageTaillePoids = validerAgeTaillePoids(element.value, element.min, element.max, element.id, unitePrefere)
+		let ageTaillePoids = validerAgeTaillePoids(element.value, element.min, element.max, element.id, unitePrefere,unitePoids)
 		valide = ageTaillePoids.validite
 		changerValidite("message " + element.id, ageTaillePoids.valide)
 		ecrireMessage(element, ageTaillePoids.titre, ageTaillePoids.minOuMax, ageTaillePoids.combien)
@@ -220,7 +221,7 @@ function validerForm(element) {
 // si valid l indicateur etape indique le fin de l etape
 // retourn si validee ou pas
 
-function validerAgeTaillePoids(valeur, min, max, id, unitePrefere) {
+function validerAgeTaillePoids(valeur, min, max, id, unitePrefere,unitePoids) {
 	var titre = id;
 	if (id == "objectif_poids" || id == "objectifSemaine") {
 		titre = unitePoids
