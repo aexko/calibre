@@ -9,4 +9,17 @@ describe('inscription', () => {
             expect(response.status).toBe(200);
         });
     });
+
+    describe('get /inscription:nomUtilisateur', () => {
+        it('doit retourner existant si un compte avec le même nom d\'utilisateur existe', async () => {
+            const response = await request(app).get('/inscription/davi2020');
+            expect(response.body.titre).toEqual('existant');
+        });
+    });
+    describe('get /inscription:nomUtilisateur', () => {
+        it('doit retourner succes si un compte avec le même nom d\'utilisateur n existe pas', async () => {
+            const response = await request(app).get('/inscription/admin');
+            expect(response.body.titre).toEqual('succes');
+        });
+    });
 });
