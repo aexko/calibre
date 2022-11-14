@@ -94,8 +94,8 @@ app.get("/", (req, res) => {
 	});
 });
 
-app.get("/about", (req, res) => {
-	res.render("pages/about", {
+app.get("/a-propos", (req, res) => {
+	res.render("pages/a-propos", {
 		utilisateurconnecte: utilisateurCourant,
 	});
 });
