@@ -13,14 +13,57 @@
 
     <main>
         <div class="jumbotron">
-            <h1>Afficher les activités</h1>
-            <%listeActivites.forEach(activite => {%>
-                <h2><%= activite.titre %></h2>
-                <p>Description: <%= activite.description %></p>
-                <p>Date: <%=activite.date %></p>
-                <p>Nombre de calories: <%= activite.calories %></p>
+            <h1>Liste des activités</h1>
 
-            <%})%>
+
+            <form action="/" method="POST">
+
+                <table class="table">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>ID</th>
+                            <th>Nom de l'activité</th>
+                            <th>Description</th>
+                            <th>Date</th>
+                            <th>Calories</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <%listeActivites.forEach(activite=> {%>
+
+                            <tr>
+                                <td>X</td>
+                                <td>
+                                    <%= activite.titre %>
+                                </td>
+                                <td>
+                                    <%= activite.description %>
+                                </td>
+                                <td>
+                                    <%=activite.date.toISOString().substring(0,10) %>
+                                </td>
+                                <td>
+                                    <%= activite.calories %>
+                                </td>
+                                <td><a href="/modifier_activite" class="btn border-shadow update">
+                                        <i class="fa-solid fa-edit"></i>
+                                    </a>
+
+                                    <!-- supprimer ou non -->
+                                    <!-- <a href="/supprimer_activite" class="btn border-shadow delete">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </a> -->
+
+                                </td>
+
+                            </tr>
+                            <%})%>
+
+                    </tbody>
+                </table>
+            </form>
+
+
         </div>
     </main>
 
