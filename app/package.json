@@ -31,7 +31,6 @@
         "method-override": "^3.0.0",
         "mongodb": "^4.9.0",
         "mongoose": "^6.6.5",
-        "moongose": "^1.0.0",
         "node": "^18.9.1",
         "passport": "^0.6.0",
         "passport-local": "^1.0.0",
