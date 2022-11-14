@@ -23,6 +23,9 @@ const {
 } = require("./middlewares/auth");
 const initialiserPassport = require("./passport-config");
 
+const morgan = require("morgan");
+app.use(morgan("tiny"));
+
 /**
  * Connexion MongoDB à la base de données (CLOUD - MongoDB Atlas) nommée "calibre"
  */
