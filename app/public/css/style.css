@@ -199,3 +199,11 @@
                             width: 0%;
                             transition: 1s ease 0.3s;
                         }
+                        
+                        .divCalorie {
+                            background-color: #52bb6e;
+                        }
+                        
+                        .divInfo {
+                            background-color: rgb(110, 145, 118);
+                        }
