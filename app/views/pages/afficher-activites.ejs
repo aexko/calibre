@@ -31,24 +31,33 @@
 
                             <tr>
                                 <td>
+                                    <a class="single" href="/<%=activite._id %>" <%=activite.titre %></a>
+
                                     <%= activite.titre %>
                                 </td>
                                 <td>
-                                    <%= activite.description %>
+                                    <% if (activite.description !=null) { %>
+                                        <%=activite.description %>
+                                            <% } else { %>
+                                                <p>Pas de description</p>
+                                                <% } %>
                                 </td>
                                 <td>
-                                    <%=activite.date.toISOString().substring(0,10) %>
-                                </td>
-                                <td>
+                                    <% if (activite.date !=null) { %>
+                                        <%=activite.date.toISOString().substring(0,10) %>
+                                            <% } else { %>
+                                                <p>Pas de date</p>
+                                                <% } %>
+
                                 </td>
                                 <td><a href="/modifier-activite" class="btn border-shadow update">
                                         <i class="fa-solid fa-edit"></i>
                                     </a>
 
                                     <!-- supprimer ou non -->
-                                    <!-- <a href="/supprimer_activite" class="btn border-shadow delete">
+                                    <a data-doc="<%= activite._id %>" class="delete">
                                         <i class="fa-solid fa-trash"></i>
-                                    </a> -->
+                                    </a>
 
                                 </td>
 
@@ -67,6 +76,19 @@
         <%- include('../partials/footer'); %>
     </footer>
 
+    <script>
+        const trashcan = document.querySelector('a.delete');
+        trashcan.addEventListener('click', (e) => {
+          const endpoint = `/${trashcan.dataset.doc}`;
+          fetch(endpoint, {
+            method: 'DELETE',
+          })
+          .then(response => response.json())
+          .then(data => window.location.href = data.redirect)
+          .catch(err => console.log(err));
+        });
+        
+      </script>
 </body>
 
 </html>
