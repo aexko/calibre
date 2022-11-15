@@ -1,6 +1,6 @@
 const Activite = require("../models/activite");
 
-exports.getActiviteForm = (req, res, next) => {
+exports.getActiviteFormAjouter = (req, res, next) => {
 	res.render("../views/pages/ajouter-activite", {
 		pageTitle: "Ajouter une activite",
 		path: "/ajouter-activite",
@@ -41,8 +41,8 @@ exports.postActivite = (req, res, next) => {
 	activite
 		.save()
 		.then((result) => {
-			console.log("Activite cree");
-			res.redirect("/ajouter-activite");
+			console.log("Activité créée");
+			res.redirect("/afficher-activites");
 		})
 		.catch((err) => {
 			console.log(err);
@@ -110,4 +110,3 @@ exports.getAllActivities = (req, res, next) => {
 	// })
 	// .catch((err) => console.log(err));
 };
-

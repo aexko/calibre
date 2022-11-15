@@ -3,7 +3,7 @@ const utilisateurController = require("../controllers/utilisateur");
 
 const router = express.Router();
 
-router.get("/ajouter-activite", utilisateurController.getActiviteForm);
+router.get("/ajouter-activite", utilisateurController.getActiviteFormAjouter);
 router.post("/ajouter-activite", utilisateurController.postActivite);
 
 router.get("/afficher-activites", utilisateurController.getAllActivities);
