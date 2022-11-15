@@ -82,21 +82,21 @@ app.get("/", (req, res) => {
 });
 
 app.get("/a-propos", (req, res) => {
-	res.render("pages/a-propos", {
-		utilisateurconnecte: utilisateurCourant,
-	});
+    res.render("pages/a-propos", {
+        utilisateurconnecte: utilisateurCourant,
+    });
 });
 // ce routage permet de servir la page de connexion
 app.get("/connexion", checkNotAuthenticated, (req, res) => {
-	res.render("pages/connexion", {
-		utilisateurconnecte: utilisateurCourant,
-	});
+    res.render("pages/connexion", {
+        utilisateurconnecte: utilisateurCourant,
+    });
 });
 app.get("/profil", checkAuthenticated, (req, res) => {
-	res.render("pages/profil", {
-		utilisateur: utilisateurCourant,
-		utilisateurconnecte: utilisateurCourant,
-	});
+    res.render("pages/profil", {
+        utilisateurconnecte: configuerationConnexion.utilisateurCourant,
+        utilisateurCourant: configuerationConnexion.utilisateurCourant
+    });
 });
 
 
@@ -168,13 +168,13 @@ app.use(utilisateurRoutes);
 
 module.exports = app;
 app.delete('/:id', (req, res) => {
-	const id = req.params.id;
-	
-	activite.findByIdAndDelete(id)
-	  .then(result => {
-		res.json({ redirect: '/afficher-activites' });
-	  })
-	  .catch(err => {
-		console.log(err);
-	  });
-  });
+    const id = req.params.id;
+
+    activite.findByIdAndDelete(id)
+        .then(result => {
+            res.json({ redirect: '/afficher-activites' });
+        })
+        .catch(err => {
+            console.log(err);
+        });
+});
