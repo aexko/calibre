@@ -59,7 +59,7 @@ exports.postActivite = (req, res, next) => {
 // 		.then((result) => {
 // 			console.log("Activite modifiee");
 // 			res.redirect("/afficher-activites");
-		
+
 // 		})
 // 		.catch((err) => {
 // 			console.log(err);
@@ -107,3 +107,11 @@ exports.getAllActivities = (req, res, next) => {
 	// })
 	// .catch((err) => console.log(err));
 };
+
+exports.updateActivite = (req, res, next) => {
+	const activite = activites.find((user) => activite.id === req.params.id);
+
+	activite.username = req.body.titre;
+	activite.age = req.body.age;
+
+	console.log("updated");
