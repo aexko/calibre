@@ -13,14 +13,60 @@
 
     <main>
         <div class="jumbotron">
-            <h1>Afficher les activités</h1>
-            <%listeActivites.forEach(activite => {%>
-                <h2><%= activite.titre %></h2>
-                <p>Description: <%= activite.description %></p>
-                <p>Date: <%=activite.date %></p>
-                <p>Nombre de calories: <%= activite.calories %></p>
+            <h1>Liste des activités</h1>
 
-            <%})%>
+
+            <form action="/" method="POST">
+
+                <table class="table">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Nom de l'activité</th>
+                            <th>Description</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <%listeActivites.forEach(activite=> {%>
+
+                            <tr>
+                                <td>
+                                    <%=activite.titre %>
+                                </td>
+                                <td>
+                                    <% if (activite.description !=null) { %>
+                                        <%=activite.description %>
+                                            <% } else { %>
+                                                <p>Pas de description</p>
+                                                <% } %>
+                                </td>
+                                <td>
+                                    <% if (activite.date !=null) { %>
+                                        <%=activite.date.toISOString().substring(0,10) %>
+                                            <% } else { %>
+                                                <p>Pas de date</p>
+                                                <% } %>
+
+                                </td>
+                                <td><a href="/modifier-activite" class="btn border-shadow update">
+                                        <i class="fa-solid fa-edit"></i>
+                                    </a>
+
+                                    <!-- supprimer ou non -->
+                                    <a data-doc="<%= activite._id %>" class="delete">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </a>
+
+                                </td>
+
+                            </tr>
+                            <%})%>
+
+                    </tbody>
+                </table>
+            </form>
+
+
         </div>
     </main>
 
@@ -28,6 +74,22 @@
         <%- include('../partials/footer'); %>
     </footer>
 
+    <script>
+        // SOURCE: The Net Ninja        
+        const trashcan = document.querySelector('a.delete');
+        if (trashcan != null) {
+            trashcan.addEventListener('click', (e) => {
+                const endpoint = `/${trashcan.dataset.doc}`;
+                fetch(endpoint, {
+                    method: 'DELETE',
+                })
+                    .then(response => response.json())
+                    .then(data => window.location.href = data.redirect)
+                    .catch(err => console.log(err));
+            });
+        }
+
+    </script>
 </body>
 
 </html>
