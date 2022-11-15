@@ -28,6 +28,7 @@
         "express-session": "^1.17.3",
         "jquery": "^3.6.1",
         "jsonwebtoken": "^8.5.1",
+        "mdb-ui-kit": "^6.0.0",
         "method-override": "^3.0.0",
         "mongodb": "^4.9.0",
         "mongoose": "^6.6.5",

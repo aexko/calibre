@@ -10,6 +10,7 @@ function soummettreFormulaire() {
 		total: caloriesRecommendee,
 		repas: CaloriesParRepas
 	}
+
 	$.ajax({
 		url: "http://localhost:3000/inscription",
 		type: "POST",
@@ -107,7 +108,11 @@ function changerTab(n) {
 	var x = document.getElementsByClassName("tab");
 
 	// si validation echoue pour le tab courant et bouton prochain clique, retourne faux
-	tabValider = validerTab()
+	var tabValider = ''
+	if(tabcourant != 6){
+			tabValider =validerTab() }else{
+				tabValider = true;
+			}
 	if (tabValider && n == 1) {
 		if (tabcourant == 1) {
 			let imcCalculee = calculerIMC(unitePrefere,unitePoids);

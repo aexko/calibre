@@ -28,16 +28,7 @@ const schemaUtilisateur = mongoose.Schema({
         description: String
     }],
     ibm: Number,
-    exigences_dietiques: [{
-        id: Number,
-        nom: String,
-        description: String,
-        contenues_a_eviter: [{
-            id: Number,
-            nom: String,
-            description: String
-        }],
-    }]
+    exigences_dietiques: [{}]
 });
 
 const Utilisateur = mongoose.model("Utilisateur", schemaUtilisateur);

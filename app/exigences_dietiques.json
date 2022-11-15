@@ -1,0 +1,205 @@
+[{
+  "_id": {
+    "$oid": "637283d49d22c24582bf75ef"
+  },
+  "exigence": "Alcohol-Free",
+  "description": "No alcohol used or contained"
+},{
+  "_id": {
+    "$oid": "637285529d22c24582bf75f1"
+  },
+  "exigence": "Celery-Free",
+  "description": "Does not contain celery or derivatives"
+},{
+  "_id": {
+    "$oid": "637285d89d22c24582bf75f2"
+  },
+  "exigence": "Crustcean-Free",
+  "description": "Does not contain crustaceans (shrimp, lobster etc.) or derivatives"
+},{
+  "_id": {
+    "$oid": "637285f49d22c24582bf75f3"
+  },
+  "exigence": "Dairy-Free",
+  "description": "No dairy; no lactose"
+},{
+  "_id": {
+    "$oid": "6372862b9d22c24582bf75f4"
+  },
+  "exigence": "DASH",
+  "description": "Dietary Approaches to Stop Hypertension diet"
+},{
+  "_id": {
+    "$oid": "637286479d22c24582bf75f5"
+  },
+  "exigence": "Egg-Free",
+  "description": "No eggs or products containing eggs"
+},{
+  "_id": {
+    "$oid": "6372866a9d22c24582bf75f6"
+  },
+  "exigence": "Fish-Free",
+  "description": "No fish or fish derivatives"
+},{
+  "_id": {
+    "$oid": "637286899d22c24582bf75f7"
+  },
+  "exigence": "FODMAP-Free",
+  "description": "Does not contain FODMAP foods"
+},{
+  "_id": {
+    "$oid": "637286a69d22c24582bf75f8"
+  },
+  "exigence": "Gluten-Free",
+  "description": "No ingredients containing gluten"
+},{
+  "_id": {
+    "$oid": "637286c69d22c24582bf75f9"
+  },
+  "exigence": "Immuno-Supportive",
+  "description": "Recipes which fit a science-based approach to eating to strengthen the immune system"
+},{
+  "_id": {
+    "$oid": "637286ec9d22c24582bf75fa"
+  },
+  "exigence": "Keto-Friendly",
+  "description": "Maximum 7 grams of net carbs per serving"
+},{
+  "_id": {
+    "$oid": "6372870b9d22c24582bf75fb"
+  },
+  "exigence": "Kidney-Friendly",
+  "description": "Per serving – phosphorus less than 250 mg AND potassium less than 500 mg AND sodium less than 500 mg"
+},{
+  "_id": {
+    "$oid": "637287319d22c24582bf75fc"
+  },
+  "exigence": "Kosher",
+  "description": "Contains only ingredients allowed by the kosher diet. However it does not guarantee kosher preparation of the ingredients themselves"
+},{
+  "_id": {
+    "$oid": "637287549d22c24582bf75fd"
+  },
+  "exigence": "Low Potassium",
+  "description": "Less than 150mg per serving"
+},{
+  "_id": {
+    "$oid": "6372877f9d22c24582bf75fe"
+  },
+  "exigence": "Low Sugar",
+  "description": "No simple sugars – glucose, dextrose, galactose, fructose, sucrose, lactose, maltose"
+},{
+  "_id": {
+    "$oid": "637287a79d22c24582bf75ff"
+  },
+  "exigence": "Lupine-Free",
+  "description": "Does not contain lupine or derivatives"
+},{
+  "_id": {
+    "$oid": "637287bd9d22c24582bf7600"
+  },
+  "exigence": "Mediterranean",
+  "description": "Mediterranean diet"
+},{
+  "_id": {
+    "$oid": "637287d59d22c24582bf7601"
+  },
+  "exigence": "Mollusk-Free",
+  "description": "No mollusks"
+},{
+  "_id": {
+    "$oid": "637287f59d22c24582bf7602"
+  },
+  "exigence": "Mustard-Free",
+  "description": "Does not contain mustard or derivatives"
+},{
+  "_id": {
+    "$oid": "6372881f9d22c24582bf7603"
+  },
+  "exigence": "No oil added",
+  "description": "No oil added except to what is contained in the basic ingredients"
+},{
+  "_id": {
+    "$oid": "6372883e9d22c24582bf7604"
+  },
+  "exigence": "Paleo",
+  "description": "Excludes what are perceived to be agricultural products; grains, legumes, dairy products, potatoes, refined salt, refined sugar, and processed oils"
+},{
+  "_id": {
+    "$oid": "637288579d22c24582bf7605"
+  },
+  "exigence": "Peanut-Free",
+  "description": "No peanuts or products containing peanuts"
+},{
+  "_id": {
+    "$oid": "6372887d9d22c24582bf7606"
+  },
+  "exigence": "Pescatarian",
+  "description": "Does not contain meat or meat based products, can contain dairy and fish"
+},{
+  "_id": {
+    "$oid": "637288989d22c24582bf7607"
+  },
+  "exigence": "Pork-Free",
+  "description": "Does not contain pork or derivatives"
+},{
+  "_id": {
+    "$oid": "637288b19d22c24582bf7608"
+  },
+  "exigence": "Red-Meat-Free",
+  "description": "Does not contain beef, lamb, pork, duck, goose, game, horse, and other types of red meat or products containing red meat."
+},{
+  "_id": {
+    "$oid": "637288cd9d22c24582bf7609"
+  },
+  "exigence": "Sesame-Free",
+  "description": "Does not contain sesame seed or derivatives"
+},{
+  "_id": {
+    "$oid": "637288ef9d22c24582bf760a"
+  },
+  "exigence": "Shellfish-Free",
+  "description": "No shellfish or shellfish derivatives"
+},{
+  "_id": {
+    "$oid": "637289099d22c24582bf760b"
+  },
+  "exigence": "Soy-Free",
+  "description": "No soy or products containing soy"
+},{
+  "_id": {
+    "$oid": "6372892b9d22c24582bf760c"
+  },
+  "exigence": "Sugar-Conscious",
+  "description": "Less than 4g of sugar per serving"
+},{
+  "_id": {
+    "$oid": "637289469d22c24582bf760d"
+  },
+  "exigence": "Sulfite-Free",
+  "description": "No Sulfites"
+},{
+  "_id": {
+    "$oid": "637289619d22c24582bf760e"
+  },
+  "exigence": "Tree-Nut-Free",
+  "description": "No tree nuts or products containing tree nuts"
+},{
+  "_id": {
+    "$oid": "6372897b9d22c24582bf760f"
+  },
+  "exigence": "Vegan",
+  "description": "No meat, poultry, fish, dairy, eggs or honey"
+},{
+  "_id": {
+    "$oid": "637289999d22c24582bf7610"
+  },
+  "exigence": "Vegetarian",
+  "description": "No meat, poultry, or fish"
+},{
+  "_id": {
+    "$oid": "637289c69d22c24582bf7611"
+  },
+  "exigence": "Wheat-Free",
+  "description": "No wheat, can have gluten though"
+}]
