@@ -40,7 +40,7 @@ app.use(morgan("tiny"));
 /**
  * Connexion MongoDB à la base de données (LOCALE) nommée "calibre"
  */
-mongoose.connect("mongodb://localhost:27017/" + nomDb, {
+mongoose.connect("mongodb://127.0.0.1:27017/" + nomDb, {
 	useNewUrlParser: true,
 	useUnifiedTopology: true,
 });
