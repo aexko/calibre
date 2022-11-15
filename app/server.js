@@ -1,6 +1,7 @@
 const express = require("express");
 //connection mongoose
 const mongoose = require("mongoose");
+var bodyParser = require('body-parser')
 const app = express();
 const port = 3000;
 //importation de module schemaUtilisateur
@@ -13,6 +14,7 @@ const flash = require("express-flash");
 const session = require("express-session");
 const methodOverride = require("method-override");
 const passport = require("passport");
+var urlencodedParser = bodyParser.urlencoded({ extended: false })
 const configuerationConnexion = require("./config/config-connexion");
 
 const {
@@ -111,6 +113,28 @@ app.post("/ajouter_calorie", checkAuthenticated, async(req, res) => {
 
     configuerationConnexion.utilisateurCourant.calorie_quotidien_consommee = calorie;
     await modelUtilisateur.findOneAndUpdate({ email: configuerationConnexion.utilisateurCourant.email }, { calorie_quotidien_consommee: calorie });
+
+    res.redirect("/profil");
+});
+//
+app.post("/ajouter_calorie_recherche", checkAuthenticated, async(req, res) => {
+    var calorie =
+        parseInt(req.body.calorie_recherche) +
+        configuerationConnexion.utilisateurCourant.calorie_quotidien_consommee;
+
+    configuerationConnexion.utilisateurCourant.calorie_quotidien_consommee = calorie;
+
+    await modelUtilisateur.findOneAndUpdate({ email: configuerationConnexion.utilisateurCourant.email }, { calorie_quotidien_consommee: calorie });
+
+    res.redirect("/profil");
+});
+app.post("/metre_a_jour_age", checkAuthenticated, async(req, res) => {
+    var age =
+        parseInt(req.body.age);
+
+    configuerationConnexion.utilisateurCourant.age = age;
+
+    await modelUtilisateur.findOneAndUpdate({ email: configuerationConnexion.utilisateurCourant.email }, { age: age });
 
     res.redirect("/profil");
 });

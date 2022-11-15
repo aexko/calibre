@@ -4,7 +4,7 @@
 <head>
     <%- include('../partials/head'); %>
         <link type="text/css" rel="stylesheet" href="../css/style.css" />
-        <script src="../js/progress_barjs"></script>
+
 </head>
 <php></php>
 
@@ -55,6 +55,36 @@
         <input type="submit" value="Ajouter" name="action"> </button>
 
     </form>
+    <main>
+        <div class="jumbotron">
+            <h5>Ou utiliser notre barre de recherche</h5>
+            <p>Le nombre de calories est pour 100 g de l'aliment</p>
+            <input id="recherche_nutriments" placeholder="entrez le nom de l'aliment">
+
+            <!-- Bouton avec la fonction getNutriment(query) -->
+            <button id="envoyer" onclick="getNutrimentID(document.getElementById('recherche_nutriments').value)">Trouver
+                un nutriment</button><br>
+
+            <div id="afficher_aliment" style="display:none;">
+                <!-- Affichage des informations du nutriment trouvé -->
+                <p>
+                    Nom du nutriment: <span id="nom_nutriment"></span><br> Nombre de calories: <span id="quantite_calories"> 
+            </p>
+            <input id="entree_quantite" placeholder="entrez la quantité consommée en gramme">
+          <br>
+            <!-- Résultat de la requête -->
+            <div id="sortie"></div>
+            <button id="calculer" onclick="calculerCalorie()">Calculer 
+                un nutriment</button>
+                <form id="div_consommation" action="/ajouter_calorie_recherche"  method="post">
+                    <p id="total_calorie"></p>
+                  
+                    <input type="hidden" name="calorie_recherche" id="calorie_recherche" />
+                    <input type="submit" value="Ajouter" name="action"> </button>
+                </form>
+        </div>
+        </div>
+    </main>
     <p></p>
     <div class="divInfo">
         <h5>Mes informations</h5>
@@ -63,7 +93,14 @@
         <%=utilisateurCourant.nom_utilisateur%>
             <br> Adresse courriel:
             <%=utilisateurCourant.email%> <br> Age:
-                <%=utilisateurCourant.age%> <br>Taille:
+                <%=utilisateurCourant.age%>
+                <button onclick=" afficherDiv('modifier_age')">+</button>
+                            <form action="/metre_a_jour_age" class="modifier_age" id="modifier_age" style="display:none;" method="post">
+                                <input type="number" id="age" name="age" max="120" min="18" placeholder="entrez votre age">
+                                <input type="submit" value="Modifier" name="action"> </button>
+
+
+                            </form>  <br>Taille:
                     <%=utilisateurCourant.taille%> <br> Poids actuel:
                         <%=utilisateurCourant.poids%> <button onclick=" afficherDiv('modifier_poids')">+</button>
                             <form action="/metre_a_jour_poid" class="modifier_poids" id="modifier_poids" style="display:none;" method="post">
@@ -80,42 +117,99 @@
         <%- include('../partials/footer'); %>
     </footer>
 
-    <script>
-        function afficherDiv(id_div) {
-            var x = document.getElementById(id_div);
+    <script >
+           var input = document.getElementById('calorie_recherche');
+           var consommation ;
+function calculerCalorie() {
+    var calorie = Number(document.getElementById("quantite_calories").innerText);
+    var quantite = Number(document.getElementById("entree_quantite").value);
+    // var texte=getElementById("total_calorie");
+    consommation = (quantite * calorie / 100)
+        //  document.getElementById("total_calorie").innerText="Vous avez consommé "+consommation+"Kcal" 
+    document.getElementById("total_calorie").innerText = " Vous avez consommée " + consommation + "KCal"
+    document.getElementById("calorie_recherche").textContent = consommation
+        // return consommation
+        // return consommation
+        input.value = consommation.toString();
+}
 
-            if (x.style.display === "none") {
-                x.style.display = "block";
-            } else {
-                x.style.display = "none";
+function afficherDiv(id_div) {
+    var div = document.getElementById(id_div);
+
+    if (div.style.display === "none") {
+        div.style.display = "block";
+    } else {
+        div.style.display = "none";
+    }
+
+}
+
+function progress_bar() {
+    var text_pourcentage = document.getElementById("pourcentage");
+    text_pourcentage.style.marginTop = "5%";
+    var elem = document.getElementById("progress-done");
+    var contenu_calorie = Number(document.getElementById("calorie_consomme").innerText);
+
+    var contenu_max = Number(document.getElementById("calorie_recommendee").innerText);
+
+    var nombre = (contenu_calorie * 100) / contenu_max;
+    text_pourcentage.innerText = Math.round(nombre) + "%";
+    elem.style.width = nombre + "%";
+    if (nombre > 100) {
+        elem.style.backgroundImage = "repeating-linear-gradient(to left, #ff1616, #ff4545, #f66d6d)";
+        elem.style.boxShadow = "05px 5px -6px #fb8507, 0 3px 7px #f09535";
+    } else if (nombre < 100 && nombre > 90) {
+        elem.style.backgroundImage = "repeating-linear-gradient(to left,#fb8507, #f09535, #f0ae68)";
+        elem.style.boxShadow = "05px 5px -6px #ff1616, 0 3px 7px #f66d6d";
+
+    }
+
+
+}
+/**
+ * Fonction qui trouve la source du nutriment
+ * @param {number} id - ID du nutriment
+ */
+function getNutrimentInfo(id) {
+    $.ajax({
+        url: "https://api.spoonacular.com/food/ingredients/" +
+            id +
+            "/information?apiKey=1cc034bf9a734f59995c4b72466c33ab&amount=100&unit=grams",
+        success: function(res) {
+            document.getElementById("nom_nutriment").textContent = res.name;
+            document.getElementById("quantite_calories").textContent =
+                res.nutrition.nutrients[16].amount;
+
+        },
+    });
+}
+
+/**
+ * Fonction qui trouve un nutriment
+ * @param {string} query - Entrée de l'utilisateur
+ */
+function getNutrimentID(query) {
+    $.ajax({
+        url: "https://api.spoonacular.com/food/ingredients/search?apiKey=1cc034bf9a734f59995c4b72466c33ab&query=" +
+            query,
+        success: function(res) {
+            try {
+
+                getNutrimentInfo(res.results[0].id);
+                afficherDiv('afficher_aliment');
+            } catch (err) {
+                console.log(
+                    "Erreur: " +
+                    err.name +
+                    " - Aucun nutriment trouvé dans la base de données de SpoonacularAPI"
+                );
+                alert(
+                    "Désolé, aucun nutriment trouvé. Veuillez réessayer avec des mots en anglais, merci!"
+                );
             }
-
-        }
-
-
-        function progress_bar() {
-            var text_pourcentage = document.getElementById("pourcentage");
-            text_pourcentage.style.marginTop = "5%";
-            var elem = document.getElementById("progress-done");
-            var contenu_calorie = Number(document.getElementById("calorie_consomme").innerText);
-
-            var contenu_max = Number(document.getElementById("calorie_recommendee").innerText);
-            var pourcentage = Number(contenu_calorie * 100 / contenu_max);
-
-            var nombre = (contenu_calorie * 100) / contenu_max;
-            text_pourcentage.innerText = Math.round(nombre) + "%";
-            elem.style.width = nombre + "%";
-            if (nombre > 100) {
-                elem.style.backgroundImage = "repeating-linear-gradient(to left, #ff1616, #ff4545, #f66d6d)";
-                elem.style.boxShadow = "05px 5px -6px #fb8507, 0 3px 7px #f09535";
-            } else if (nombre < 100 && nombre > 90) {
-                elem.style.backgroundImage = "repeating-linear-gradient(to left,#fb8507, #f09535, #f0ae68)";
-                elem.style.boxShadow = "05px 5px -6px #ff1616, 0 3px 7px #f66d6d";
-
-            }
-
-
-        }
+        },
+    });
+}
     </script>
 
 
