@@ -8,7 +8,7 @@
 </head>
 <php></php>
 
-<body class="container">
+<body class="container" onload="progress_bar()">
     <header>
         <%- include('../partials/header'); %>
     </header>
@@ -21,29 +21,32 @@
         <%=utilisateurCourant.prenom%>
             <%=utilisateurCourant.nom%>
     </h3>
-    <h3>Calories consommées aujourdhui </h3>
-    <h4>
-        <p style="display:inline" id="calorie_consomme">
-            <%=utilisateurCourant.calorie_quotidien_consommee%>
-        </p>
-        <p style="display:inline">
-            /
-        </p>
-        <p style="display:inline" id="calorie_recommendee">
-            <%=utilisateurCourant.calorie_quotidien_recommendee%>
-        </p>
+    <div class="divCalorie">
+        <h3>Calories consommées aujourdhui </h3>
+        <h4>
+            <p style="display:inline" id="calorie_consomme">
+                <%=utilisateurCourant.calorie_quotidien_consommee%>
+            </p>
+            <p style="display:inline">
+                /
+            </p>
+            <p style="display:inline" id="calorie_recommendee">
+                <%=utilisateurCourant.calorie_quotidien_recommendee[0].total%>
+            </p>
 
 
 
-    </h4>
+        </h4>
 
-    <div class="progress">
-        <div class="progress-done" id="progress-done">
+        <div class="progress">
 
+            <div class="progress-done" id="progress-done">
+                <p id="pourcentage" name="pourcentage"></p>
+            </div>
         </div>
     </div>
     <p></p>
-    <button onclick="  afficherDiv('AjouterCalorie')">Ajouter des Calories</button>
+    <button onclick=" afficherDiv('AjouterCalorie')">Ajouter des Calories</button>
 
     <form action="/ajouter_calorie" id="AjouterCalorie" style="display:none;" method="post">
         <p>Ajouter manuellement les calories de votre repas</p>
@@ -53,62 +56,67 @@
 
     </form>
     <p></p>
-    <h5>Mes informations</h5>
-    <p style="display:inline ;">Nom d'utilisateur:
-    </p>
-    <%=utilisateurCourant.nom_utilisateur%>
-        <br> Adresse courriel:
-        <%=utilisateurCourant.email%> <br> Age:
-            <%=utilisateurCourant.age%> <br>Taille:
-                <%=utilisateurCourant.taille%> <br> Poids actuel:
-                    <%=utilisateurCourant.poids%> <button onclick=" afficherDiv('modifier_poids')">+</button>
-                        <form action="/metre_a_jour_poid" class="modifier_poids" id="modifier_poids" style="display:none;" method="post">
-                            <input type="number" id="poids" name="poids" max="200" min="15" placeholder="entrez votre nouveau poids">
-                            <input type="submit" value="Modifier" name="action"> </button>
+    <div class="divInfo">
+        <h5>Mes informations</h5>
+        <p style="display:inline ;">Nom d'utilisateur:
+        </p>
+        <%=utilisateurCourant.nom_utilisateur%>
+            <br> Adresse courriel:
+            <%=utilisateurCourant.email%> <br> Age:
+                <%=utilisateurCourant.age%> <br>Taille:
+                    <%=utilisateurCourant.taille%> <br> Poids actuel:
+                        <%=utilisateurCourant.poids%> <button onclick=" afficherDiv('modifier_poids')">+</button>
+                            <form action="/metre_a_jour_poid" class="modifier_poids" id="modifier_poids" style="display:none;" method="post">
+                                <input type="number" id="poids" name="poids" max="200" min="15" placeholder="entrez votre nouveau poids">
+                                <input type="submit" value="Modifier" name="action"> </button>
 
 
-                        </form> <br> IMC:
-                        <%=utilisateurCourant.imc%>
-                            <p></p>
+                            </form> <br> IMC:
+                            <%=utilisateurCourant.imc%>
+                                <p></p>
+    </div>
+
+    <footer>
+        <%- include('../partials/footer'); %>
+    </footer>
+
+    <script>
+        function afficherDiv(id_div) {
+            var x = document.getElementById(id_div);
+
+            if (x.style.display === "none") {
+                x.style.display = "block";
+            } else {
+                x.style.display = "none";
+            }
+
+        }
 
 
-                            <footer>
-                                <%- include('../partials/footer'); %>
-                            </footer>
+        function progress_bar() {
+            var text_pourcentage = document.getElementById("pourcentage");
+            text_pourcentage.style.marginTop = "5%";
+            var elem = document.getElementById("progress-done");
+            var contenu_calorie = Number(document.getElementById("calorie_consomme").innerText);
 
-                            <script>
-                                function afficherDiv(id_div) {
-                                    var x = document.getElementById(id_div);
+            var contenu_max = Number(document.getElementById("calorie_recommendee").innerText);
+            var pourcentage = Number(contenu_calorie * 100 / contenu_max);
 
-                                    if (x.style.display === "none") {
-                                        x.style.display = "block";
-                                    } else {
-                                        x.style.display = "none";
-                                    }
+            var nombre = (contenu_calorie * 100) / contenu_max;
+            text_pourcentage.innerText = Math.round(nombre) + "%";
+            elem.style.width = nombre + "%";
+            if (nombre > 100) {
+                elem.style.backgroundImage = "repeating-linear-gradient(to left, #ff1616, #ff4545, #f66d6d)";
+                elem.style.boxShadow = "05px 5px -6px #fb8507, 0 3px 7px #f09535";
+            } else if (nombre < 100 && nombre > 90) {
+                elem.style.backgroundImage = "repeating-linear-gradient(to left,#fb8507, #f09535, #f0ae68)";
+                elem.style.boxShadow = "05px 5px -6px #ff1616, 0 3px 7px #f66d6d";
 
-                                }
-
-
-                                function progress_bar() {
-                                    const valeur = document.getElementById("calorie_consomme");
-                                    const max = document.getElementById("calorie_recommendee");
-                                    const maximum = "30%";
-                                    var bar = document.getElementById("progress-done");
-                                    console.log(max)
-                                    let valeurFinale = 0;
+            }
 
 
-
-                                    valeurFinale = parseInt(valeur.value, 10);
-                                    maximum = parseInt(max.value, 10);
-                                    var pourcentage = valeurFinale / maximum * 100;
-                                    var largeur = maximum + "%";
-
-                                    bar.style.width = "20%";
-
-                                    //  return pourcentage
-                                }
-                            </script>
+        }
+    </script>
 
 
 </body>
