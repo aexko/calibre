@@ -1,201 +1,223 @@
-                        * {
-                            box-sizing: border-box;
-                        }
-                        
-                        body {
-                            background-color: #f1f1f1;
-                        }
-                        
-                        #regForm {
-                            background-color: #ffffff;
-                            margin: 100px auto;
-                            font-family: Raleway;
-                            padding: 40px;
-                            width: 70%;
-                            min-width: 300px;
-                        }
-                        
-                        p {
-                            font-size: large;
-                        }
-                        
-                        h1 {
-                            text-align: center;
-                        }
-                        
-                        input {
-                            padding: 10px;
-                            width: 100%;
-                            font-size: 17px;
-                            font-family: Raleway;
-                            border: 1px solid #aaaaaa;
-                        }
-                        /* Mark input boxes that gets an error on validation: */
-                        
-                        input.invalid {
-                            background-color: #ffdddd;
-                        }
-                        /* Hide all steps by default: */
-                        
-                        .tab {
-                            display: none;
-                        }
-                        
-                        button {
-                            background-color: #04AA6D;
-                            color: #ffffff;
-                            border: none;
-                            padding: 10px 20px;
-                            font-size: 17px;
-                            font-family: Raleway;
-                            cursor: pointer;
-                        }
-                        
-                        button:hover {
-                            opacity: 0.8;
-                        }
-                        
-                        #prevBtn {
-                            background-color: #bbbbbb;
-                        }
-                        /* Make circles that indicate the steps of the form: */
-                        
-                        .step {
-                            height: 15px;
-                            width: 15px;
-                            margin: 0 2px;
-                            background-color: #bbbbbb;
-                            border: none;
-                            border-radius: 50%;
-                            display: inline-block;
-                            opacity: 0.5;
-                        }
-                        
-                        .step.active {
-                            opacity: 1;
-                        }
-                        /* Mark the steps that are finished and valid: */
-                        
-                        .step.finish {
-                            background-color: #04AA6D;
-                        }
-                        
-                        * {
-                            box-sizing: border-box;
-                        }
-                        
-                        body {
-                            background-color: #f1f1f1;
-                        }
-                        
-                        #regForm {
-                            background-color: #ffffff;
-                            margin: 100px auto;
-                            font-family: Raleway;
-                            padding: 40px;
-                            width: 70%;
-                            min-width: 300px;
-                        }
-                        
-                        h1 {
-                            text-align: center;
-                        }
-                        
-                        input {
-                            padding: 10px;
-                            width: 100%;
-                            font-size: 17px;
-                            font-family: Raleway;
-                            border: 1px solid #aaaaaa;
-                        }
-                        /* Mark input boxes that gets an error on validation: */
-                        
-                        input.invalid {
-                            background-color: #ffdddd;
-                        }
-                        /* Hide all steps by default: */
-                        
-                        .tab {
-                            display: none;
-                        }
-                        
-                        button {
-                            background-color: #04AA6D;
-                            color: #ffffff;
-                            border: none;
-                            padding: 10px 20px;
-                            font-size: 17px;
-                            font-family: Raleway;
-                            cursor: pointer;
-                        }
-                        
-                        button:hover {
-                            opacity: 0.8;
-                        }
-                        
-                        #prevBtn {
-                            background-color: #bbbbbb;
-                        }
-                        /* Make circles that indicate the steps of the form: */
-                        
-                        .step {
-                            height: 15px;
-                            width: 15px;
-                            margin: 0 2px;
-                            background-color: #bbbbbb;
-                            border: none;
-                            border-radius: 50%;
-                            display: inline-block;
-                            opacity: 0.5;
-                        }
-                        
-                        .step.active {
-                            opacity: 1;
-                        }
-                        /* Mark the steps that are finished and valid: */
-                        
-                        .step.finish {
-                            background-color: #04AA6D;
-                        }
-                        /* Add a green text color and a checkmark when the requirements are right */
-                        
-                        .valid {
-                            color: green;
-                        }
-                        
-                        .valid:before {
-                            position: relative;
-                            left: -35px;
-                            content: "✔";
-                        }
-                        /* Add a red text color and an "x" icon when the requirements are wrong */
-                        
-                        .invalid {
-                            color: red;
-                        }
-                        
-                        .invalid:before {
-                            position: relative;
-                            left: -35px;
-                            content: "❌";
-                        }
-                        
-                        .progress {
-                            background-color: grey;
-                            border-radius: 20px;
-                            height: 30px;
-                            width: 300px;
-                        }
-                        
-                        .progress-done {
-                            display: flex;
-                            align-items: center;
-                            justify-content: center;
-                            background-image: repeating-linear-gradient(to left, #225630, #37914f, #52bb6e);
-                            box-shadow: 05px 5px -6px #225630, 0 3px 7px #37914f;
-                            border-radius: 20px;
-                            color: #fff;
-                            height: 100%;
-                            width: 0%;
-                            transition: 1s ease 0.3s;
-                        }
+a {
+    -webkit-transition: .3s all ease;
+    -o-transition: .3s all ease;
+    transition: .3s all ease;
+}
+
+a,
+a:hover {
+    text-decoration: none !important;
+}
+
+.content {
+    padding: 5rem 0;
+}
+
+h2 {
+    font-size: 20px;
+}
+
+.chosen-select {
+    width: 100%;
+}
+
+.chosen-container-multi {
+    width: 250px !important;
+    border: none;
+}
+
+.chosen-container-multi .chosen-choices {
+    width: 250px !important;
+    background-image: none;
+    padding: 7px;
+    border: none !important;
+    border-radius: 4px;
+    -webkit-box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.1) !important;
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.1) !important;
+}
+
+.chosen-container-multi .chosen-choices li.search-choice {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    padding-left: 10px;
+    padding-right: 26px;
+    border: none;
+    background-image: none;
+}
+
+.chosen-container-multi .chosen-choices li.search-choice .search-choice-close {
+    top: 9px;
+    right: 8px;
+}
+
+.chosen-container-multi .chosen-choices li.search-field input[type="text"] {
+    height: 32px;
+    font-size: 14px;
+}
+
+.chosen-container .chosen-drop {
+    border: none !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+    margin-top: 3px;
+    border-radius: 4px;
+    -webkit-box-shadow: 0 15px 30px 0 rgba(0, 0, 0, 0.2) !important;
+    box-shadow: 0 15px 30px 0 rgba(0, 0, 0, 0.2) !important;
+}
+
+
+/*Colors*/
+
+.color-1 .chosen-container-multi .chosen-choices li.search-choice {
+    background-color: #e5e4cc;
+}
+
+.color-2 .chosen-container-multi .chosen-choices li.search-choice {
+    background-color: #c7f0db;
+}
+
+.color-3 .chosen-container-multi .chosen-choices li.search-choice {
+    background-color: #d3f4ff;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #f1f1f1;
+}
+
+#regForm {
+    background-color: #ffffff;
+    margin: 100px auto;
+    font-family: Raleway;
+    padding: 40px;
+    width: 70%;
+    min-width: 300px;
+}
+
+h1 {
+    text-align: center;
+}
+
+input {
+    padding: 10px;
+    width: 100%;
+    font-size: 17px;
+    font-family: Raleway;
+    border: 1px solid #aaaaaa;
+}
+
+
+/* Mark input boxes that gets an error on validation: */
+
+input.invalid {
+    background-color: #ffdddd;
+}
+
+
+/* Hide all steps by default: */
+
+.tab {
+    display: none;
+}
+
+button {
+    background-color: #04AA6D;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 17px;
+    font-family: Raleway;
+    cursor: pointer;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+#prevBtn {
+    background-color: #bbbbbb;
+}
+
+
+/* Make circles that indicate the steps of the form: */
+
+.step {
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: #bbbbbb;
+    border: none;
+    border-radius: 50%;
+    display: inline-block;
+    opacity: 0.5;
+}
+
+.step.active {
+    opacity: 1;
+}
+
+
+/* Mark the steps that are finished and valid: */
+
+.step.finish {
+    background-color: #04AA6D;
+}
+
+
+/* Add a green text color and a checkmark when the requirements are right */
+
+.valid {
+    color: green;
+}
+
+.valid:before {
+    position: relative;
+    left: -35px;
+    content: "✔";
+}
+
+
+/* Add a red text color and an "x" icon when the requirements are wrong */
+
+.invalid {
+    color: red;
+}
+
+.invalid:before {
+    position: relative;
+    left: -35px;
+    content: "❌";
+}
+
+.progress {
+    background-color: grey;
+    border-radius: 20px;
+    height: 30px;
+    width: 300px;
+}
+
+.progress-done {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: repeating-linear-gradient(to left, #225630, #37914f, #52bb6e);
+    box-shadow: 05px 5px -6px #225630, 0 3px 7px #37914f;
+    border-radius: 20px;
+    color: #fff;
+    height: 100%;
+    width: 0%;
+    transition: 1s ease 0.3s;
+}
+
+.divCalorie {
+    background-color: #52bb6e;
+}
+
+.divInfo {
+    background-color: rgb(110, 145, 118);
+}

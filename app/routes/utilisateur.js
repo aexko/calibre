@@ -9,15 +9,15 @@ const bcrypt = require("bcryptjs");
 
 const router = express.Router();
 
-router.get("/ajouter-activite", utilisateurController.getActiviteForm);
+router.get("/ajouter-activite", utilisateurController.getActiviteFormAjouter);
 
 router.post("/ajouter-activite", utilisateurController.postActivite);
 
-router.get("/mod-activite/:actId", utilisateurController.editActivite);
+// router.get("/mod-activite/:actId", utilisateurController.editActivite);
 router.get("/afficher-activites", utilisateurController.getAllActivities);
 
 
-router.post("/modifier-activite", utilisateurController.editActivite);
+// router.post("/modifier-activite", utilisateurController.editActivite);
 
 router.post("/supprimer-activite", utilisateurController.deleteActivite);
 router.get("/inscription", configuerationConnexion.checkNotAuthenticated, inscriptionController.afficherPageInscription);

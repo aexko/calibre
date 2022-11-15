@@ -1,10 +1,16 @@
 const modelUtilisateur = require("../models/schemaUtilisateur");
 const bcrypt = require("bcryptjs");
-
+const mongoose = require("mongoose")
+const exigences_dietiques = mongoose.model('exigences_dietiques', mongoose.Schema({
+	exigence: String,
+	description: String
+  }));
 //ce routage permet de servir la page d inscription
-exports.afficherPageInscription = (req, res, next) => {
+exports.afficherPageInscription = async(req, res, next) => {
+	const exigences = await exigences_dietiques.find();
 	res.render("pages/inscription", {
 		utilisateurconnecte: utilisateurCourant,
+		exigences :exigences
 	});
 }
 
@@ -50,7 +56,6 @@ exports.stockerInscription = async (req, res) => {
     );*/
 	// on verifie si le courriel est redondant
 	instance_utilisateur.calorie_quotidien_recommendee = JSON.parse(req.body.calorie_quotidien_recommendee)
-
 	modelUtilisateur.findOne(
 		{ email: req.body.email },
 		async function (err, docs) {

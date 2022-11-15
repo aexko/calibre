@@ -2,8 +2,12 @@
 <html lang="en">
   <head>
     <%- include('../partials/head'); %>
-    <link type="text/css" rel="stylesheet" href="../css/style.css" />
+    <link type="text/css" rel="stylesheet" href="../css/forms.css" />
 
+    <link rel="stylesheet" href="../css/chosen.css" />
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="../css/bootstrap.min.css" />
   </head>
 
   <body class="container" onload="montrerTab(0);">
@@ -11,6 +15,7 @@
     <form id="formulaireInscription" method="post">
       <h1>Inscrivez-vous:</h1>
       <!-- One "tab" for each step in the form: -->
+
       <div class="tab">
         <p>
           <input
@@ -43,7 +48,7 @@
       </div>
       <div class="tab">
         <p>
-          Quelle âge avez-vous?<input
+          <h5>âge avez-vous?<input
             type="number"
             id="ans"
             step="0.01"
@@ -55,26 +60,23 @@
             title="remplissez ce champs"
             oninvalid="this.setCustomValidity('Entrez votre age')"
             oninput="this.setCustomValidity('')"
-          />
+          /></h5>
         </p>
         <div id="message ans"></div>
         <p>
-          Choisissez le genre qui nous permettra de calculer votre consommaion
+          <h5>Choisissez le genre qui nous permettra de calculer votre consommaion
           de calorie quotidienne:<select name="genre" id="genre">
             <option value="Homme">Homme</option>
             <option value="Femme">Femme</option>
-          </select>
+          </select></h5>
         </p>
-        <select
-          name="unitePrefere"
-          id="unitePrefere"
-        >
+        <select name="unitePrefere" id="unitePrefere">
           <option value="metrique">système métrique</option>
           <option value="imperial">système impérial</option>
         </select>
 
         <div id="metrique">
-          <p>
+          <p><h5>
             Quelle est votre poids?<input
               type="number"
               step="0.01"
@@ -87,11 +89,11 @@
               placeholder="Poids"
               oninvalid="this.setCustomValidity('Entrez votre poids')"
               oninput="this.setCustomValidity('')"
-            />
+            /></h5>
           </p>
           <div id="message kg"></div>
           <p>
-            Quelle est votre taille?<input
+          <h5>Quelle est votre taille?<input
               type="number"
               id="cm"
               step="1"
@@ -103,7 +105,7 @@
               placeholder="Taille"
               oninvalid="this.setCustomValidity('Entrez votre taille')"
               oninput="this.setCustomValidity('')"
-            />
+            /></h5>
           </p>
           <div id="message cm"></div>
         </div>
@@ -164,7 +166,7 @@
           <div id="message inch"></div>
         </div>
         <p>
-          Quelle est votre niveau d'activité?<select
+          <h4><b>Quelle est votre niveau d'activité?</b></h4><select
             name="id_niveau_activite_physique"
             id="id_niveau_activite_physique"
           >
@@ -188,7 +190,7 @@
       </div>
       <div class="tab" id="Imc">
         <div id="ImcDescription"></div>
-        <p>Votre objectif:</p>
+        <h4><b>Votre objectif:</b></h4>
         <button type="button" id="attein" onclick="atteindreUnpoids()">
           Atteindre un poids saine
         </button>
@@ -215,34 +217,39 @@
       </div>
       <div class="tab" id="calorieQuotidienne">
         <div id="caloriesConsommesQuotidienne"></div>
-        <div id="objSemaine"> 
-        <p>Quelle est votre objectif par semaine?</p>
-        <input type="number" id="objectifSemaine" step="0.01" min="0.10" name="objectif_par_semaine" oninput="this.className = '';validerForm(this);" placeholder="Objectif par semaine"/>
-        <p id="message objectifSemaine"></p></div>
+        <div id="objSemaine">
+          <h4><b>Quelle est votre objectif par semaine?</b></h4>
+          <input
+            type="number"
+            id="objectifSemaine"
+            step="0.01"
+            min="0.10"
+            name="objectif_par_semaine"
+            oninput="this.className = '';validerForm(this);"
+            placeholder="Objectif par semaine"
+          />
+          <p id="message objectifSemaine"></p>
+        </div>
       </div>
       <div class="tab" id="planQuotidienne">
         <p id="consommerParJour"></p>
         <p>
-          Combien de repas avez-vous par jour?<select
+          <h4><b>Combien de repas avez-vous par jour?</b></h4><select
             name="repas_par_jour"
             id="repas"
           >
-            <option value="3">3
-            </option>
-            <option value="4">4
-            </option>
-            <option value="5">5
-            </option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
           </select>
-          <div id="calorie_par_repas">
-
-          </div>
         </p>
-       <!-- <input type="number" id="repas" step="0.01" min="3" max="5" name="repas_par_jour" oninput="this.className = '';validerForm(this);" placeholder="repas par jour"/>
+
+        <div id="calorie_par_repas"></div>
+        <!-- <input type="number" id="repas" step="0.01" min="3" max="5" name="repas_par_jour" oninput="this.className = '';validerForm(this);" placeholder="repas par jour"/>
         <p id="message repas"></p>-->
       </div>
       <div class="tab">
-        Choisissez un nom d'utilisateur:
+        <h4><b>Choisissez un nom d'utilisateur:</b></h4>
         <p>
           <input
             type="text"
@@ -276,24 +283,36 @@
         </div>
       </div>
       <div class="tab">
-        Quelles sont vos restrictions:
-        <p>
-          qu'est ce que vous ne mangez pas?
-          <select name="restrictions" id="restrictions_alim">
+        <h4><b>Quelles sont vos restrictions:</b></h4>
+
+        <p></br>
+
+          <h5>Qu'est ce que vous ne mangez pas?
+          <select
+            name="restrictions"
+            id="restrictions"
+            data-placeholder="Selectionnez des aliments"
+            multiple
+            class="chosen-select"
+            tabindex="8"
+          >
             <option value="pomme">pomme</option>
             <option value="viande">viande</option>
             <option value="Autre">Autre a ajouter</option>
-          </select>
+          </select></h5>
         </p>
         <p>
-          quelles sont vos exigences diètiques?<select
-            name="exigences"
-            id="exigences"
-          >
-            <option value="arachide">Allergie à l’arachide</option>
-            <option value="vega">vegan</option>
-            <option value="Autre">Autre</option>
-          </select>
+          <h5>Quelles sont vos exigences diètiques?<select
+            name="exigences_dietiques"
+            id="exigences_dietiques"
+            data-placeholder="Selectionnez vos exigences"
+            multiple
+            class="chosen-select"
+            tabindex="8"
+          ><% for(var i=0; i<exigences.length; i++) {%>
+            <option value="<%= exigences[i]._id %>" title="<%= exigences[i].description %>" ><%= exigences[i].exigence %></option>
+            <% } %>
+          </select></h5>
         </p>
       </div>
       <div class="tab">
@@ -351,11 +370,7 @@
           <button type="button" id="prevBtn" onclick="changerTab(-1)">
             Précédent
           </button>
-          <button
-            type="button"
-            id="nextBtn"
-            onclick="changerTab(1)"
-          >
+          <button type="button" id="nextBtn" onclick="changerTab(1)">
             Prochain
           </button>
         </div>
@@ -375,6 +390,11 @@
     <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
     <script src="../js/calculsCaloriesQuot.js"></script>
     <script src="../js/index.js"></script>
+    <script src="../js/jquery-3.3.1.min.js"></script>
+    <script src="../js/popper.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/chosen.jquery.min.js"></script>
+    <script src="../js/main.js"></script>
     <footer><%- include('../partials/footer'); %></footer>
   </body>
 </html>

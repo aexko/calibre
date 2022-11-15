@@ -23,6 +23,9 @@ const {
 } = require("./middlewares/auth");
 const initialiserPassport = require("./passport-config");
 
+const morgan = require("morgan");
+app.use(morgan("tiny"));
+
 /**
  * Connexion MongoDB à la base de données (CLOUD - MongoDB Atlas) nommée "calibre"
  */
@@ -78,13 +81,26 @@ app.get("/", (req, res) => {
     });
 });
 
-app.get("/about", (req, res) => {
-    res.render("pages/about", {
-        utilisateurconnecte: configuerationConnexion.utilisateurCourant,
-        utilisateurCourant: configuerationConnexion.utilisateurCourant
-
-    });
+app.get("/a-propos", (req, res) => {
+	res.render("pages/a-propos", {
+		utilisateurconnecte: utilisateurCourant,
+	});
 });
+// ce routage permet de servir la page de connexion
+app.get("/connexion", checkNotAuthenticated, (req, res) => {
+	res.render("pages/connexion", {
+		utilisateurconnecte: utilisateurCourant,
+	});
+});
+app.get("/profil", checkAuthenticated, (req, res) => {
+	res.render("pages/profil", {
+		utilisateur: utilisateurCourant,
+		utilisateurconnecte: utilisateurCourant,
+	});
+});
+
+
+
 /**
  * Route: génère la page de la recherche des recettes
  */
@@ -147,7 +163,18 @@ if (process.env.NODE_ENV !== 'test') {
 }
 
 const utilisateurRoutes = require("./routes/utilisateur");
-
+const activite = require("./models/activite");
 app.use(utilisateurRoutes);
 
 module.exports = app;
+app.delete('/:id', (req, res) => {
+	const id = req.params.id;
+	
+	activite.findByIdAndDelete(id)
+	  .then(result => {
+		res.json({ redirect: '/afficher-activites' });
+	  })
+	  .catch(err => {
+		console.log(err);
+	  });
+  });
