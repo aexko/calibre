@@ -45,35 +45,35 @@ exports.postActivite = (req, res, next) => {
 		});
 };
 
-exports.editActivite = (req, res, next) => {
-	const titre = req.body.titre;
-	const description = req.body.description;
-	const date = req.body.date;
-	const calories = req.body.calories;
-	const activite = new Activite({
-		titre: titre,
-		description: description,
-		date: date,
-		calories: calories,
-	});
-	activite
-		.save()
-		.then((result) => {
-			console.log("Activite modifiee");
-			res.redirect("/ajouter-activite");
-		})
-		.catch((err) => {
-			console.log(err);
-		});
-};
+// exports.editActivite = (req, res, next) => {
+// 	const titre = req.body.titre;
+// 	const description = req.body.description;
+// 	const date = req.body.date;
+// 	const activite = new Activite({
+// 		titre: titre,
+// 		description: description,
+// 		date: date,
+// 	});
+// 	activite
+// 		.save()
+// 		.then((result) => {
+// 			console.log("Activite modifiee");
+// 			res.redirect("/afficher-activites");
+		
+// 		})
+// 		.catch((err) => {
+// 			console.log(err);
+// 		});
+// };
 
 exports.getActivite = (req, res, next) => {
 	const activiteId = req.params.activiteId;
+	console.log(activiteId);
 	Activite.findById(activiteId)
 		.then((activite) => {
-			res.render("ajouter-activite", {
-				pageTitle: "Afficher une activité",
-				path: "/ajouter-activite",
+			res.render("page-detaillee-activite", {
+				pageTitle: "Details de l'activite",
+				path: "/page-detaillee-activite",
 				activite: activite,
 			});
 		})
@@ -82,10 +82,11 @@ exports.getActivite = (req, res, next) => {
 
 exports.deleteActivite = (req, res, next) => {
 	const activiteId = req.body.activiteId;
-	Activite.findByIdAndRemove(activiteId)
+	console.log(activiteId + "supprimé");
+	Activite.findByIdAndDelete(activiteId)
 		.then(() => {
 			console.log("Activite supprimee");
-			res.redirect("/ajouter-activite");
+			res.redirect("/afficher-activites");
 		})
 		.catch((err) => console.log(err));
 };
