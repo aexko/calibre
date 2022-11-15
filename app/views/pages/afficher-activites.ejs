@@ -75,19 +75,21 @@
     </footer>
 
     <script>
-        // SOURCE: The Net Ninja
+        // SOURCE: The Net Ninja        
         const trashcan = document.querySelector('a.delete');
-        trashcan.addEventListener('click', (e) => {
-          const endpoint = `/${trashcan.dataset.doc}`;
-          fetch(endpoint, {
-            method: 'DELETE',
-          })
-          .then(response => response.json())
-          .then(data => window.location.href = data.redirect)
-          .catch(err => console.log(err));
-        });
-        
-      </script>
+        if (trashcan != null) {
+            trashcan.addEventListener('click', (e) => {
+                const endpoint = `/${trashcan.dataset.doc}`;
+                fetch(endpoint, {
+                    method: 'DELETE',
+                })
+                    .then(response => response.json())
+                    .then(data => window.location.href = data.redirect)
+                    .catch(err => console.log(err));
+            });
+        }
+
+    </script>
 </body>
 
 </html>
