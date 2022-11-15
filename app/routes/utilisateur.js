@@ -8,10 +8,10 @@ router.post("/ajouter-activite", utilisateurController.postActivite);
 
 router.get("/afficher-activites", utilisateurController.getAllActivities);
 
-router.get("/mod-activite/:actId", utilisateurController.editActivite);
+// router.get("/:id", utilisateurController.getActivite);
 
 router.get("/modifier-activite", utilisateurController.getActiviteFormModifier);
-router.post("/modifier-activite", utilisateurController.editActivite);
-router.post("/supprimer-activite", utilisateurController.deleteActivite);
+// router.post("/modifier-activite", utilisateurController.editActivite);
+router.delete("/supprimer-activite", utilisateurController.deleteActivite);
 
 module.exports = router;
