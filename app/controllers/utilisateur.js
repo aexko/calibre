@@ -19,7 +19,6 @@ exports.postActivite = (req, res, next) => {
 	const titre = req.body.titre_activite;
 	const description = req.body.description;
 	const date = req.body.date;
-	const calories = req.body.calories;
 
 	console.log(
 		"Informations de l'activité: " +
@@ -27,16 +26,13 @@ exports.postActivite = (req, res, next) => {
 			"| " +
 			description +
 			"| " +
-			date +
-			"| " +
-			calories
+			date
 	);
 
 	const activite = new Activite({
 		titre: titre,
 		description: description,
 		date: date,
-		calories: calories,
 	});
 	activite
 		.save()

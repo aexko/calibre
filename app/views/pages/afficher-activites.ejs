@@ -21,18 +21,15 @@
                 <table class="table">
                     <thead class="thead-dark">
                         <tr>
-                            <th>ID</th>
                             <th>Nom de l'activité</th>
                             <th>Description</th>
                             <th>Date</th>
-                            <th>Calories</th>
                         </tr>
                     </thead>
                     <tbody>
                         <%listeActivites.forEach(activite=> {%>
 
                             <tr>
-                                <td>X</td>
                                 <td>
                                     <%= activite.titre %>
                                 </td>
@@ -43,7 +40,6 @@
                                     <%=activite.date.toISOString().substring(0,10) %>
                                 </td>
                                 <td>
-                                    <%= activite.calories %>
                                 </td>
                                 <td><a href="/modifier-activite" class="btn border-shadow update">
                                         <i class="fa-solid fa-edit"></i>
