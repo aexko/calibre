@@ -1,6 +1,7 @@
 const express = require("express");
 //connection mongoose
 const mongoose = require("mongoose");
+var bodyParser = require('body-parser')
 const app = express();
 const port = 3000;
 //importation de module schemaUtilisateur
@@ -13,6 +14,7 @@ const flash = require("express-flash");
 const session = require("express-session");
 const methodOverride = require("method-override");
 const passport = require("passport");
+var urlencodedParser = bodyParser.urlencoded({ extended: false })
 const configuerationConnexion = require("./config/config-connexion");
 
 const {
@@ -80,21 +82,21 @@ app.get("/", (req, res) => {
 });
 
 app.get("/a-propos", (req, res) => {
-	res.render("pages/a-propos", {
-		utilisateurconnecte: utilisateurCourant,
-	});
+    res.render("pages/a-propos", {
+        utilisateurconnecte: utilisateurCourant,
+    });
 });
 // ce routage permet de servir la page de connexion
 app.get("/connexion", checkNotAuthenticated, (req, res) => {
-	res.render("pages/connexion", {
-		utilisateurconnecte: utilisateurCourant,
-	});
+    res.render("pages/connexion", {
+        utilisateurconnecte: utilisateurCourant,
+    });
 });
 app.get("/profil", checkAuthenticated, (req, res) => {
-	res.render("pages/profil", {
-		utilisateur: utilisateurCourant,
-		utilisateurconnecte: utilisateurCourant,
-	});
+    res.render("pages/profil", {
+        utilisateurconnecte: configuerationConnexion.utilisateurCourant,
+        utilisateurCourant: configuerationConnexion.utilisateurCourant
+    });
 });
 
 
@@ -130,6 +132,28 @@ app.post("/ajouter_calorie", checkAuthenticated, async(req, res) => {
 
     res.redirect("/profil");
 });
+//
+app.post("/ajouter_calorie_recherche", checkAuthenticated, async(req, res) => {
+    var calorie =
+        parseInt(req.body.calorie_recherche) +
+        configuerationConnexion.utilisateurCourant.calorie_quotidien_consommee;
+
+    configuerationConnexion.utilisateurCourant.calorie_quotidien_consommee = calorie;
+
+    await modelUtilisateur.findOneAndUpdate({ email: configuerationConnexion.utilisateurCourant.email }, { calorie_quotidien_consommee: calorie });
+
+    res.redirect("/profil");
+});
+app.post("/metre_a_jour_age", checkAuthenticated, async(req, res) => {
+    var age =
+        parseInt(req.body.age);
+
+    configuerationConnexion.utilisateurCourant.age = age;
+
+    await modelUtilisateur.findOneAndUpdate({ email: configuerationConnexion.utilisateurCourant.email }, { age: age });
+
+    res.redirect("/profil");
+});
 // For website access
 /**app.listen(port, () => {
 	console.log(`Le serveur est sur localhost:${port}`);
@@ -144,13 +168,13 @@ app.use(utilisateurRoutes);
 
 module.exports = app;
 app.delete('/:id', (req, res) => {
-	const id = req.params.id;
-	
-	activite.findByIdAndDelete(id)
-	  .then(result => {
-		res.json({ redirect: '/afficher-activites' });
-	  })
-	  .catch(err => {
-		console.log(err);
-	  });
-  });
+    const id = req.params.id;
+
+    activite.findByIdAndDelete(id)
+        .then(result => {
+            res.json({ redirect: '/afficher-activites' });
+        })
+        .catch(err => {
+            console.log(err);
+        });
+});

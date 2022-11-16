@@ -67,7 +67,9 @@ h2 {
     box-shadow: 0 15px 30px 0 rgba(0, 0, 0, 0.2) !important;
 }
 
+
 /*Colors*/
+
 .color-1 .chosen-container-multi .chosen-choices li.search-choice {
     background-color: #e5e4cc;
 }
@@ -109,11 +111,13 @@ input {
     border: 1px solid #aaaaaa;
 }
 
+
 /* Mark input boxes that gets an error on validation: */
 
 input.invalid {
     background-color: #ffdddd;
 }
+
 
 /* Hide all steps by default: */
 
@@ -139,6 +143,7 @@ button:hover {
     background-color: #bbbbbb;
 }
 
+
 /* Make circles that indicate the steps of the form: */
 
 .step {
@@ -156,11 +161,13 @@ button:hover {
     opacity: 1;
 }
 
+
 /* Mark the steps that are finished and valid: */
 
 .step.finish {
     background-color: #04AA6D;
 }
+
 
 /* Add a green text color and a checkmark when the requirements are right */
 
@@ -173,6 +180,7 @@ button:hover {
     left: -35px;
     content: "✔";
 }
+
 
 /* Add a red text color and an "x" icon when the requirements are wrong */
 
@@ -205,12 +213,3 @@ button:hover {
     width: 0%;
     transition: 1s ease 0.3s;
 }
-                        
-                        .divCalorie {
-                            background-color: #52bb6e;
-                        }
-                        
-                        .divInfo {
-                            background-color: rgb(110, 145, 118);
-                        }
-

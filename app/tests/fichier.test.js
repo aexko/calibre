@@ -68,3 +68,27 @@ test("tester mise a jour poids", async() => {
         throw new Error(err)
     }
 });
+test("tester mise a jour age", async() => {
+    try {
+        const utilisateur_test = await utilisateur.findOne({ email: "r@r.r" });
+
+        utilisateur_test.age = 40
+        utilisateur_test.save()
+
+        expect(utilisateur_test.age).toEqual(40)
+    } catch (err) {
+        throw new Error(err)
+    }
+});
+test("tester mise a jour des calories quotidiennes", async() => {
+    try {
+        const utilisateur_test = await utilisateur.findOne({ email: "r@r.r" });
+
+        utilisateur_test.age = 40
+        utilisateur_test.save()
+
+        expect(utilisateur_test.poids).toEqual(40)
+    } catch (err) {
+        throw new Error(err)
+    }
+});
