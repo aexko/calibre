@@ -1,0 +1,151 @@
+[{
+  "_id": {
+    "$oid": "6377f416614a604075859a9e"
+  },
+  "aliment": "Céréale",
+  "cle_api": "Cereal"
+},{
+  "_id": {
+    "$oid": "6377f546614a604075859a9f"
+  },
+  "aliment": "Pain",
+  "cle_api": "bread"
+},{
+  "_id": {
+    "$oid": "6377f581614a604075859aa0"
+  },
+  "aliment": "Pâtes",
+  "cle_api": "Pasta"
+},{
+  "_id": {
+    "$oid": "6377f5a1614a604075859aa1"
+  },
+  "aliment": "Riz",
+  "cle_api": "Rice"
+},{
+  "_id": {
+    "$oid": "6377f5f2614a604075859aa2"
+  },
+  "aliment": "Oignon",
+  "cle_api": "onion"
+},{
+  "_id": {
+    "$oid": "6377f64b614a604075859aa3"
+  },
+  "aliment": "Patate",
+  "cle_api": "potato"
+},{
+  "_id": {
+    "$oid": "6377f75d614a604075859aa4"
+  },
+  "aliment": "Lait",
+  "cle_api": "Milk"
+},{
+  "_id": {
+    "$oid": "6377f78d614a604075859aa5"
+  },
+  "aliment": "Fromage",
+  "cle_api": "Cheese"
+},{
+  "_id": {
+    "$oid": "6377f7b1614a604075859aa6"
+  },
+  "aliment": "Yaourt",
+  "cle_api": "Yogurt"
+},{
+  "_id": {
+    "$oid": "6377f7f3614a604075859aa7"
+  },
+  "aliment": "Oeuf",
+  "cle_api": "egg"
+},{
+  "_id": {
+    "$oid": "6377f827614a604075859aa8"
+  },
+  "aliment": "Gaufre",
+  "cle_api": "waffle"
+},{
+  "_id": {
+    "$oid": "6377f856614a604075859aa9"
+  },
+  "aliment": "Beurre",
+  "cle_api": "butter"
+},{
+  "_id": {
+    "$oid": "6377f899614a604075859aaa"
+  },
+  "aliment": "Vinaigre",
+  "cle_api": "vinegar"
+},{
+  "_id": {
+    "$oid": "6377f8c3614a604075859aab"
+  },
+  "aliment": "Farine",
+  "cle_api": "flour"
+},{
+  "_id": {
+    "$oid": "6377f8fa614a604075859aac"
+  },
+  "aliment": "Tomate",
+  "cle_api": "tomato"
+},{
+  "_id": {
+    "$oid": "6377f91f614a604075859aad"
+  },
+  "aliment": "Viande",
+  "cle_api": "meat"
+},{
+  "_id": {
+    "$oid": "6377f986614a604075859aae"
+  },
+  "aliment": "Poulet",
+  "cle_api": "chicken"
+},{
+  "_id": {
+    "$oid": "6377f9a1614a604075859aaf"
+  },
+  "aliment": "Poisson",
+  "cle_api": "fish"
+},{
+  "_id": {
+    "$oid": "6377f9fd614a604075859ab0"
+  },
+  "aliment": "Melon d'eau",
+  "cle_api": "Watermelon"
+},{
+  "_id": {
+    "$oid": "6377fa0d614a604075859ab1"
+  },
+  "aliment": "Pomme",
+  "cle_api": "apple"
+},{
+  "_id": {
+    "$oid": "6377fa4c614a604075859ab2"
+  },
+  "aliment": "Orange",
+  "cle_api": "orange"
+},{
+  "_id": {
+    "$oid": "6377fa5e614a604075859ab3"
+  },
+  "aliment": "Banane",
+  "cle_api": "banana"
+},{
+  "_id": {
+    "$oid": "6377fa82614a604075859ab4"
+  },
+  "aliment": "Raisins",
+  "cle_api": "grapes"
+},{
+  "_id": {
+    "$oid": "6377facf614a604075859ab5"
+  },
+  "aliment": "Bleuet",
+  "cle_api": "Blueberry"
+},{
+  "_id": {
+    "$oid": "6377fb07614a604075859ab6"
+  },
+  "aliment": "Chocolat",
+  "cle_api": "Chocolate"
+}]
