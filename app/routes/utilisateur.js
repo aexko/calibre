@@ -3,6 +3,7 @@ const utilisateurController = require("../controllers/utilisateur");
 const inscriptionController = require("../controllers/inscription");
 const connexionController = require("../controllers/connexion");
 const profilController = require("../controllers/profil");
+const recettesRecoController = require("../controllers/recettesRecommende");
 const configuerationConnexion = require("../config/config-connexion");
 const modelUtilisateur = require("../models/schemaUtilisateur");
 const bcrypt = require("bcryptjs");
@@ -34,6 +35,7 @@ router.post("/connexion",StockerUtilisateur,configuerationConnexion.checkNotAuth
 }), connexionController.postConnexion);
 router.delete("/deconnexion", configuerationConnexion.checkAuthenticated, connexionController.deleteConnexion);
 module.exports = router;
+router.get("/recettesRecommendees", configuerationConnexion.checkAuthenticated,recettesRecoController.afficherPageRecettesRecommendees);
 
 async function StockerUtilisateur(req, res, next) {
 	const userFound = await modelUtilisateur.findOne({ email: req.body.email });
