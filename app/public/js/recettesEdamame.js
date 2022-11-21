@@ -1,10 +1,12 @@
 function recommanderRecettes() {
     resultats = document.getElementsByClassName('search-choice');
+    listResultats='';
+    if(resultats.length>0){
     listResultats = resultats[0].dataset.ide
     for (i = 1; i < resultats.length; i++) {
             listResultats += " "+resultats[i].dataset.ide;
-    }
-    var url = encodeURI("https://api.edamam.com/search?app_id=d7c579b4&app_key=aecba0b0311babbd898a3f4e96328475&q=" + listResultats);
+    }}
+    var url = encodeURI("https://api.edamam.com/search?q=" + listResultats+"&calories=200&app_id=d7c579b4&app_key=aecba0b0311babbd898a3f4e96328475");
     $.ajax({
         url:url,
         type: "GET",
@@ -18,7 +20,7 @@ function recommanderRecettes() {
             const titre = document.createElement("h1");
             const node = document.createTextNode("Recipe: " + response.hits[i].recipe.label);
             image.setAttribute("src", response.hits[i].recipe.image);
-            const node2 = document.createTextNode(response.hits[i].recipe.ingredientLines);
+            const node2 = document.createTextNode(response.hits[i].recipe.ingredientLines +response.hits[i].recipe.calories+' '+response.hits[i].recipe.yield);
 
             titre.appendChild(node);
             paragraphe.appendChild(node2);
@@ -29,3 +31,17 @@ function recommanderRecettes() {
 
     })
 }
+/**$.ajax({
+    url:'https://translate.yandex.net/api/v1.5/tr.json/translate?lang=es-en&key=trnsl.1.1.20160702T062231Z.b01e74e50f545073.41cbb76d976818cfaa0e1ac3ac78b561079e3420&text='+msg,
+    method:"POST",
+    data:JSON.stringify({"input":msg}),
+    contentType: 'application/x-www-form-urlencoded',
+    crossDomain:true
+  }).success((data)=>{
+      this.setState({
+         messageText: data
+
+      //set variable to data
+  }).error((error)=>{
+    console.log(error);
+  });**/

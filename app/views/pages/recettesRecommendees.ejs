@@ -23,7 +23,7 @@
         <option value="<%= ingredients[i].cle_api %>" ><%= ingredients[i].aliment %></option>
         <% } %>
       </select></h5>
-    <button onclick="recommanderRecettes()">recommender des recettes</button>
+    <button onclick="recommanderRecettes('<%=utilisateurconnecte.exigences_dietiques%>')">recommender des recettes</button>
     <div id="recettes" class="card-body text-center">
       <h1 class="title"></h1>
       <img class="img" />

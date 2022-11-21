@@ -8,7 +8,7 @@ function initialiser(
 	recevoirutilisateurParId
 ) {
 	const authentifierUtilisateur = async (email, password, done) => {
-		const utilisateur = await recevoirutilisateurParEmail(email);
+		var utilisateur = await recevoirutilisateurParEmail(email);
 		if (utilisateur == null) {
 			return done(null, false, {
 				message:
@@ -17,7 +17,8 @@ function initialiser(
 		}
 		try {
 			if (await bcrypt.compare(password, utilisateur.mot_passe)) {
-				return done(null, utilisateur);
+				
+				return done(null,utilisateur);	
 			} else {
 				return done(null, false, {
 					message: "Mot de passe incorrect !",
@@ -27,14 +28,14 @@ function initialiser(
 			return done(e);
 		}
 	};
-
 	passport.use(
 		new LocalStrategy(
 			{ usernameField: "email", passwordField: "mot_passe" },
 			authentifierUtilisateur
 		)
 	);
-	passport.serializeUser((utilisateur, done) => done(null, utilisateur.id));
+
+	passport.serializeUser((utilisateur, done) => done(null, utilisateur._id));
 	passport.deserializeUser(async (id, done) => {
 		return done(null, await recevoirutilisateurParId(id));
 	});
