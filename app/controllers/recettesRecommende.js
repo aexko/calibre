@@ -13,6 +13,7 @@ exports.afficherPageRecettesRecommendees = async(req, res, next) => {
 		utilisateur: configuerationConnexion.utilisateurCourant,
 		utilisateurconnecte: configuerationConnexion.utilisateurCourant,
 		utilisateurCourant: configuerationConnexion.utilisateurCourant,
+		exigencesUtilisateur: JSON.stringify(configuerationConnexion.utilisateurCourant.exigences_dietiques),
 		ingredients :ingredientss
 	});
 };
