@@ -38,6 +38,8 @@ function recommanderRecettes(exigencesDietiques) {
     })
 }
 }
+
+module.exports={recommanderRecettes}
 /**$.ajax({
     url:'https://translate.yandex.net/api/v1.5/tr.json/translate?lang=es-en&key=trnsl.1.1.20160702T062231Z.b01e74e50f545073.41cbb76d976818cfaa0e1ac3ac78b561079e3420&text='+msg,
     method:"POST",
