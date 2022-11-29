@@ -12,7 +12,7 @@ describe('inscription', () => {
 
     describe('get /inscription:nomUtilisateur', () => {
         it('doit retourner existant si un compte avec le même nom d\'utilisateur existe', async () => {
-            const response = await request(app).get('/inscription/davi2020');
+            const response = await request(app).get('/inscription/saghGGabb');
             expect(response.body.titre).toEqual('existant');
         });
     });

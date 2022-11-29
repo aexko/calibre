@@ -2,204 +2,238 @@
   "_id": {
     "$oid": "637283d49d22c24582bf75ef"
   },
-  "exigence": "Alcohol-Free",
-  "description": "No alcohol used or contained"
+  "exigence": "Sans alcool",
+  "description": "Aucun alcool utilisé ou contenu",
+  "cle_api": "alcohol-free"
 },{
   "_id": {
     "$oid": "637285529d22c24582bf75f1"
   },
-  "exigence": "Celery-Free",
-  "description": "Does not contain celery or derivatives"
+  "exigence": "sans céleri",
+  "description": "Ne contient pas de céleri ni de ses dérivés",
+  "cle_api": "celery-free"
 },{
   "_id": {
     "$oid": "637285d89d22c24582bf75f2"
   },
-  "exigence": "Crustcean-Free",
-  "description": "Does not contain crustaceans (shrimp, lobster etc.) or derivatives"
+  "exigence": "sans crustacés",
+  "description": "Ne contient pas de crustacés (crevettes, homard etc.) ou de ses dérivés",
+  "cle_api": "crustcean-free"
 },{
   "_id": {
     "$oid": "637285f49d22c24582bf75f3"
   },
-  "exigence": "Dairy-Free",
-  "description": "No dairy; no lactose"
+  "exigence": "sans produits laitiers",
+  "description": "Pas de produits laitiers; pas de lactose",
+  "cle_api": "dairy-free"
 },{
   "_id": {
     "$oid": "6372862b9d22c24582bf75f4"
   },
   "exigence": "DASH",
-  "description": "Dietary Approaches to Stop Hypertension diet"
+  "description": "Approches diététiques pour arrêter l'hypertension",
+  "cle_api": "DASH"
 },{
   "_id": {
     "$oid": "637286479d22c24582bf75f5"
   },
-  "exigence": "Egg-Free",
-  "description": "No eggs or products containing eggs"
+  "exigence": "sans œufs",
+  "description": "Pas d'oeufs ni de produits contenant des oeufs",
+  "cle_api": "egg-free"
 },{
   "_id": {
     "$oid": "6372866a9d22c24582bf75f6"
   },
-  "exigence": "Fish-Free",
-  "description": "No fish or fish derivatives"
+  "exigence": "sans poisson",
+  "description": "Pas de poisson ou de ses dérivés",
+  "cle_api": "fish-free"
 },{
   "_id": {
     "$oid": "637286899d22c24582bf75f7"
   },
-  "exigence": "FODMAP-Free",
-  "description": "Does not contain FODMAP foods"
+  "exigence": "sans fodmap",
+  "description": "Ne contient pas d'aliments FODMAP",
+  "cle_api": "fodmap-free"
 },{
   "_id": {
     "$oid": "637286a69d22c24582bf75f8"
   },
-  "exigence": "Gluten-Free",
-  "description": "No ingredients containing gluten"
+  "exigence": "sans gluten",
+  "description": "Pas d'ingrédients contenant du gluten",
+  "cle_api": "gluten-free"
 },{
   "_id": {
     "$oid": "637286c69d22c24582bf75f9"
   },
-  "exigence": "Immuno-Supportive",
-  "description": "Recipes which fit a science-based approach to eating to strengthen the immune system"
+  "exigence": "Immuno-supportant",
+  "description": "Des recettes qui correspondent à une approche scientifique de l'alimentation pour renforcer le système immunitaire",
+  "cle_api": "immuno-supportive"
 },{
   "_id": {
     "$oid": "637286ec9d22c24582bf75fa"
   },
-  "exigence": "Keto-Friendly",
-  "description": "Maximum 7 grams of net carbs per serving"
+  "exigence": "régime cétogène(keto)",
+  "description": "Maximum 7 grammes de glucides nets par portion",
+  "cle_api": "keto-friendly"
 },{
   "_id": {
     "$oid": "6372870b9d22c24582bf75fb"
   },
-  "exigence": "Kidney-Friendly",
-  "description": "Per serving – phosphorus less than 250 mg AND potassium less than 500 mg AND sodium less than 500 mg"
+  "exigence": "favorable aux reins",
+  "description": "Par portion - moins de 250 mg de phosphore ET moins de 500 mg de potassium ET moins de 500 mg de sodium",
+  "cle_api": "kidney-friendly"
 },{
   "_id": {
     "$oid": "637287319d22c24582bf75fc"
   },
-  "exigence": "Kosher",
-  "description": "Contains only ingredients allowed by the kosher diet. However it does not guarantee kosher preparation of the ingredients themselves"
+  "exigence": "kascher",
+  "description": "Contient uniquement les ingrédients autorisés par le régime kascher. Cependant, il ne garantit pas la préparation kascher des ingrédients eux-mêmes.",
+  "cle_api": "kosher"
 },{
   "_id": {
     "$oid": "637287549d22c24582bf75fd"
   },
-  "exigence": "Low Potassium",
-  "description": "Less than 150mg per serving"
+  "exigence": "Potassium faible",
+  "description": "Moins de 150 mg par portion",
+  "cle_api": "low-potassium"
 },{
   "_id": {
     "$oid": "6372877f9d22c24582bf75fe"
   },
-  "exigence": "Low Sugar",
-  "description": "No simple sugars – glucose, dextrose, galactose, fructose, sucrose, lactose, maltose"
+  "exigence": "Peu de sucre",
+  "description": "Pas de sucres simples – glucose, dextrose, galactose, fructose, saccharose, lactose, maltose",
+  "cle_api": "low-sugar"
 },{
   "_id": {
     "$oid": "637287a79d22c24582bf75ff"
   },
-  "exigence": "Lupine-Free",
-  "description": "Does not contain lupine or derivatives"
+  "exigence": "sans lupin",
+  "description": "Ne contient pas de lupin ou de ses dérivés",
+  "cle_api": "lupine-free"
 },{
   "_id": {
     "$oid": "637287bd9d22c24582bf7600"
   },
-  "exigence": "Mediterranean",
-  "description": "Mediterranean diet"
+  "exigence": "Méditerranéen",
+  "description": "régime méditerranéen",
+  "cle_api": "Mediterranean"
 },{
   "_id": {
     "$oid": "637287d59d22c24582bf7601"
   },
-  "exigence": "Mollusk-Free",
-  "description": "No mollusks"
+  "exigence": "Sans mollusques",
+  "description": "pas de mollusques",
+  "cle_api": "mollusk-free"
 },{
   "_id": {
     "$oid": "637287f59d22c24582bf7602"
   },
-  "exigence": "Mustard-Free",
-  "description": "Does not contain mustard or derivatives"
+  "exigence": "Sans moutarde",
+  "description": "Ne contient pas de moutarde ni de ses dérivés",
+  "cle_api": "mustard-free"
 },{
   "_id": {
     "$oid": "6372881f9d22c24582bf7603"
   },
-  "exigence": "No oil added",
-  "description": "No oil added except to what is contained in the basic ingredients"
+  "exigence": "Pas d'huile ajoutée",
+  "description": "Aucune huile ajoutée sauf celle contenue dans les ingrédients de base",
+  "cle_api": "No-oil-added"
 },{
   "_id": {
     "$oid": "6372883e9d22c24582bf7604"
   },
-  "exigence": "Paleo",
-  "description": "Excludes what are perceived to be agricultural products; grains, legumes, dairy products, potatoes, refined salt, refined sugar, and processed oils"
+  "exigence": "Paléo",
+  "description": "Exclut ce qui est perçu comme étant des produits agricoles ; céréales, légumineuses, produits laitiers, pommes de terre, sel raffiné, sucre raffiné et huiles transformées",
+  "cle_api": "paleo"
 },{
   "_id": {
     "$oid": "637288579d22c24582bf7605"
   },
-  "exigence": "Peanut-Free",
-  "description": "No peanuts or products containing peanuts"
+  "exigence": "Sans arachides",
+  "description": "Pas d'arachides ou de produits contenant des arachides",
+  "cle_api": "peanut-free"
 },{
   "_id": {
     "$oid": "6372887d9d22c24582bf7606"
   },
-  "exigence": "Pescatarian",
-  "description": "Does not contain meat or meat based products, can contain dairy and fish"
+  "exigence": "Pescatarien",
+  "description": "Ne contient pas de viande ou de produits à base de viande, peut contenir des produits laitiers et du poisson",
+  "cle_api": "pecatarian"
 },{
   "_id": {
     "$oid": "637288989d22c24582bf7607"
   },
-  "exigence": "Pork-Free",
-  "description": "Does not contain pork or derivatives"
+  "exigence": "Sans porc",
+  "description": "Ne contient ni viande de porc ni de ses dérivés",
+  "cle_api": "pork-free"
 },{
   "_id": {
     "$oid": "637288b19d22c24582bf7608"
   },
-  "exigence": "Red-Meat-Free",
-  "description": "Does not contain beef, lamb, pork, duck, goose, game, horse, and other types of red meat or products containing red meat."
+  "exigence": "Sans Viande Rouge",
+  "description": "Ne contient pas de bœuf, d'agneau, de porc, de canard, d'oie, de gibier, de cheval et d'autres types de viande rouge ou de produits contenant de la viande rouge.",
+  "cle_api": "red-meat-free"
 },{
   "_id": {
     "$oid": "637288cd9d22c24582bf7609"
   },
-  "exigence": "Sesame-Free",
-  "description": "Does not contain sesame seed or derivatives"
+  "exigence": "Sans sésame",
+  "description": "Ne contient pas de graines de sésame ni de ses dérivés",
+  "cle_api": "sesame-free"
 },{
   "_id": {
     "$oid": "637288ef9d22c24582bf760a"
   },
-  "exigence": "Shellfish-Free",
-  "description": "No shellfish or shellfish derivatives"
+  "exigence": "Sans coquillages",
+  "description": "Pas de coquillages ou dérivés de coquillages",
+  "cle_api": "shellfish-free"
 },{
   "_id": {
     "$oid": "637289099d22c24582bf760b"
   },
-  "exigence": "Soy-Free",
-  "description": "No soy or products containing soy"
+  "exigence": "Sans soja",
+  "description": "Sans soja ni produits contenant du soja",
+  "cle_api": "soy-free"
 },{
   "_id": {
     "$oid": "6372892b9d22c24582bf760c"
   },
-  "exigence": "Sugar-Conscious",
-  "description": "Less than 4g of sugar per serving"
+  "exigence": "Conscient du sucre",
+  "description": "Moins de 4 g de sucre par portion",
+  "cle_api": "sugar-conscious"
 },{
   "_id": {
     "$oid": "637289469d22c24582bf760d"
   },
-  "exigence": "Sulfite-Free",
-  "description": "No Sulfites"
+  "exigence": "Sans sulfites",
+  "description": "pas de sulfites",
+  "cle_api": "sulfite-free"
 },{
   "_id": {
     "$oid": "637289619d22c24582bf760e"
   },
-  "exigence": "Tree-Nut-Free",
-  "description": "No tree nuts or products containing tree nuts"
+  "exigence": "sans noix",
+  "description": "Pas de noix ou de produits contenant des noix",
+  "cle_api": "tree_nut_free"
 },{
   "_id": {
     "$oid": "6372897b9d22c24582bf760f"
   },
-  "exigence": "Vegan",
-  "description": "No meat, poultry, fish, dairy, eggs or honey"
+  "exigence": "végétalien",
+  "description": "Pas de viande, de volaille, de poisson, de produits laitiers, d'œufs ou de miel",
+  "cle_api": "vegan"
 },{
   "_id": {
     "$oid": "637289999d22c24582bf7610"
   },
-  "exigence": "Vegetarian",
-  "description": "No meat, poultry, or fish"
+  "exigence": "Végétarien",
+  "description": "Pas de viande, de volaille ou de poisson",
+  "cle_api": "vegetarian"
 },{
   "_id": {
     "$oid": "637289c69d22c24582bf7611"
   },
-  "exigence": "Wheat-Free",
-  "description": "No wheat, can have gluten though"
+  "exigence": "Sans blé",
+  "description": "Pas de blé, mais peut contenir du gluten",
+  "cle_api": "wheat-free"
 }]

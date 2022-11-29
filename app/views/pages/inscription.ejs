@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <%- include('../partials/head'); %>
-    <link type="text/css" rel="stylesheet" href="../css/forms.css" />
+    <link type="text/css" rel="stylesheet" href="../css/style.css" />
 
     <link rel="stylesheet" href="../css/chosen.css" />
 
@@ -11,13 +11,13 @@
   </head>
 
   <body class="container" onload="montrerTab(0);">
+
     <header><%- include('../partials/header'); %></header>
     <form id="formulaireInscription" method="post">
       <h1>Inscrivez-vous:</h1>
+      
       <!-- One "tab" for each step in the form: -->
-
-      <div class="tab">
-        <p>
+      <div class="tab">     
           <input
             type="text"
             id="prenom"
@@ -30,8 +30,6 @@
             oninput="this.setCustomValidity('')"
             autocomplete="on"
           />
-        </p>
-        <p>
           <input
             type="text"
             id="nom"
@@ -44,11 +42,9 @@
             oninput="this.setCustomValidity('')"
             autocomplete="on"
           />
-        </p>
       </div>
       <div class="tab">
-        <p>
-          <h5>âge avez-vous?<input
+          <h5>Quelle âge avez-vous?<input
             type="number"
             id="ans"
             step="0.01"
@@ -61,22 +57,19 @@
             oninvalid="this.setCustomValidity('Entrez votre age')"
             oninput="this.setCustomValidity('')"
           /></h5>
-        </p>
         <div id="message ans"></div>
-        <p>
           <h5>Choisissez le genre qui nous permettra de calculer votre consommaion
           de calorie quotidienne:<select name="genre" id="genre">
             <option value="Homme">Homme</option>
             <option value="Femme">Femme</option>
           </select></h5>
-        </p>
         <select name="unitePrefere" id="unitePrefere">
           <option value="metrique">système métrique</option>
           <option value="imperial">système impérial</option>
         </select>
 
         <div id="metrique">
-          <p><h5>
+          <h5>
             Quelle est votre poids?<input
               type="number"
               step="0.01"
@@ -90,9 +83,7 @@
               oninvalid="this.setCustomValidity('Entrez votre poids')"
               oninput="this.setCustomValidity('')"
             /></h5>
-          </p>
           <div id="message kg"></div>
-          <p>
           <h5>Quelle est votre taille?<input
               type="number"
               id="cm"
@@ -106,11 +97,10 @@
               oninvalid="this.setCustomValidity('Entrez votre taille')"
               oninput="this.setCustomValidity('')"
             /></h5>
-          </p>
           <div id="message cm"></div>
         </div>
         <div id="imperial" style="display: none">
-          <p>
+          <h5>
             Quelle est votre poids?<input
               type="number"
               onkeyup="validerForm(this)"
@@ -126,9 +116,10 @@
               oninvalid="this.setCustomValidity('Entrez votre poids')"
               oninput="this.setCustomValidity('')"
             />
-          </p>
-          <div id="message lbs"></div>
-          <p>
+          </h5>
+        <div id="message lbs"></div>
+        <p>
+           <h5>
             Quelle est votre taille?<input
               type="number"
               onkeyup="validerForm(this)"
@@ -145,7 +136,7 @@
               oninput="this.setCustomValidity('')"
               style="width: 20%"
             />ft
-            <input
+          <input
               type="number"
               onkeyup="validerForm(this)"
               id="inch"
@@ -160,12 +151,10 @@
               oninvalid="this.setCustomValidity('Entrez votre taille')"
               oninput="this.setCustomValidity('')"
               style="width: 20%"
-            />inch
-          </p>
+            />inch</h5></p>
           <div id="message feet"></div>
           <div id="message inch"></div>
         </div>
-        <p>
           <h4><b>Quelle est votre niveau d'activité?</b></h4><select
             name="id_niveau_activite_physique"
             id="id_niveau_activite_physique"
@@ -186,7 +175,9 @@
               Extrêmement actif (entrainement quotidien intensif )
             </option>
           </select>
-        </p>
+          </br>
+          <iframe loading="lazy" src="https://www.mangerbouger.fr/bouger-plus/test-de-niveau-d-activite-physique-et-de-sedentarite-des-adultes" width="50%" height="800px" ></iframe>
+
       </div>
       <div class="tab" id="Imc">
         <div id="ImcDescription"></div>
@@ -233,7 +224,6 @@
       </div>
       <div class="tab" id="planQuotidienne">
         <p id="consommerParJour"></p>
-        <p>
           <h4><b>Combien de repas avez-vous par jour?</b></h4><select
             name="repas_par_jour"
             id="repas"
@@ -242,7 +232,6 @@
             <option value="4">4</option>
             <option value="5">5</option>
           </select>
-        </p>
 
         <div id="calorie_par_repas"></div>
         <!-- <input type="number" id="repas" step="0.01" min="3" max="5" name="repas_par_jour" oninput="this.className = '';validerForm(this);" placeholder="repas par jour"/>
@@ -285,24 +274,8 @@
       <div class="tab">
         <h4><b>Quelles sont vos restrictions:</b></h4>
 
-        <p></br>
-
-          <h5>Qu'est ce que vous ne mangez pas?
-          <select
-            name="restrictions"
-            id="restrictions"
-            data-placeholder="Selectionnez des aliments"
-            multiple
-            class="chosen-select"
-            tabindex="8"
-          >
-            <option value="pomme">pomme</option>
-            <option value="viande">viande</option>
-            <option value="Autre">Autre a ajouter</option>
-          </select></h5>
-        </p>
-        <p>
-          <h5>Quelles sont vos exigences diètiques?<select
+        </br>
+         <h5>Quelles sont vos exigences diètiques?<select
             name="exigences_dietiques"
             id="exigences_dietiques"
             data-placeholder="Selectionnez vos exigences"
@@ -313,11 +286,9 @@
             <option value="<%= exigences[i]._id %>" title="<%= exigences[i].description %>" ><%= exigences[i].exigence %></option>
             <% } %>
           </select></h5>
-        </p>
       </div>
       <div class="tab">
         Créer votre compte:
-        <p>
           <input
             type="email"
             id="email"
@@ -330,13 +301,10 @@
             oninput="this.setCustomValidity('')"
             autocomplete="on"
           />
-        </p>
 
         <p id="avertirEmail" style="padding-left: 20px; color: red"></p>
-        <p id="messageCourriel" class="invalid" style="display: none">
+        <p id="messageCourriel" class="invalid" style="display: none"></p>
           Entrez un courriel valide
-        </p>
-        <p>
           <input
             type="password"
             id="mot_passe"
@@ -349,7 +317,6 @@
             oninvalid="this.setCustomValidity('Choisissez un mot de passe')"
             oninput="this.setCustomValidity('')"
           />
-        </p>
         <div id="patternMotPasse" style="display: none">
           <p id="minisculeMotPasse">
             Votre mot de passe doit contenir au moins un lettre miniscule
@@ -362,7 +329,6 @@
           </p>
           <p id="longueurMinPass">
             Votre mot de passe doit être plus longue que 8 caractères
-          </p>
         </div>
       </div>
       <div style="overflow: auto">

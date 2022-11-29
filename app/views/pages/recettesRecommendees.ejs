@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('../partials/head'); %>
+    <link type="text/css" rel="stylesheet" href="../css/style.css" />
+
+    <link rel="stylesheet" href="../css/chosen.css" />
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="../css/bootstrap.min.css" />
+  </head>
+
+  <body class="container">
+    <header><%- include('../partials/header'); %></header>
+    <h5>Quelles ingrédients avez vous?<select
+        name="ingredients"
+        id="ingredients"
+        data-placeholder="Selectionnez vos ingrédients"
+        multiple
+        class="chosen-select"
+        tabindex="8"
+      ><% for(var i=0; i<ingredients.length; i++) {%>
+        <option value="<%= ingredients[i].cle_api %>" ><%= ingredients[i].aliment %></option>
+        <% } %>
+      </select></h5>
+    <button onclick="recommanderRecettes('<%=exigencesUtilisateur%>')">recommender des recettes</button>
+    <div id="recettes" class="card-body text-center">
+      <h1 class="title"></h1>
+      <img class="img" />
+      <p class="ingredients"></p>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+    <script src="../js/recettesEdamame.js"></script>
+    <script src="../js/jquery-3.3.1.min.js"></script>
+    <script src="../js/popper.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/chosen.jquery.min.js"></script>
+    <script src="../js/main.js"></script>
+    <footer><%- include('../partials/footer'); %></footer>
+  </body>
+</html>

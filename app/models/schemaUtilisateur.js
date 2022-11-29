@@ -22,12 +22,6 @@ const schemaUtilisateur = mongoose.Schema({
         total: Number,
         repas: [{}]
     }],
-
-    restrictions_alim: [{
-        id: Number,
-        nom: String,
-        description: String
-    }],
     ibm: Number,
     exigences_dietiques: [{}]
 });

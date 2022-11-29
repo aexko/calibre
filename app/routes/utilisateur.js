@@ -3,9 +3,12 @@ const utilisateurController = require("../controllers/utilisateur");
 const inscriptionController = require("../controllers/inscription");
 const connexionController = require("../controllers/connexion");
 const profilController = require("../controllers/profil");
+const recettesRecoController = require("../controllers/recettesRecommende");
 const configuerationConnexion = require("../config/config-connexion");
 const modelUtilisateur = require("../models/schemaUtilisateur");
 const bcrypt = require("bcryptjs");
+const mongoose = require("mongoose");
+
 
 const router = express.Router();
 
@@ -34,14 +37,28 @@ router.post("/connexion",StockerUtilisateur,configuerationConnexion.checkNotAuth
 }), connexionController.postConnexion);
 router.delete("/deconnexion", configuerationConnexion.checkAuthenticated, connexionController.deleteConnexion);
 module.exports = router;
+router.get("/recettesRecommendees", configuerationConnexion.checkAuthenticated,recettesRecoController.afficherPageRecettesRecommendees);
 
 async function StockerUtilisateur(req, res, next) {
 	const userFound = await modelUtilisateur.findOne({ email: req.body.email });
 	const mdp = req.body.mot_passe;
 	if (userFound) {
 		if (await bcrypt.compare(mdp, userFound.mot_passe)) {
-			configuerationConnexion.utilisateurCourant = userFound;
-            console.log(configuerationConnexion.utilisateurCourant)
+			ids = userFound.exigences_dietiques.map(function(el) { return mongoose.Types.ObjectId(el) })
+				utilisateur = await modelUtilisateur.aggregate(  [ { $match : { _id : userFound._id } } ,{
+					$lookup: {
+						from: "exigences_dietiques", // collection name in db
+						pipeline: [
+							{
+								$match:{'_id': {$in:ids} }
+							},
+							{ $project: { description: 0, _id: 0,exigence:0 } }
+						],
+						as: "exigences_dietiques"
+					},
+				}]).exec()
+			configuerationConnexion.utilisateurCourant = utilisateur[0];
+
 		}
 	} else {
 		currentlyConnectedUser = null;

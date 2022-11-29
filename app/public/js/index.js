@@ -19,6 +19,7 @@ function soummettreFormulaire() {
 		success: gererSuccesCourriel,
 	});
 }
+
 //cette methode permet de valider le nom d utilisateur et elle est appelee a chaque keyup dans le champs de nom d utilisateur
 async function validerNomUtilisateur(nomUtilisateur) {
 	//on fait une requete get ajax pour verifier si le nom d utilisateur est deja existant dans la bd
