@@ -282,14 +282,27 @@ const utilisateurRoutes = require("./routes/utilisateur");
 const activite = require("./models/activite");
 app.use(utilisateurRoutes);
 
-app.delete('/:id', (req, res) => {
+app.delete("/:id", (req, res) => {
 	const id = req.params.id;
-	
-	activite.findByIdAndDelete(id)
-	  .then(result => {
-		res.json({ redirect: '/afficher-activites' });
-	  })
-	  .catch(err => {
-		console.log(err);
-	  });
-  });
+
+	activite
+		.findByIdAndDelete(id)
+		.then((result) => {
+			res.json({ redirect: "/afficher-activites" });
+		})
+		.catch((err) => {
+			console.log(err);
+		});
+});
+
+app.get("/:id", (req, res) => {
+	const id = req.params.id;
+	activite
+		.findByOneAndUpdate({_id:id }, req.body, { new: true }), (err, doc) => { 
+		if (!err) {
+			res.redirect("/afficher-activites");
+		} else {
+			console.log("Error during record update : " + err);
+		}
+
+});

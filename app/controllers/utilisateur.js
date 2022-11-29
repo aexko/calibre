@@ -45,26 +45,23 @@ exports.postActivite = (req, res, next) => {
 		});
 };
 
-// exports.editActivite = (req, res, next) => {
-// 	const titre = req.body.titre;
-// 	const description = req.body.description;
-// 	const date = req.body.date;
-// 	const activite = new Activite({
-// 		titre: titre,
-// 		description: description,
-// 		date: date,
-// 	});
-// 	activite
-// 		.save()
-// 		.then((result) => {
-// 			console.log("Activite modifiee");
-// 			res.redirect("/afficher-activites");
-		
-// 		})
-// 		.catch((err) => {
-// 			console.log(err);
-// 		});
-// };
+exports.updateActivite = (req, res, next) => {
+	const activiteId = req.body.activiteId;
+
+	Activite.findOneAndUpdate({ _id: activiteId })
+		.then((activite) => {
+			activite.titre = req.body.titre_activite;
+			activite.description = req.body.description;
+			activite.date = req.body.date;
+
+			return activite.save();
+		})
+		.then((result) => {
+			console.log("Activité mise à jour");
+			res.redirect("/afficher-activites");
+		})
+};
+
 
 exports.getActivite = (req, res, next) => {
 	const activiteId = req.params.activiteId;
@@ -80,15 +77,7 @@ exports.getActivite = (req, res, next) => {
 		.catch((err) => console.log(err));
 };
 
-exports.deleteActivite = (req, res, next) => {
-	const activiteId = req.body.activiteId;
-	Activite.findByIdAndRemove(activiteId)
-		.then(() => {
-			console.log("Activite supprimee");
-			res.redirect("/ajouter-activite");
-		})
-		.catch((err) => console.log(err));
-};
+
 
 exports.getAllActivities = (req, res, next) => {
 	Activite.find({}, function (err, activites) {
