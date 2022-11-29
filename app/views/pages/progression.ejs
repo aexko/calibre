@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<header>
+    <%- include('../partials/header'); %>
+        <link type="text/css" rel="stylesheet" href="../css/progression.css" />
+</header>
+
+<body class="container" onload="progress_bar()">
+
+    <head>
+        <%- include('../partials/head'); %>
+    </head>
+    <div class="container">
+        <div class="divCalorie">
+            <h3 style="display:inline">Aujourd'hui, vous avez consommé: </h3>
+            <h4>
+                <p style="display:inline" id="calorie_consomme">
+                    <%=utilisateurCourant.calorie_quotidien_consommee%>
+                </p>
+                <p style="display:inline">
+                    calories sur
+                </p>
+                <p style="display:inline" id="calorie_recommendee">
+                    <%=utilisateurCourant.calorie_quotidien_recommendee[0].total%>
+                </p>
+
+
+
+            </h4>
+
+        </div>
+
+        <div class="progress">
+            <div class="progress-done" id="progress-done">
+
+            </div>
+
+
+        </div>
+        <div class="pourcentage">
+            <p id="pourcentage" name="pourcentage">
+            </p>
+        </div>
+
+        <br>
+        <div class="tabs">
+            <div class="tab">
+                <input type="radio" name="css-tabs" id="tab-1" checked class="tab-switch">
+                <label for="tab-1" class="tab-label">Ajouter manuellement</label>
+                <div class="tab-content" id="tab-1">
+                    <form action="/ajouter_calorie" id="AjouterCalorie" method="post">
+
+                        <input type="text" id="calorie" name="calorie" placeholder="expl: 150 (KCal)" required />
+                        <input type="submit" value="Ajouter" name="save_data"> </button>
+                    </form>
+                </div>
+                <div class="tab">
+                    <input type="radio" name="css-tabs" id="tab-2" class="tab-switch">
+                    <label for="tab-2" class="tab-label">Utiliser notre barre de recherche</label>
+                    <div class="tab-content" id="tab-2">
+                        <main>
+                            <div class="jumbotron">
+
+                                <input id="recherche_nutriments" placeholder="entrez le nom de l'aliment" type="text">
+                                <p> (Le nombre de calories est pour 100 g de l'aliment)</p>
+                                <!-- Bouton avec la fonction getNutriment(query) -->
+                                <button id="envoyer" onclick="getNutrimentID(document.getElementById('recherche_nutriments').value)">Trouver
+                            un nutriment</button><br>
+                                <div id="afficher_aliment" style="display:none;">
+                                    <!-- Affichage des informations du nutriment trouvé -->
+                                    <p>
+                                        Nom du nutriment: <span id="nom_nutriment"></span><br> Nombre de calories: <span id="quantite_calories"> 
+                        </p>
+                        <input id="entree_quantite" placeholder="entrez la quantité consommée en gramme" type="text">
+                      <br>
+                        <!-- Résultat de la requête -->
+                        <div id="sortie"></div>
+                        <button id="calculer" onclick="calculerCalorie()">Calculer 
+                            un nutriment</button>
+                            <form id="div_consommation" action="/ajouter_calorie_recherche"  method="post">
+                                <p id="total_calorie"></p>
+                              
+                                <input type="hidden" name="calorie_recherche" id="calorie_recherche" />
+                                <input type="submit" value="Ajouter" name="save_data"> </button>
+                            </form>
+                    </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+
+    </div>
+   
+</div>
+
+    <script>
+        var input = document.getElementById('calorie_recherche');
+
+        var consommation;
+
+        function calculerCalorie() {
+            var calorie = Number(document.getElementById("quantite_calories").innerText);
+            var quantite = Number(document.getElementById("entree_quantite").value);
+
+            consommation = (quantite * calorie / 100)
+            document.getElementById("total_calorie").innerText = " Vous avez consommée " + consommation + "KCal"
+            document.getElementById("calorie_recherche").textContent = consommation
+
+            input.value = consommation.toString();
+        }
+
+        function afficherDiv(id_div) {
+            var div = document.getElementById(id_div);
+            if (div.style.display === "none") {
+                div.style.display = "block";
+            } else {
+                div.style.display = "none";
+            }
+        }
+
+        function onLoad2() {
+            progress_bar()
+
+        }
+
+        function progress_bar() {
+
+            var text_pourcentage = document.getElementById("pourcentage");
+            text_pourcentage.style.marginTop = "5%";
+            var elem = document.getElementById("progress-done");
+            var contenu_calorie = Number(document.getElementById("calorie_consomme").innerText);
+            var contenu_max = Number(document.getElementById("calorie_recommendee").innerText);
+            var nombre = (contenu_calorie * 100) / contenu_max;
+            text_pourcentage.innerText = Math.round(nombre) + "%";
+            elem.style.width = nombre + "%";
+            if (nombre > 100) {
+                elem.style.backgroundImage = "repeating-linear-gradient(to left, #ff1616, #ff4545, #f66d6d)";
+                elem.style.boxShadow = "05px 5px -6px #fb8507, 0 3px 7px #f09535";
+            } else if (nombre < 100 && nombre > 90) {
+                elem.style.backgroundImage = "repeating-linear-gradient(to left,#fb8507, #f09535, #f0ae68)";
+                elem.style.boxShadow = "05px 5px -6px #ff1616, 0 3px 7px #f66d6d";
+            }
+
+        }
+        /**
+         * Fonction qui trouve la source du nutriment
+         * @param {number} id - ID du nutriment
+         */
+        function getNutrimentInfo(id) {
+            $.ajax({
+                url: "https://api.spoonacular.com/food/ingredients/" +
+                    id +
+                    "/information?apiKey=1cc034bf9a734f59995c4b72466c33ab&amount=100&unit=grams",
+                success: function(res) {
+                    document.getElementById("nom_nutriment").textContent = res.name;
+                    document.getElementById("quantite_calories").textContent =
+                        res.nutrition.nutrients[16].amount;
+                },
+            });
+        }
+        /**
+         * Fonction qui trouve un nutriment
+         * @param {string} query - Entrée de l'utilisateur
+         */
+        function getNutrimentID(query) {
+            $.ajax({
+                url: "https://api.spoonacular.com/food/ingredients/search?apiKey=1cc034bf9a734f59995c4b72466c33ab&query=" +
+                    query,
+                success: function(res) {
+                    try {
+                        getNutrimentInfo(res.results[0].id);
+                        afficherDiv('afficher_aliment');
+                    } catch (err) {
+                        console.log(
+                            "Erreur: " +
+                            err.name +
+                            " - Aucun nutriment trouvé dans la base de données de SpoonacularAPI"
+                        );
+                        alert(
+                            "Désolé, aucun nutriment trouvé. Veuillez réessayer avec des mots en anglais, merci!"
+                        );
+                    }
+                },
+            });
+        }
+        $('.continue').click(function() {
+            $('.nav-tabs > .active').next('li').find('a').trigger('click');
+        });
+        $('.back').click(function() {
+            $('.nav-tabs > .active').prev('li').find('a').trigger('click');
+        });
+    </script>
+
+</body>
+
+</html>

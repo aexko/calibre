@@ -98,8 +98,12 @@ app.get("/profil", checkAuthenticated, (req, res) => {
         utilisateurCourant: configuerationConnexion.utilisateurCourant
     });
 });
-
-
+app.get("/progression", checkAuthenticated, (req, res) => {
+    res.render("pages/progression", {
+        utilisateurconnecte: configuerationConnexion.utilisateurCourant,
+        utilisateurCourant: configuerationConnexion.utilisateurCourant
+    });
+});
 
 /**
  * Route: génère la page de la recherche des recettes

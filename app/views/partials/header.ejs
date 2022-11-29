@@ -6,16 +6,9 @@
     <a href="/nutriments">Aliments</a>
     <a href="/a-propos">À propos</a>
     <% if (utilisateurconnecte !== null) { %>
+        <a href="progression"> progression </a>
         <a href="profil">Profil </a>
-        <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Activités
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="/ajouter-activite">Ajouter une activité</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="/afficher-activites">Afficher les activités</a>
 
-        </div>
 
 
         <% }else{ %>

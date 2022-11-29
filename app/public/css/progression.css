@@ -1,0 +1,166 @@
+   body {
+       background-image: url(../img/background.jpg);
+       background-size: cover;
+   }
+   
+   .container {
+       background-color: rgb(255, 255, 255);
+       margin-left: 4%;
+       margin-right: 10%;
+       border-radius: 25px;
+       padding: 3%
+   }
+   
+   .progress {
+       background-color: rgb(176, 175, 175);
+       border-radius: 20px;
+       height: 30px;
+       width: 300px;
+       display: inline-block;
+   }
+   
+   .pourcentage {
+       color: black;
+       font-weight: bold;
+       text-decoration: solid;
+       display: inline-block;
+   }
+   
+   .progress-done {
+       align-items: center;
+       justify-content: center;
+       background-image: repeating-linear-gradient(to left, #225630, #37914f, #52bb6e);
+       box-shadow: 05px 5px -6px #225630, 0 3px 7px #37914f;
+       border-radius: 20px;
+       color: #fff;
+       height: 100%;
+       width: 0%;
+       transition: 1s ease 0.3s;
+   }
+   
+   input[name=deconnexion] {
+       margin-left: 65%;
+       margin-top: 15px;
+   }
+   
+   input[type=text] {
+       width: auto;
+       padding: 5px;
+       border-radius: 10px;
+       margin: 5px
+   }
+   
+   input[type=submit],
+   button {
+       display: flex;
+       align-items: center;
+       font-family: inherit;
+       font-weight: 500;
+       font-size: 16px;
+       padding: 0.7em 1.4em 0.7em 1.1em;
+       color: rgb(0, 0, 0);
+       background: #ad5389;
+       background: linear-gradient(0deg, rgb(17, 109, 43) 0%, rgba(76, 204, 87, 0.751) 100%);
+       border: none;
+       box-shadow: 0 0.7em 1.5em -0.5em #14a73e98;
+       letter-spacing: 0.05em;
+       border-radius: 20em;
+       cursor: pointer;
+       user-select: none;
+       -webkit-user-select: none;
+       touch-action: manipulation;
+       width: auto;
+   }
+   
+   input[type=submit]:hover {
+       box-shadow: 0 0.5em 1.5em -0.5em #14a73e98;
+   }
+   
+   input[type=submit]:active {
+       box-shadow: 0 0.3em 1em -0.5em #14a73e98;
+   }
+   
+   .tabs {
+       position: relative;
+       margin: 3rem 0;
+       height: 500px;
+       margin-bottom: 30%;
+   }
+   
+   .tabs::before,
+   .tabs::after {
+       content: "";
+       display: table;
+   }
+   
+   .tabs::after {
+       clear: both;
+   }
+   
+   .tab {
+       float: left;
+   }
+   
+   .tab-switch {
+       display: none;
+   }
+   
+   .tab-label {
+       position: relative;
+       display: block;
+       line-height: 2.75em;
+       height: 3em;
+       padding: 0 1.618em;
+       background: rgb(255, 255, 255);
+       border-right: 0.125rem solid rgb(17, 109, 43);
+       color: rgb(0, 0, 0);
+       cursor: pointer;
+       top: 0;
+       transition: all 0.25s;
+   }
+   
+   .tab-label:hover {
+       top: -0.25rem;
+       transition: top 0.25s;
+   }
+   
+   .tab-content {
+       margin-left: 25%;
+       position: absolute;
+       z-index: 1;
+       left: 0;
+       padding: 1.618rem;
+       color: #000000;
+       border-bottom: 0.25rem solid #bdc3c7;
+       opacity: 0;
+       transition: all 0.35s;
+   }
+   
+   .tab-switch:checked+.tab-label {
+       background: rgb(30, 154, 65);
+       color: #ffffff;
+       border-bottom: 0;
+       border-right: 0.125rem solid #fff;
+       transition: all 0.35s;
+       z-index: 1;
+       top: -0.0625rem;
+   }
+   
+   .tab-switch:checked+label+.tab-content {
+       z-index: 2;
+       opacity: 1;
+       transition: all 0.35s;
+   }
+   
+   .tabs-wrap {
+       margin-top: 40px;
+   }
+   
+   .tab-content .tab-pane {
+       padding: 20px 0;
+   }
+   
+   .divInfo {
+       border: black;
+       font-size: medium;
+   }

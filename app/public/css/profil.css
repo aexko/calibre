@@ -6,6 +6,19 @@
     display: inline-block;
 }
 
+body {
+    background-image: url(../img/background.jpg);
+    background-size: cover;
+}
+
+.container {
+    background-color: rgb(255, 255, 255);
+    margin-left: 4%;
+    margin-right: 10%;
+    border-radius: 25px;
+    padding: 3%
+}
+
 .pourcentage {
     color: black;
     font-weight: bold;
