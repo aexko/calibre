@@ -3,30 +3,31 @@
 
 <head>
     <%- include('../partials/head'); %>
-        <link type="text/css" rel="stylesheet" href="../css/style.css" />
+        <link type="text/css" rel="stylesheet" href="../css/profil.css" />
 </head>
 <php></php>
 
-<body class="container" onload="progress_bar()">
+<body class="container" onload="onLoad2()">
     <header>
         <%- include('../partials/header'); %>
     </header>
     <form action="/deconnexion?_method=DELETE" method="post">
-        <input type="submit" value="Déconnexion" />
+        <input type="submit" name="deconnexion" value="Déconnexion" />
     </form>
     <br /><br />
-    <h3>Bonjour
-        <%=utilisateurCourant.prenom%>
-            <%=utilisateurCourant.nom%>
+    <h3>Heureux de vous revoir
+        <%=utilisateurCourant.prenom%>!
     </h3>
+
+
     <div class="divCalorie">
-        <h3>Calories consommées aujourdhui </h3>
+        <h3 style="display:inline">Aujourd'hui, vous avez consommé: </h3>
         <h4>
             <p style="display:inline" id="calorie_consomme">
                 <%=utilisateurCourant.calorie_quotidien_consommee%>
             </p>
             <p style="display:inline">
-                /
+                calories sur
             </p>
             <p style="display:inline" id="calorie_recommendee">
                 <%=utilisateurCourant.calorie_quotidien_recommendee[0].total%>
@@ -37,45 +38,67 @@
         </h4>
         <div class="progress">
             <div class="progress-done" id="progress-done">
-                <p id="pourcentage" name="pourcentage"></p>
+
             </div>
+
+
+        </div>
+        <div class="pourcentage">
+            <p id="pourcentage" name="pourcentage">
+            </p>
         </div>
     </div>
-    <p></p>
-    <button onclick=" afficherDiv('AjouterCalorie')">Ajouter des Calories</button>
-    <form action="/ajouter_calorie" id="AjouterCalorie" style="display:none;" method="post">
-        <p>Ajouter manuellement les calories de votre repas</p>
-        <input type="text" id="calorie" name="calorie" placeholder="expl: 150 (KCal)" />
-        <input type="submit" value="Ajouter" name="action"> </button>
-    </form>
-    <main>
-        <div class="jumbotron">
-            <h5>Ou utiliser notre barre de recherche</h5>
-            <p>Le nombre de calories est pour 100 g de l'aliment</p>
-            <input id="recherche_nutriments" placeholder="entrez le nom de l'aliment">
-            <!-- Bouton avec la fonction getNutriment(query) -->
-            <button id="envoyer" onclick="getNutrimentID(document.getElementById('recherche_nutriments').value)">Trouver
-                un nutriment</button><br>
-            <div id="afficher_aliment" style="display:none;">
-                <!-- Affichage des informations du nutriment trouvé -->
-                <p>
-                    Nom du nutriment: <span id="nom_nutriment"></span><br> Nombre de calories: <span id="quantite_calories"> 
-            </p>
-            <input id="entree_quantite" placeholder="entrez la quantité consommée en gramme">
-          <br>
-            <!-- Résultat de la requête -->
-            <div id="sortie"></div>
-            <button id="calculer" onclick="calculerCalorie()">Calculer 
-                un nutriment</button>
-                <form id="div_consommation" action="/ajouter_calorie_recherche"  method="post">
-                    <p id="total_calorie"></p>
-                  
-                    <input type="hidden" name="calorie_recherche" id="calorie_recherche" />
-                    <input type="submit" value="Ajouter" name="action"> </button>
+    <br>
+    <div class="tabs">
+        <div class="tab">
+            <input type="radio" name="css-tabs" id="tab-1" checked class="tab-switch">
+            <label for="tab-1" class="tab-label">Ajouter manuellement</label>
+            <div class="tab-content" id="tab-1">
+                <form action="/ajouter_calorie" id="AjouterCalorie" method="post">
+
+                    <input type="text" id="calorie" name="calorie" placeholder="expl: 150 (KCal)" required />
+                    <input type="submit" value="Ajouter" name="save_data"> </button>
                 </form>
+            </div>
+            <div class="tab">
+                <input type="radio" name="css-tabs" id="tab-2" class="tab-switch">
+                <label for="tab-2" class="tab-label">Utiliser notre barre de recherche</label>
+                <div class="tab-content" id="tab-2">
+                    <main>
+                        <div class="jumbotron">
+
+                            <input id="recherche_nutriments" placeholder="entrez le nom de l'aliment" type="text">
+                            <p> (Le nombre de calories est pour 100 g de l'aliment)</p>
+                            <!-- Bouton avec la fonction getNutriment(query) -->
+                            <button id="envoyer" onclick="getNutrimentID(document.getElementById('recherche_nutriments').value)">Trouver
+                                un nutriment</button><br>
+                            <div id="afficher_aliment" style="display:none;">
+                                <!-- Affichage des informations du nutriment trouvé -->
+                                <p>
+                                    Nom du nutriment: <span id="nom_nutriment"></span><br> Nombre de calories: <span id="quantite_calories"> 
+                            </p>
+                            <input id="entree_quantite" placeholder="entrez la quantité consommée en gramme" type="text">
+                          <br>
+                            <!-- Résultat de la requête -->
+                            <div id="sortie"></div>
+                            <button id="calculer" onclick="calculerCalorie()">Calculer 
+                                un nutriment</button>
+                                <form id="div_consommation" action="/ajouter_calorie_recherche"  method="post">
+                                    <p id="total_calorie"></p>
+                                  
+                                    <input type="hidden" name="calorie_recherche" id="calorie_recherche" />
+                                    <input type="submit" value="Ajouter" name="save_data"> </button>
+                                </form>
+                        </div>
+                        </div>
+                    </main>
+                </div>
+            </div>
+
         </div>
-        </div>
-    </main>
+       
+    </div>
+ 
     <p></p>
     <div class="divInfo">
         <h5>Mes informations</h5>
@@ -87,40 +110,38 @@
                 <%=utilisateurCourant.age%>
                 <button onclick=" afficherDiv('modifier_age')">+</button>
                             <form action="/metre_a_jour_age" class="modifier_age" id="modifier_age" style="display:none;" method="post">
-                                <input type="number" id="age" name="age" max="120" min="18" placeholder="entrez votre age">
-                                <input type="submit" value="Modifier" name="action"> </button>
+                                <input type="text" id="age" name="age" max="120" min="18" placeholder="entrez votre age" require>
+                                <input type="submit" value="Modifier" name="save_data"> </button>
 
                             </form>  <br>Taille:
                     <%=utilisateurCourant.taille%> <br> Poids actuel:
                         <%=utilisateurCourant.poids%> <button onclick=" afficherDiv('modifier_poids')">+</button>
                             <form action="/metre_a_jour_poid" class="modifier_poids" id="modifier_poids" style="display:none;" method="post">
-                                <input type="number" id="poids" name="poids" max="200" min="15" placeholder="entrez votre nouveau poids">
-                                <input type="submit" value="Modifier" name="action"> </button>
+                                <input type="text" id="poids" name="poids" max="200" min="15" placeholder="entrez votre nouveau poids" required>
+                                <input type="submit" value="Modifier" name="save_data"> </button>
 
                             </form> <br> IMC:
                             <%=utilisateurCourant.imc%>
                                 <p></p>
+                                <input type="hidden" name="valeur_date" id="valeur_date" />
     </div>
     <footer>
         <%- include('../partials/footer'); %>
     </footer>
     <script >
+
            var input = document.getElementById('calorie_recherche');
+           
            var consommation ;
-      
-
-
 
 function calculerCalorie() {
     var calorie = Number(document.getElementById("quantite_calories").innerText);
     var quantite = Number(document.getElementById("entree_quantite").value);
-    // var texte=getElementById("total_calorie");
+    
     consommation = (quantite * calorie / 100)
-        //  document.getElementById("total_calorie").innerText="Vous avez consommé "+consommation+"Kcal" 
     document.getElementById("total_calorie").innerText = " Vous avez consommée " + consommation + "KCal"
     document.getElementById("calorie_recherche").textContent = consommation
-        // return consommation
-        // return consommation
+   
         input.value = consommation.toString();
 }
 function afficherDiv(id_div) {
@@ -131,7 +152,13 @@ function afficherDiv(id_div) {
         div.style.display = "none";
     }
 }
+
+function onLoad2() {
+    progress_bar()
+   
+}
 function progress_bar() {
+
     var text_pourcentage = document.getElementById("pourcentage");
     text_pourcentage.style.marginTop = "5%";
     var elem = document.getElementById("progress-done");
@@ -190,6 +217,12 @@ function getNutrimentID(query) {
         },
     });
 }
+$('.continue').click(function(){
+  $('.nav-tabs > .active').next('li').find('a').trigger('click');
+});
+$('.back').click(function(){
+  $('.nav-tabs > .active').prev('li').find('a').trigger('click');
+});
     </script>
 
 </body>

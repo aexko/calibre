@@ -3,6 +3,7 @@
 
 <header>
     <%- include('../partials/header'); %>
+        <link type="text/css" rel="stylesheet" href="../css/info.css" />
 </header>
 
 <body class="container">
@@ -12,24 +13,25 @@
     </head>
 
     <main>
+
+        <h1>Recherche de nutriments</h1>
         <div class="jumbotron">
-            <h1>Recherche de nutriments</h1>
-            <input id="recherche_nutriments">
+            <div class="recherche">
+                <input id="recherche_nutriments" type="text">
 
-            <!-- Bouton avec la fonction getNutriment(query) -->
-            <button id="envoyer" onclick="getNutrimentID(document.getElementById('recherche_nutriments').value)">Trouver
+                <!-- Bouton avec la fonction getNutriment(query) -->
+                <button id="envoyer" onclick="getNutrimentID(document.getElementById('recherche_nutriments').value)">Trouver
                 un nutriment</button><br>
+            </div>
+            <div class="resultat">
+                <!-- Affichage des informations du nutriment trouvé -->
+                <p>
+                    Nom du nutriment: <span id="nom_nutriment"></span><br> ID du nutriment: <span id="id_nutriment"></span><br> Nombre de calories: <span id="quantite_calories"></span><br> Type de nutriment: <span id="type_nutriment"></span>
+                </p>
 
-            <!-- Affichage des informations du nutriment trouvé -->
-            <p>
-                Nom du nutriment: <span id="nom_nutriment"></span><br>
-                ID du nutriment: <span id="id_nutriment"></span><br>
-                Nombre de calories: <span id="quantite_calories"></span><br>
-                Type de nutriment: <span id="type_nutriment"></span>
-            </p>
-
-            <!-- Résultat de la requête -->
-            <div id="sortie"></div>
+                <!-- Résultat de la requête -->
+                <div id="sortie"></div>
+            </div>
         </div>
     </main>
 
@@ -44,11 +46,10 @@
          */
         function getNutrimentInfo(id) {
             $.ajax({
-                url:
-                    "https://api.spoonacular.com/food/ingredients/" +
+                url: "https://api.spoonacular.com/food/ingredients/" +
                     id +
                     "/information?apiKey=1cc034bf9a734f59995c4b72466c33ab&amount=150&unit=grams",
-                success: function (res) {
+                success: function(res) {
                     document.getElementById("id_nutriment").textContent = id;
                     document.getElementById("nom_nutriment").textContent = res.name;
                     document.getElementById("quantite_calories").textContent =
@@ -65,10 +66,9 @@
          */
         function getNutrimentID(query) {
             $.ajax({
-                url:
-                    "https://api.spoonacular.com/food/ingredients/search?apiKey=1cc034bf9a734f59995c4b72466c33ab&query=" +
+                url: "https://api.spoonacular.com/food/ingredients/search?apiKey=1cc034bf9a734f59995c4b72466c33ab&query=" +
                     query,
-                success: function (res) {
+                success: function(res) {
                     try {
                         getNutrimentInfo(res.results[0].id);
                     } catch (err) {
@@ -84,7 +84,6 @@
                 },
             });
         }
-
     </script>
 
 </body>

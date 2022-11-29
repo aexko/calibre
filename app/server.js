@@ -16,7 +16,7 @@ const methodOverride = require("method-override");
 const passport = require("passport");
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
 const configuerationConnexion = require("./config/config-connexion");
-
+var localStorage = require('localStorage')
 const {
     checkAuthenticated,
     checkNotAuthenticated,
@@ -154,6 +154,7 @@ app.post("/metre_a_jour_age", checkAuthenticated, async(req, res) => {
 
     res.redirect("/profil");
 });
+
 // For website access
 /**app.listen(port, () => {
 	console.log(`Le serveur est sur localhost:${port}`);
@@ -164,6 +165,7 @@ if (process.env.NODE_ENV !== 'test') {
 
 const utilisateurRoutes = require("./routes/utilisateur");
 const activite = require("./models/activite");
+const { nextTick } = require("process");
 app.use(utilisateurRoutes);
 
 module.exports = app;

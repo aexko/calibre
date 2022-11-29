@@ -195,14 +195,14 @@ button:hover {
 }
 
 .progress {
-    background-color: grey;
+    background-color: rgb(176, 175, 175);
     border-radius: 20px;
     height: 30px;
     width: 300px;
 }
 
 .progress-done {
-    display: flex;
+    display: table-cell;
     align-items: center;
     justify-content: center;
     background-image: repeating-linear-gradient(to left, #225630, #37914f, #52bb6e);
@@ -212,4 +212,37 @@ button:hover {
     height: 100%;
     width: 0%;
     transition: 1s ease 0.3s;
+}
+
+.pourcentage {
+    display: table-cell;
+}
+
+input[name=save_data] {
+    display: flex;
+    align-items: center;
+    font-family: inherit;
+    font-weight: 500;
+    font-size: 16px;
+    padding: 0.7em 1.4em 0.7em 1.1em;
+    color: white;
+    background: #ad5389;
+    background: linear-gradient(0deg, rgb(17, 136, 51) 0%, rgba(91, 255, 105, 0.751) 100%);
+    border: none;
+    box-shadow: 0 0.7em 1.5em -0.5em #14a73e98;
+    letter-spacing: 0.05em;
+    border-radius: 20em;
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    width: 100px;
+}
+
+input[name=save_data]:hover {
+    box-shadow: 0 0.5em 1.5em -0.5em #14a73e98;
+}
+
+input[name=save_data]:active {
+    box-shadow: 0 0.3em 1em -0.5em #14a73e98;
 }

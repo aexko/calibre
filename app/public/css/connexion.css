@@ -1,0 +1,248 @@
+    * {
+        box-sizing: border-box;
+    }
+    
+    body {
+        background-color: rgb(53, 54, 58);
+        background-image: url(../img/background.jpg);
+        background-size: cover;
+    }
+    
+    .formulaire {
+        background-color: rgb(255, 255, 255);
+        margin-left: 30%;
+        margin-top: 5%;
+        margin-right: 30%;
+        border-radius: 25px;
+        padding: 7%;
+    }
+    
+    h3 {
+        padding-top: 15px;
+        text-align: center;
+    }
+    
+    #regForm {
+        background-color: #9b9b9b;
+        margin: 100px auto;
+        font-family: Raleway;
+        padding: 40px;
+        width: 70%;
+        min-width: 300px;
+    }
+    
+    p {
+        font-size: large;
+    }
+    
+    h1 {
+        text-align: center;
+    }
+    
+    input {
+        padding: 10px;
+        width: 50%;
+        font-size: 17px;
+        font-family: Raleway;
+        border: 1px solid #aaaaaa;
+    }
+    
+    button {
+        display: flex;
+        align-items: center;
+        font-family: inherit;
+        font-weight: 500;
+        font-size: 16px;
+        padding: 0.7em 1.4em 0.7em 1.1em;
+        color: white;
+        background: #ad5389;
+        background: linear-gradient(0deg, rgb(17, 136, 51) 0%, rgba(91, 255, 105, 0.751) 100%);
+        border: none;
+        box-shadow: 0 0.7em 1.5em -0.5em #14a73e98;
+        letter-spacing: 0.05em;
+        border-radius: 20em;
+        cursor: pointer;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+        width: 100px;
+    }
+    
+    button {
+        box-shadow: 0 0.5em 1.5em -0.5em #14a73e98;
+    }
+    
+    button {
+        box-shadow: 0 0.3em 1em -0.5em #14a73e98;
+    }
+    /* Mark input boxes that gets an error on validation: */
+    
+    input.invalid {
+        background-color: #ffdddd;
+    }
+    /* Hide all steps by default: */
+    
+    .tab {
+        display: none;
+    }
+    
+    #prevBtn {
+        background-color: #bbbbbb;
+    }
+    /* Make circles that indicate the steps of the form: */
+    
+    .step {
+        height: 15px;
+        width: 15px;
+        margin: 0 2px;
+        background-color: #bbbbbb;
+        border: none;
+        border-radius: 50%;
+        display: inline-block;
+        opacity: 0.5;
+    }
+    
+    .step.active {
+        opacity: 1;
+    }
+    /* Mark the steps that are finished and valid: */
+    
+    .step.finish {
+        background-color: #04AA6D;
+    }
+    
+    #regForm {
+        background-color: #ffffff;
+        margin: 100px auto;
+        font-family: Raleway;
+        padding: 40px;
+        width: 70%;
+        min-width: 300px;
+    }
+    
+    h1 {
+        text-align: center;
+    }
+    
+    input {
+        padding: 10px;
+        width: 100%;
+        font-size: 17px;
+        font-family: Raleway;
+        border: 1px solid #aaaaaa;
+    }
+    /* Mark input boxes that gets an error on validation: */
+    
+    input.invalid {
+        background-color: #ffdddd;
+    }
+    /* Hide all steps by default: */
+    
+    .tab {
+        display: none;
+    }
+    
+    button {
+        background-color: #04AA6D;
+        color: #000000;
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        font-family: Raleway;
+        cursor: pointer;
+        margin-left: 70%;
+    }
+    
+    button:hover {
+        opacity: 0.8;
+    }
+    
+    #prevBtn {
+        background-color: #bbbbbb;
+    }
+    /* Make circles that indicate the steps of the form: */
+    
+    .step {
+        height: 15px;
+        width: 15px;
+        margin: 0 2px;
+        background-color: #bbbbbb;
+        border: none;
+        border-radius: 50%;
+        display: inline-block;
+        opacity: 0.5;
+    }
+    
+    .step.active {
+        opacity: 1;
+    }
+    /* Mark the steps that are finished and valid: */
+    
+    .step.finish {
+        background-color: #04AA6D;
+    }
+    /* Add a green text color and a checkmark when the requirements are right */
+    
+    .valid {
+        color: green;
+    }
+    
+    .valid:before {
+        position: relative;
+        left: -35px;
+        content: "✔";
+    }
+    /* Add a red text color and an "x" icon when the requirements are wrong */
+    
+    .invalid {
+        color: red;
+    }
+    
+    .invalid:before {
+        position: relative;
+        left: -35px;
+        content: "❌";
+    }
+    
+    .float-label-field {
+        border: none;
+        outline: none;
+        position: relative;
+        margin: 0 0 20px 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    
+    .float-label-field input {
+        border: none;
+        outline: none;
+        padding: 5px 5px 8px 0px;
+        width: 100%;
+        font-size: 18px;
+        border-bottom: solid 1px #efefef;
+    }
+    
+    .float-label-field label {
+        opacity: 0.5;
+        position: absolute;
+        top: 10px;
+        left: 0px;
+        transition: all 0.2s ease;
+        font-size: 18px;
+    }
+    
+    .float-label-field.focus label {
+        color: rgb(0, 0, 0);
+    }
+    
+    .float-label-field.focus input {
+        border-bottom: solid 1px rgb(17, 193, 73);
+    }
+    
+    .float-label-field.float label {
+        opacity: 1;
+        top: -8px;
+        font-size: 60%;
+        transition: all 0.2s ease;
+        font-weight: bold;
+    }
