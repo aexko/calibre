@@ -148,7 +148,6 @@ input[type=submit]:active {
 }
 
 .divInfo {
-    background-color: red;
     border: black;
     font-size: medium;
 }

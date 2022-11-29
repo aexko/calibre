@@ -14,19 +14,19 @@
 
     <main>
 
-        <h1>Recherche de nutriments</h1>
+        <h1>Recherche d'aliments</h1>
         <div class="jumbotron">
             <div class="recherche">
                 <input id="recherche_nutriments" type="text">
 
                 <!-- Bouton avec la fonction getNutriment(query) -->
                 <button id="envoyer" onclick="getNutrimentID(document.getElementById('recherche_nutriments').value)">Trouver
-                un nutriment</button><br>
+                un aliment</button><br>
             </div>
             <div class="resultat">
                 <!-- Affichage des informations du nutriment trouvé -->
                 <p>
-                    Nom du nutriment: <span id="nom_nutriment"></span><br> ID du nutriment: <span id="id_nutriment"></span><br> Nombre de calories: <span id="quantite_calories"></span><br> Type de nutriment: <span id="type_nutriment"></span>
+                    Nom de l'aliment: <span id="nom_nutriment"></span><br> Nombre de calories: <span id="quantite_calories"></span><br> Type d'aliment: <span id="type_nutriment"></span>
                 </p>
 
                 <!-- Résultat de la requête -->
@@ -51,7 +51,6 @@
                     "/information?apiKey=1cc034bf9a734f59995c4b72466c33ab&amount=150&unit=grams",
                 success: function(res) {
                     document.getElementById("id_nutriment").textContent = id;
-                    document.getElementById("nom_nutriment").textContent = res.name;
                     document.getElementById("quantite_calories").textContent =
                         res.nutrition.nutrients[16].amount;
                     document.getElementById("type_nutriment").textContent =
