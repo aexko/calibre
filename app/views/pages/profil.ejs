@@ -22,7 +22,7 @@
         </h3>
 
         <div class="divInfo">
-            <h5>Mes informations</h5>
+            <h5>Vos informations</h5>
             <p style="display:inline ;">Nom d'utilisateur:
             </p>
             <%=utilisateurCourant.nom_utilisateur%>
@@ -31,43 +31,30 @@
                     <%=utilisateurCourant.age%>
                         <button onclick=" afficherDiv('modifier_age')">+</button>
                         <form action="/metre_a_jour_age" class="modifier_age" id="modifier_age" style="display:none;" method="post">
-                            <input type="text" id="age" name="age" max="120" min="18" placeholder="entrez votre age" require>
-                            <input type="submit" value="Modifier" name="save_data"> </button>
+                            <input type="text" id="age" name="age" max="120" min="18" placeholder="entrez votre age" required>
+                            <input type="submit" value="Modifier" name="save_data"> </input>
 
                         </form> <br>Taille:
                         <%=utilisateurCourant.taille%> <br> Poids actuel:
                             <%=utilisateurCourant.poids%> <button onclick=" afficherDiv('modifier_poids')">+</button>
                                 <form action="/metre_a_jour_poid" class="modifier_poids" id="modifier_poids" style="display:none;" method="post">
                                     <input type="text" id="poids" name="poids" max="200" min="15" placeholder="entrez votre nouveau poids" required>
-                                    <input type="submit" value="Modifier" name="save_data"> </button>
+                                    <input type="submit" value="Modifier" name="save_data"> </input>
 
-                                </form> <br> IMC:
-                                <%=utilisateurCourant.imc%>
-                                    <p></p>
-                                    <input type="hidden" name="valeur_date" id="valeur_date" />
+                                </form> <br> Votre objectif de poids:
+                                <%=utilisateurCourant.objectif_de_poids_saine%><br>IMC:
+                                    <%=utilisateurCourant.imc%>
+                                        <p></p>
         </div>
-
+        <div class="historique">
+            <h5>Historique de vos activités physiques</h5>
+        </div>
         <p></p>
 
         <footer>
             <%- include('../partials/footer'); %>
         </footer>
         <script>
-            var input = document.getElementById('calorie_recherche');
-
-            var consommation;
-
-            function calculerCalorie() {
-                var calorie = Number(document.getElementById("quantite_calories").innerText);
-                var quantite = Number(document.getElementById("entree_quantite").value);
-
-                consommation = (quantite * calorie / 100)
-                document.getElementById("total_calorie").innerText = " Vous avez consommée " + consommation + "KCal"
-                document.getElementById("calorie_recherche").textContent = consommation
-
-                input.value = consommation.toString();
-            }
-
             function afficherDiv(id_div) {
                 var div = document.getElementById(id_div);
                 if (div.style.display === "none") {
@@ -76,78 +63,6 @@
                     div.style.display = "none";
                 }
             }
-
-            function onLoad2() {
-                progress_bar()
-
-            }
-
-            function progress_bar() {
-
-                var text_pourcentage = document.getElementById("pourcentage");
-                text_pourcentage.style.marginTop = "5%";
-                var elem = document.getElementById("progress-done");
-                var contenu_calorie = Number(document.getElementById("calorie_consomme").innerText);
-                var contenu_max = Number(document.getElementById("calorie_recommendee").innerText);
-                var nombre = (contenu_calorie * 100) / contenu_max;
-                text_pourcentage.innerText = Math.round(nombre) + "%";
-                elem.style.width = nombre + "%";
-                if (nombre > 100) {
-                    elem.style.backgroundImage = "repeating-linear-gradient(to left, #ff1616, #ff4545, #f66d6d)";
-                    elem.style.boxShadow = "05px 5px -6px #fb8507, 0 3px 7px #f09535";
-                } else if (nombre < 100 && nombre > 90) {
-                    elem.style.backgroundImage = "repeating-linear-gradient(to left,#fb8507, #f09535, #f0ae68)";
-                    elem.style.boxShadow = "05px 5px -6px #ff1616, 0 3px 7px #f66d6d";
-                }
-
-            }
-            /**
-             * Fonction qui trouve la source du nutriment
-             * @param {number} id - ID du nutriment
-             */
-            function getNutrimentInfo(id) {
-                $.ajax({
-                    url: "https://api.spoonacular.com/food/ingredients/" +
-                        id +
-                        "/information?apiKey=1cc034bf9a734f59995c4b72466c33ab&amount=100&unit=grams",
-                    success: function(res) {
-                        document.getElementById("nom_nutriment").textContent = res.name;
-                        document.getElementById("quantite_calories").textContent =
-                            res.nutrition.nutrients[16].amount;
-                    },
-                });
-            }
-            /**
-             * Fonction qui trouve un nutriment
-             * @param {string} query - Entrée de l'utilisateur
-             */
-            function getNutrimentID(query) {
-                $.ajax({
-                    url: "https://api.spoonacular.com/food/ingredients/search?apiKey=1cc034bf9a734f59995c4b72466c33ab&query=" +
-                        query,
-                    success: function(res) {
-                        try {
-                            getNutrimentInfo(res.results[0].id);
-                            afficherDiv('afficher_aliment');
-                        } catch (err) {
-                            console.log(
-                                "Erreur: " +
-                                err.name +
-                                " - Aucun nutriment trouvé dans la base de données de SpoonacularAPI"
-                            );
-                            alert(
-                                "Désolé, aucun nutriment trouvé. Veuillez réessayer avec des mots en anglais, merci!"
-                            );
-                        }
-                    },
-                });
-            }
-            $('.continue').click(function() {
-                $('.nav-tabs > .active').next('li').find('a').trigger('click');
-            });
-            $('.back').click(function() {
-                $('.nav-tabs > .active').prev('li').find('a').trigger('click');
-            });
         </script>
 
 </body>
