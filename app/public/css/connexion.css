@@ -16,6 +16,14 @@
         border-radius: 25px;
         padding: 7%;
     }
+    .formulaire2 {
+        background-color: rgb(255, 255, 255);
+        margin-left: 10%;
+        margin-top: 5%;
+        margin-right: 10%;
+        border-radius: 25px;
+        padding: 7%;
+    }
     
     h3 {
         padding-top: 15px;
@@ -146,7 +154,7 @@
         background-color: #04AA6D;
         color: #000000;
         border: none;
-        padding: 10px 20px;
+        padding: 20px 20px;
         font-size: 16px;
         font-family: Raleway;
         cursor: pointer;
