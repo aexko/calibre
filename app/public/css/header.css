@@ -2,7 +2,7 @@
     nav {
         position: relative;
         margin: 20px auto 0;
-        width: 660px;
+        width: 900px;
         height: 50px;
         background: #ffffff;
         border-radius: 8px;
@@ -86,4 +86,12 @@
     nav a:nth-child(6):hover~.animation {
         width: 110px;
         left: 550px;
+    }
+    nav a:nth-child(7) {
+        width: 200px;
+    }
+    
+    nav a:nth-child(7):hover~.animation {
+        width: 200px;
+        left: 660px;
     }
