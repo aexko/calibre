@@ -1,7 +1,7 @@
     @import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
     nav {
         position: relative;
-        width: 800px;
+        width: 1020px;
         height: 110px;
         background: #ffffff;
         border-radius: 8px;
@@ -9,6 +9,7 @@
         box-shadow: 3px 6px rgba(0, 0, 0, 0.1);
         opacity: 60%;
         margin-top: 15px;
+
     }
     
     nav a {
@@ -88,12 +89,12 @@
         left: 610px;
     }
     nav a:nth-child(7) {
-        width: 210px;
+        width: 270px;
     }
     
     nav a:nth-child(7):hover~.animation {
-        width: 210px;
-        left: 660px;
+        width: 290px;
+        left: 720px;
     }
     .flex-container {
         display: flex;
@@ -104,7 +105,7 @@
         flex: 1;
     }  
     .flex-child:first-child {
-        margin-left:10em;
+        margin-left:2em;
         margin-right:3em;
     } 
     img{
