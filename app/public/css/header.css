@@ -1,22 +1,22 @@
     @import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
     nav {
         position: relative;
-        margin: 20px auto 0;
-        width: 900px;
-        height: 50px;
+        width: 800px;
+        height: 110px;
         background: #ffffff;
         border-radius: 8px;
         font-size: 0;
         box-shadow: 3px 6px rgba(0, 0, 0, 0.1);
         opacity: 60%;
+        margin-top: 15px;
     }
     
     nav a {
-        font-size: 15px;
+        font-size: 20px;
         text-transform: uppercase;
         color: rgb(0, 0, 0);
         text-decoration: none;
-        line-height: 50px;
+        line-height: 110px;
         position: relative;
         z-index: 1;
         display: inline-block;
@@ -34,64 +34,80 @@
     }
     
     nav a:nth-child(1) {
-        width: 110px;
+        width: 120px;
     }
     
     nav .start-home,
     a:nth-child(1):hover~.animation {
-        width: 110px;
+        width: 120px;
         left: 0;
     }
     
     nav a:nth-child(2) {
-        width: 110px;
+        width: 120px;
     }
     
     nav a:nth-child(2):hover~.animation {
-        width: 110px;
-        left: 110px;
+        width: 120px;
+        left: 120px;
     }
     
     nav a:nth-child(3) {
-        width: 110px;
+        width: 120px;
     }
     
     nav a:nth-child(3):hover~.animation {
-        width: 110px;
-        left: 220px;
+        width: 120px;
+        left: 240px;
     }
     
     nav a:nth-child(4) {
-        width: 110px;
+        width: 120px;
     }
     
     nav a:nth-child(4):hover~.animation {
-        width: 110px;
-        left: 330px;
+        width: 120px;
+        left: 360px;
     }
     
     nav a:nth-child(5) {
-        width: 110px;
+        width: 130px;
     }
     
     nav a:nth-child(5):hover~.animation {
-        width: 110px;
-        left: 440px;
+        width: 130px;
+        left: 480px;
     }
     
     nav a:nth-child(6) {
-        width: 110px;
+        width: 130px;
     }
     
     nav a:nth-child(6):hover~.animation {
-        width: 110px;
-        left: 550px;
+        width: 130px;
+        left: 610px;
     }
     nav a:nth-child(7) {
-        width: 200px;
+        width: 210px;
     }
     
     nav a:nth-child(7):hover~.animation {
-        width: 200px;
+        width: 210px;
         left: 660px;
+    }
+    .flex-container {
+        display: flex;
+        width: min-content;
+    }
+    
+    .flex-child {
+        flex: 1;
+    }  
+    .flex-child:first-child {
+        margin-left:10em;
+        margin-right:3em;
+    } 
+    img{
+        border-radius: 8px;
+
     }
