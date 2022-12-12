@@ -1,4 +1,4 @@
-function recommanderRecettes(exigencesDietiques) {
+function recommanderRecettes(exigencesDietiques,calories='',typeDeRepas=0) {
     exigences = JSON.parse(exigencesDietiques)
     stringExigences = ''
     for(i = 0; i < exigences.length; i++){
@@ -12,7 +12,12 @@ function recommanderRecettes(exigencesDietiques) {
     for (i = 1; i < resultats.length; i++) {
             listResultats += " "+resultats[i].dataset.ide;
     }
-    var url = encodeURI("https://api.edamam.com/search?q=" + listResultats+"&app_id=d7c579b4&app_key=aecba0b0311babbd898a3f4e96328475"+stringExigences);
+    if(calories!= ''){    calories='&calories='+0+'-'+calories}
+    if(typeDeRepas != 0){
+        typesDeRepass = {'Dejeuner':'Breakfast','Diner':'Lunch','Souper':'Dinner','collation_du_Matin':'Snack','colattion_de_Soir':'Teatime'}
+        repas = "&mealType=" +typesDeRepass[typeDeRepas]
+    }
+    var url = encodeURI("https://api.edamam.com/search?q=" + listResultats+"&app_id=d7c579b4&app_key=aecba0b0311babbd898a3f4e96328475&random=true&count=1"+stringExigences+calories) +repas;
     $.ajax({
         url:url,
         type: "GET",
@@ -20,7 +25,16 @@ function recommanderRecettes(exigencesDietiques) {
     }).then(function (response) {
         var recettes = document.getElementById("recettes")
         recettes.innerHTML = ""
-        for (i = 0; i < response.count; i++) {
+
+        if(calories != '' && response.count > 0 ){
+            var recettes = document.getElementById("recettes")
+        recettes.innerHTML = "</br><h4>Votre "+typeDeRepas+" d'aujourd'hui est :</h4></br>"
+        recettes.innerHTML += "</br><h4>"+ "Si vous acceptez ce défi, vous gagnerirez des points!</h4></br>"
+            compteur = 1
+        }else{
+            compteur = response.count
+        }
+        for (i = 0; i < compteur; i++) {
             const paragraphe = document.createElement("p");
             const image = document.createElement("img");
             const titre = document.createElement("h1");

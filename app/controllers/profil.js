@@ -9,7 +9,9 @@ exports.afficherPageProfil = async(req, res, next) => {
         utilisateur: configuerationConnexion.utilisateurCourant,
         utilisateurconnecte: configuerationConnexion.utilisateurCourant,
         utilisateurCourant: configuerationConnexion.utilisateurCourant,
-        ingredients :ingredientss
+        ingredients :ingredientss,
+        exigencesUtilisateur: JSON.stringify(configuerationConnexion.utilisateurCourant.exigences_dietiques),
+
     });
 
 }

@@ -11,7 +11,7 @@
 </head>
 <php></php>
 
-<body onload="onLoad2()">
+<body>
     <header>
         <%- include('../partials/header'); %>
     </header>
@@ -23,13 +23,13 @@
           <h5 class="modal-title" id="exampleModalLongTitle">Bienvenue!</h5>
         </div>
         <div class="modal-body">
-            Voulez-vous manger?        
+            <h5>Voulez-vous manger? </h5>       
             <div style="display:block;">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Non</button>
-            <button id="oui" type="button" onclick="afficherRepas()" class="btn btn-primary">Oui</button>
+            <button id="oui" type="button" onclick="afficherRecettes()" class="btn btn-primary">Oui</button>
           </div>
-          
-          <div id="repas" style="display: none;">  
+          <div id="recettess" style="display: none;">
+          <div id="ingredients">
             <h5>Quelles ingrédients avez vous?<select 
                 name="ingredients"
                 id="ingredients"
@@ -40,11 +40,21 @@
               ><% for(var i=0; i<ingredients.length; i++) {%>
                 <option value="<%= ingredients[i].cle_api %>" ><%= ingredients[i].aliment %></option>
                 <% } %>
-              </select></h5>        
-              <% Object.keys(utilisateurCourant.calorie_quotidien_recommendee[0].repas[0]).forEach(function(repas) { %>
-                <button type="button" class="btn btn-primary"><%= repas %></button>
+              </select></h5> 
+          </div>
+          
+          <div id="repas">    
+            <h5>Quelle repas aurez-vous?</h5>  
+              <% Object.keys(utilisateurCourant.calorie_quotidien_recommendee[0].repas[0]).forEach(function(repass) { %>
+                <button onclick="recommanderRecettes('<%=exigencesUtilisateur%>','<%=utilisateurCourant.calorie_quotidien_recommendee[0].repas[0][repass]%>','<%= repass %>')" type="button" class="btn btn-primary"><%= repass %></button>
              <% }); %> 
+            </div>
         </div>
+        <div id="recettes" class="card-body text-center">
+            <h1 class="title"></h1>
+            <img class="img" />
+            <p class="ingredients"></p>
+          </div>
 </div>
 </div>
     </div>
@@ -102,14 +112,15 @@
             }
             $(document).ready(function () {
                 $('#exampleModalLong').modal('show');      });
-                function afficherRepas() {
-                var div = document.getElementById('repas');
+                function afficherRecettes() {
+                var div = document.getElementById('recettess');
                 var bouton = document.getElementById('oui');
                     div.style.display = "block";
                     bouton.setAttribute('disabled','')
             }
         </script>
     <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+    <script src="../js/recettesEdamame.js"></script>
     <script src="../js/jquery-3.3.1.min.js"></script>
     <script src="../js/popper.min.js"></script>
     <script src="../js/bootstrap.min.js"></script>

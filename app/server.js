@@ -99,7 +99,9 @@ app.get("/profil", checkAuthenticated, async(req, res) => {
     res.render("pages/profil", {
         utilisateurconnecte: configuerationConnexion.utilisateurCourant,
         utilisateurCourant: configuerationConnexion.utilisateurCourant,
-        ingredients :ingredientss
+        ingredients :ingredientss,
+        exigencesUtilisateur: JSON.stringify(configuerationConnexion.utilisateurCourant.exigences_dietiques),
+
     });
 });
 app.get("/progression", checkAuthenticated, (req, res) => {
