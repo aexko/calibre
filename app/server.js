@@ -57,7 +57,7 @@ app.set("view engine", "ejs");
 //ceci permet de savoir si la bd est bien connectee
 const bd = mongoose.connection;
 bd.on("error", console.error.bind(console, "Erreur de connection: "));
-bd.once("open", function() {
+bd.once("open", function () {
     console.log("Connexion réussie à MongoDB");
 });
 
@@ -94,15 +94,22 @@ app.get("/connexion", checkNotAuthenticated, (req, res) => {
         utilisateurconnecte: utilisateurCourant,
     });
 });
-app.get("/profil", checkAuthenticated, async(req, res) => {
-    const ingredientss = await ingredients.find();
-    res.render("pages/profil", {
-        utilisateurconnecte: configuerationConnexion.utilisateurCourant,
-        utilisateurCourant: configuerationConnexion.utilisateurCourant,
-        ingredients :ingredientss,
-        exigencesUtilisateur: JSON.stringify(configuerationConnexion.utilisateurCourant.exigences_dietiques),
-
-    });
+app.get("/profil", checkAuthenticated, async (req, res) => {
+    urlReferant = req.headers.referer
+    if (urlReferant.includes('connexion')) {
+        const ingredientss = await ingredients.find();
+        res.render("pages/profil-apres-connexion", {
+            utilisateurconnecte: configuerationConnexion.utilisateurCourant,
+            utilisateurCourant: configuerationConnexion.utilisateurCourant,
+            ingredients: ingredientss,
+            exigencesUtilisateur: JSON.stringify(configuerationConnexion.utilisateurCourant.exigences_dietiques),
+        });
+    } else {
+        res.render("pages/profil", {
+            utilisateurconnecte: configuerationConnexion.utilisateurCourant,
+            utilisateurCourant: configuerationConnexion.utilisateurCourant,
+        });
+    }
 });
 app.get("/progression", checkAuthenticated, (req, res) => {
     res.render("pages/progression", {
@@ -132,7 +139,7 @@ app.get("/nutriments", (req, res) => {
 
     });
 });
-app.post("/ajouter_calorie", checkAuthenticated, async(req, res) => {
+app.post("/ajouter_calorie", checkAuthenticated, async (req, res) => {
     var calorie =
         parseInt(req.body.calorie) +
         configuerationConnexion.utilisateurCourant.calorie_quotidien_consommee;
@@ -143,7 +150,7 @@ app.post("/ajouter_calorie", checkAuthenticated, async(req, res) => {
     res.redirect("/profil");
 });
 //
-app.post("/ajouter_calorie_recherche", checkAuthenticated, async(req, res) => {
+app.post("/ajouter_calorie_recherche", checkAuthenticated, async (req, res) => {
     var calorie =
         parseInt(req.body.calorie_recherche) +
         configuerationConnexion.utilisateurCourant.calorie_quotidien_consommee;
@@ -154,7 +161,7 @@ app.post("/ajouter_calorie_recherche", checkAuthenticated, async(req, res) => {
 
     res.redirect("/profil");
 });
-app.post("/metre_a_jour_age", checkAuthenticated, async(req, res) => {
+app.post("/metre_a_jour_age", checkAuthenticated, async (req, res) => {
     var age =
         parseInt(req.body.age);
 
@@ -167,7 +174,7 @@ app.post("/metre_a_jour_age", checkAuthenticated, async(req, res) => {
 
 // For website access
 /**app.listen(port, () => {
-	console.log(`Le serveur est sur localhost:${port}`);
+    console.log(`Le serveur est sur localhost:${port}`);
 });**/
 if (process.env.NODE_ENV !== 'test') {
     app.listen(port, () => console.log(`Listening on port ${port}`))
