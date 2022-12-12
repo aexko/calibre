@@ -98,7 +98,7 @@
     }
     .flex-container {
         display: flex;
-        width: min-content;
+        width: max-content;
     }
     
     .flex-child {
