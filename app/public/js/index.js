@@ -139,6 +139,7 @@ function changerTab(n) {
 		}
 		else if (tabcourant == 3) {
 			caloriesRecommendee = calculerCalories(unitePrefere,unitePoids);
+		}else if (tabcourant == 4){			
 			CaloriesParRepas = calculerCaloriesParRepas(caloriesRecommendee);
 		}
 	} else if (!tabValider) {

@@ -1,27 +1,30 @@
 <link type="text/css" rel="stylesheet" href="../css/header.css" />
-<nav class="nav-bar">
+<div class="flex-container">
+  <div class="flex-child">
+    <img src="../img/logo.png"  width="150px"/>
+  </div>
+  <div class="flex-child">
+    <nav class="nav-bar">
+      <a href="/">Accueil </a>
+      <a href="/recettes">Recettes</a>
+      <a href="/nutriments">Aliments</a>
+      <a href="/a-propos">À propos</a>
+      <% if (utilisateurconnecte !== null) { %>
+      <a href="progression"> progression </a>
+      <a href="profil">Profil </a>
+      <a href="recettesRecommendees"> Recettes Recommandées </a>
 
-    <a href="/">Accueil </a>
-    <a href="/recettes">Recettes</a>
-    <a href="/nutriments">Aliments</a>
-    <a href="/a-propos">À propos</a>
-    <% if (utilisateurconnecte !== null) { %>
-        <a href="progression"> progression </a>
-        <a href="profil">Profil </a>
+      <% }else{ %>
+      <a href="inscription">Inscription</a>
+      <a href="connexion">Connexion</a>
 
+      <% } %>
 
-
-        <% }else{ %>
-            <a href="inscription">Inscription</a>
-            <a href="connexion">Connexion</a>
-
-            <% } %>
-
-                <!-- <li class="nav-item">
+      <!-- <li class="nav-item">
           <a class="nav-link disabled" href="#">Disabled</a>
         </li> -->
 
-
-                <div class="animation start-home"></div>
-                </div>
-</nav>
+      <div class="animation start-home"></div>
+    </nav>
+  </div>
+</div>

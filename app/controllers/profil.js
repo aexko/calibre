@@ -1,13 +1,17 @@
 const configuerationConnexion = require("../config/config-connexion");
 const modelUtilisateur = require("../models/schemaUtilisateur");
+const ingredients = require("../models/schemaIngredients");
 
-exports.afficherPageProfil = (req, res, next) => {
+exports.afficherPageProfil = async(req, res, next) => {
+    const ingredientss = await ingredients.find();
     verifier_date()
-
     res.render("pages/profil", {
         utilisateur: configuerationConnexion.utilisateurCourant,
         utilisateurconnecte: configuerationConnexion.utilisateurCourant,
-        utilisateurCourant: configuerationConnexion.utilisateurCourant
+        utilisateurCourant: configuerationConnexion.utilisateurCourant,
+        ingredients :ingredientss,
+        exigencesUtilisateur: JSON.stringify(configuerationConnexion.utilisateurCourant.exigences_dietiques),
+
     });
 
 }
