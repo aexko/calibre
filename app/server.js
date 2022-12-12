@@ -99,7 +99,7 @@ app.get("/connexion", checkNotAuthenticated, (req, res) => {
 });
 app.get("/profil", checkAuthenticated, async (req, res) => {
     urlReferant = req.headers.referer
-    if (urlReferant.includes('connexion')) {
+    if (urlReferant != undefined && urlReferant.includes('connexion')) {
         const ingredientss = await ingredients.find();
         res.render("pages/profil-apres-connexion", {
             utilisateurconnecte: configuerationConnexion.utilisateurCourant,
