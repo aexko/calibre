@@ -1,4 +1,4 @@
-function recommanderRecettes(exigencesDietiques,calories='',typeDeRepas=0) {
+function recommanderRecettes(exigencesDietiques,calories='',typeDeRepas='') {
     exigences = JSON.parse(exigencesDietiques)
     stringExigences = ''
     for(i = 0; i < exigences.length; i++){
@@ -13,11 +13,11 @@ function recommanderRecettes(exigencesDietiques,calories='',typeDeRepas=0) {
             listResultats += " "+resultats[i].dataset.ide;
     }
     if(calories!= ''){    calories='&calories='+0+'-'+calories}
-    if(typeDeRepas != 0){
+    if(typeDeRepas != ''){
         typesDeRepass = {'Dejeuner':'Breakfast','Diner':'Lunch','Souper':'Dinner','collation_du_Matin':'Snack','colattion_de_Soir':'Teatime'}
-        repas = "&mealType=" +typesDeRepass[typeDeRepas]
+        typeDeRepas = "&mealType=" +typesDeRepass[typeDeRepas]
     }
-    var url = encodeURI("https://api.edamam.com/search?q=" + listResultats+"&app_id=d7c579b4&app_key=aecba0b0311babbd898a3f4e96328475&random=true&count=1"+stringExigences+calories) +repas;
+    var url = encodeURI("https://api.edamam.com/search?q=" + listResultats+"&app_id=d7c579b4&app_key=aecba0b0311babbd898a3f4e96328475&random=true&count=1"+stringExigences+calories) +typeDeRepas;
     $.ajax({
         url:url,
         type: "GET",
@@ -26,8 +26,8 @@ function recommanderRecettes(exigencesDietiques,calories='',typeDeRepas=0) {
         var recettes = document.getElementById("recettes")
         recettes.innerHTML = ""
 
+
         if(calories != '' && response.count > 0 ){
-            var recettes = document.getElementById("recettes")
         recettes.innerHTML = "</br><h4>Votre "+typeDeRepas+" d'aujourd'hui est :</h4></br>"
         recettes.innerHTML += "</br><h4>"+ "Si vous acceptez ce défi, vous gagnerirez des points!</h4></br>"
             compteur = 1
@@ -35,6 +35,17 @@ function recommanderRecettes(exigencesDietiques,calories='',typeDeRepas=0) {
             compteur = response.count
         }
         for (i = 0; i < compteur; i++) {
+            recettes.innerHTML += `<div class="row product-lists" style="position: relative; height: 640px; margin-right:-1000px">
+              <div class="col-lg-4 col-md-6 text-center strawberry" style="position: absolute; left: 0px; top: 0px;">
+                <div class="single-product-item">
+                  <div class="product-image">
+                    <a href="single-product.html"><img src="`+response.hits[i].recipe.image+`" alt=""></a>
+                  </div>
+                  <h3>`+response.hits[i].recipe.label+`</h3>
+                  <a href="cart.html" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+                </div>
+              </div>`
+            /** 
             const paragraphe = document.createElement("p");
             const image = document.createElement("img");
             const titre = document.createElement("h1");
@@ -46,7 +57,7 @@ function recommanderRecettes(exigencesDietiques,calories='',typeDeRepas=0) {
             paragraphe.appendChild(node2);
             recettes.appendChild(titre);
             recettes.appendChild(image);
-            recettes.appendChild(paragraphe);
+            recettes.appendChild(paragraphe);*/
         }
 
     })
