@@ -1,9 +1,6 @@
 const configuerationConnexion = require("../config/config-connexion");
-const mongoose = require("mongoose")
-const ingredients = mongoose.model('ingredients', mongoose.Schema({
-	aliment: String,
-	cle_api: String
-  }));
+const ingredients =require("../models/schemaIngredients");
+
 /**
  * Route: génère la page de la recherche des recettes
  */

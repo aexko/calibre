@@ -17,6 +17,8 @@ const passport = require("passport");
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
 const configuerationConnexion = require("./config/config-connexion");
 var localStorage = require('localStorage')
+const ingredients = require("./models/schemaIngredients");
+
 const {
     checkAuthenticated,
     checkNotAuthenticated,
@@ -92,10 +94,12 @@ app.get("/connexion", checkNotAuthenticated, (req, res) => {
         utilisateurconnecte: utilisateurCourant,
     });
 });
-app.get("/profil", checkAuthenticated, (req, res) => {
+app.get("/profil", checkAuthenticated, async(req, res) => {
+    const ingredientss = await ingredients.find();
     res.render("pages/profil", {
         utilisateurconnecte: configuerationConnexion.utilisateurCourant,
-        utilisateurCourant: configuerationConnexion.utilisateurCourant
+        utilisateurCourant: configuerationConnexion.utilisateurCourant,
+        ingredients :ingredientss
     });
 });
 app.get("/progression", checkAuthenticated, (req, res) => {
