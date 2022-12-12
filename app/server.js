@@ -6,6 +6,8 @@ const app = express();
 const port = 3000;
 //importation de module schemaUtilisateur
 const modelUtilisateur = require("./models/schemaUtilisateur");
+const Activite = require("./models/bdActivite");
+const EnregistrementActivite = require("./models/activite");
 const nomUtilisateur = "admin";
 const motPasse = "admin";
 const nomDb = "Calibre";
@@ -16,6 +18,7 @@ const methodOverride = require("method-override");
 const passport = require("passport");
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
 const configuerationConnexion = require("./config/config-connexion");
+
 var localStorage = require('localStorage')
 const {
     checkAuthenticated,
@@ -99,10 +102,16 @@ app.get("/profil", checkAuthenticated, (req, res) => {
     });
 });
 app.get("/progression", checkAuthenticated, (req, res) => {
-    res.render("pages/progression", {
-        utilisateurconnecte: configuerationConnexion.utilisateurCourant,
-        utilisateurCourant: configuerationConnexion.utilisateurCourant
+    Activite.find({}, function(err, activites) {
+        res.render("pages/progression", {
+            ListActivite: activites,
+            utilisateurconnecte: configuerationConnexion.utilisateurCourant,
+            utilisateurCourant: configuerationConnexion.utilisateurCourant,
+
+        });
     });
+
+
 });
 
 /**
@@ -136,7 +145,26 @@ app.post("/ajouter_calorie", checkAuthenticated, async(req, res) => {
 
     res.redirect("/profil");
 });
-//
+app.post("/ajouter_activite", checkAuthenticated, async(req, res) => {
+    var temps = parseInt(req.body.temps_activite);
+    var id_activite = (req.body.nom_activite).value;
+    let date = new Date();
+
+    var activite = await Activite.findOne({ id: id_activite });
+    var calorie_activite = Math.round(temps * activite.calorie_depense / 60)
+    const nouvelle_activite = new EnregistrementActivite({
+        date: date,
+        calorie: calorie_activite,
+        id_user: configuerationConnexion.utilisateurCourant._id,
+        temps: temps,
+        nom_activite: activite.nom,
+    })
+    await nouvelle_activite.save()
+    res.redirect("/progression")
+
+
+})
+
 app.post("/ajouter_calorie_recherche", checkAuthenticated, async(req, res) => {
     var calorie =
         parseInt(req.body.calorie_recherche) +

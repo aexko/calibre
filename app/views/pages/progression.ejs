@@ -91,8 +91,26 @@
         </div>
 
     </div>
+ 
    
 </div>
+
+    <div class="form-control">
+        <form action="/ajouter_activite" id="AjouterCalorie" method="post">
+        <label for="ajouter_activite  ">Enregistré une activité physique </label>
+        <select id="nom_activite" name="nom_activite">
+            <% ListActivite.forEach(function(item,index){%>
+                <option value="<%=item.id %>">
+                    <%= item.nom %>
+                </option>
+                <%}); %>
+        </select>
+        <p>Entrez la duree de l'activité en minutes</p>
+        <input id="temps_activite" name="temps_activite" type="text">
+        <input type="submit" value="Ajouter" name="save_data"> </button>
+    </form>
+    </div>
+   
 
     <script>
         var input = document.getElementById('calorie_recherche');
