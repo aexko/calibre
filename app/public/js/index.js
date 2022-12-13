@@ -90,8 +90,10 @@ function montrerTab(n) {
 	//pour fixer les bouttons prochain précédent
 	if (n == 0) {
 		document.getElementById("prevBtn").style.display = "none";
+		document.getElementById("nextBtn").setAttribute('onclick','afficherModalAlert()')
 	} else {
 		document.getElementById("prevBtn").style.display = "inline";
+		document.getElementById("nextBtn").setAttribute('onclick','changerTab(1)')
 	}
 
 	if (n == (x.length - 1)) {
@@ -420,5 +422,9 @@ function afficherUnite() {
 		imperial.style.display = "block"
 		metrique.style.display = "none"
 	}
+}
+function afficherModalAlert(){
+	$('#ModalAlert').modal('show'); 
+	changerTab(1)
 }
 module.exports = { validerAgeTaillePoids, validerCourriel, validerMotPasse, validerUtilisateur, validerNomUtilisateur, gererSucces, gererSuccesCourriel, soummettreFormulaire }

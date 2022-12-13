@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../partials/head'); %>
+        <link type="text/css" rel="stylesheet" href="../css/profil.css" />
+        <link rel="stylesheet" href="../css/chosen.css" />
+        <link type="text/css" rel="stylesheet" href="../css/style.css" />
+            <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="../css/bootstrap.min.css" />
+    <link rel="shortcut icon" type="image/png" href="assets/img/favicon.png">
+    <!-- google font -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
+    <!-- fontawesome -->
+    <link rel="stylesheet" href="../css/all.min.css">
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <!-- owl carousel -->
+    <link rel="stylesheet" href="../css/owl.carousel.css">
+    <!-- magnific popup -->
+    <link rel="stylesheet" href="../css/magnific-popup.css">
+    <!-- animate css -->
+    <link rel="stylesheet" href="../css/animate.css">
+    <!-- mean menu css -->
+    <link rel="stylesheet" href="../css/meanmenu.min.css">
+    <!-- main style -->
+    <link rel="stylesheet" href="../css/main.css">
+    <!-- responsive -->
+    <link rel="stylesheet" href="../css/responsive.css">
+
+
+</head>
+<php></php>
+
+<body style="padding-left:300px;">
+    <header>
+        <%- include('../partials/header'); %>
+    </header>
+  <!-- Modal -->
+  <div class="modal fade bd-example-modal-lg" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Bienvenue!</h5>
+        </div>
+        <div class="modal-body">
+            <h5>Voulez-vous manger? </h5>       
+            <div style="display:block;">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Non</button>
+            <button id="oui" type="button" onclick="afficherRecettes()" class="btn btn-primary">Oui</button>
+          </div>
+          <div id="recettess" style="display: none;">
+          <div id="ingredients">
+            <h5>Quelles ingrédients avez vous?<select 
+                name="ingredients"
+                id="ingredients"
+                data-placeholder="Selectionnez vos ingrédients"
+                multiple
+                class="chosen-select"
+                tabindex="8"
+              ><% for(var i=0; i<ingredients.length; i++) {%>
+                <option value="<%= ingredients[i].cle_api %>" ><%= ingredients[i].aliment %></option>
+                <% } %>
+              </select></h5> 
+          </div>
+          
+          <div id="repas">    
+            <h5>Quelle repas aurez-vous?</h5>  
+              <% Object.keys(utilisateurCourant.calorie_quotidien_recommendee[0].repas[0]).forEach(function(repass) { %>
+                <button onclick="recommanderRecettes('<%=exigencesUtilisateur%>','<%=utilisateurCourant.calorie_quotidien_recommendee[0].repas[0][repass]%>','<%= repass %>')" type="button" class="btn btn-primary"><%= repass %></button>
+             <% }); %> 
+            </div>
+        </div>
+        <div id="recettes" class="card-body text-center">
+            <h1 class="title"></h1>
+            <img class="img" />
+            <p class="ingredients"></p>
+          </div>
+</div>
+</div>
+    </div>
+  </div>
+  <form action="/deconnexion?_method=DELETE" method="post">
+    <input type="submit" name="deconnexion" value="Déconnexion" />
+</form>
+<br /><br />
+<div class="container">
+    <h3>Heureux de vous revoir
+        <%=utilisateurCourant.prenom%>!
+    </h3>
+
+    <div class="divInfo">
+        <h5>Vos informations</h5>
+        <p style="display:inline ;">Nom d'utilisateur:
+        </p>
+        <%=utilisateurCourant.nom_utilisateur%>
+            <br> Adresse courriel:
+            <%=utilisateurCourant.email%> <br> Age:
+                <%=utilisateurCourant.age%>
+                    <button onclick=" afficherDiv('modifier_age')">+</button>
+                    <form action="/metre_a_jour_age" class="modifier_age" id="modifier_age" style="display:none;" method="post">
+                        <input type="text" id="age" name="age" max="120" min="18" placeholder="entrez votre age" required>
+                        <input type="submit" value="Modifier" name="save_data"> </input>
+
+                    </form> <br>Taille:
+                    <%=utilisateurCourant.taille%> <br> Poids actuel:
+                        <%=utilisateurCourant.poids%> <button onclick=" afficherDiv('modifier_poids')">+</button>
+                            <form action="/metre_a_jour_poid" class="modifier_poids" id="modifier_poids" style="display:none;" method="post">
+                                <input type="text" id="poids" name="poids" max="200" min="15" placeholder="entrez votre nouveau poids" required>
+                                <input type="submit" value="Modifier" name="save_data"> </input>
+
+                            </form> <br> Votre objectif de poids:
+                            <%=utilisateurCourant.objectif_de_poids_saine%><br>IMC:
+                                <%=utilisateurCourant.imc%>
+                                    <p></p>
+    </div>
+    <div class="historique">
+        <h5>Historique de vos activités physiques</h5>
+    </div>
+    <p></p>
+
+    <footer>
+        <%- include('../partials/footer'); %>
+    </footer>
+    <script>
+ function afficherDiv(id_div) {
+                var div = document.getElementById(id_div);
+                if (div.style.display === "none") {
+                    div.style.display = "block";
+                } else {
+                    div.style.display = "none";
+                }
+            } 
+            $(document).ready(function () {
+                $('#exampleModalLong').modal('show');      });
+                function afficherRecettes() {
+                var div = document.getElementById('recettess');
+                var bouton = document.getElementById('oui');
+                    div.style.display = "block";
+                    bouton.setAttribute('disabled','')
+            }
+        </script>
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+    <script src="../js/recettesEdamame.js"></script>
+    <script src="../js/jquery-3.3.1.min.js"></script>
+    <script src="../js/popper.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/chosen.jquery.min.js"></script>
+    <script src="../js/main.js"></script>
+        	<!-- jquery -->
+	<script src="../js/templateJs/js/jquery-1.11.3.min.js"></script>
+	<!-- bootstrap -->
+	<script src="../js/templateJs/bootstrap/js/bootstrap.min.js"></script>
+	<!-- count down -->
+	<script src="../js/templateJs/jquery.countdown.js"></script>
+	<!-- isotope -->
+	<script src="../js/templateJs/jquery.isotope-3.0.6.min.js"></script>
+	<!-- waypoints -->
+	<script src="../js/templateJs/waypoints.js"></script>
+	<!-- owl carousel -->
+	<script src="../js/templateJs/owl.carousel.min.js"></script>
+	<!-- magnific popup -->
+	<script src="../js/templateJs/jquery.magnific-popup.min.js"></script>
+	<!-- mean menu -->
+	<script src="../js/templateJs/jquery.meanmenu.min.js"></script>
+	<!-- sticker js -->
+	<script src="../js/templateJs/sticker.js"></script>
+	<!-- main js -->
+	<script src="../js/templateJs/main.js"></script>
+
+</body>
+
+</html>

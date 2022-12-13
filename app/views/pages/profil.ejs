@@ -4,14 +4,12 @@
 <head>
     <%- include('../partials/head'); %>
         <link type="text/css" rel="stylesheet" href="../css/profil.css" />
-        <link rel="stylesheet" href="../css/chosen.css" />
-        <link type="text/css" rel="stylesheet" href="../css/style.css" />
 
 
 </head>
 <php></php>
 
-<body>
+<body style="padding-left:300px;">
     <header>
         <%- include('../partials/header'); %>
     </header>
@@ -53,106 +51,105 @@
         </div>
     </div>
     <form action="/deconnexion?_method=DELETE" method="post">
-        <input type="submit" name="deconnexion" value="Déconnexion" />
-    </form>
-    <br /><br />
+        <form action="/deconnexion?_method=DELETE" method="post">
+            <input type="submit" name="deconnexion" value="Déconnexion" />
+        </form>
+        <br /><br />
+        <div class="container">
+            <h3>Heureux de vous revoir
+                <%=utilisateurCourant.prenom%>!
+            </h3>
 
-    <div class="container">
+            <div class="divInfo">
 
-        <h3>Heureux de vous revoir
-            <%=utilisateurCourant.prenom%>!
-        </h3>
-
-        <div class="divInfo">
-
-            <h5>Vos informations</h5>
-            <p style="display:inline ;">Nom d'utilisateur:
-            </p>
-            <%=utilisateurCourant.nom_utilisateur%>
-                <br> Adresse courriel:
-                <%=utilisateurCourant.email%> <br> Age:
-                    <%=utilisateurCourant.age%>
-                        <button onclick=" afficherDiv('modifier_age')">+</button>
-                        <form action="/metre_a_jour_age" class="modifier_age" id="modifier_age" style="display:none;" method="post">
-                            <input type="text" id="age" name="age" max="120" min="18" placeholder="entrez votre age" required>
-                            <input type="submit" value="Modifier" name="save_data"> </input>
-
-                        </form> <br>Taille:
-                        <%=utilisateurCourant.taille%> <br> Poids actuel:
-                            <p id="liste_poids">
-                                <%=listePoids%>
-                            </p>
-
-
-                            <button onclick=" afficherDiv('modifier_poids')">+</button>
-                            <form action="/metre_a_jour_poid" class="modifier_poids" id="modifier_poids" style="display:none;" method="post">
-                                <input type="text" id="poids" name="poids" max="200" min="15" placeholder="entrez votre nouveau poids" required>
+                <h5>Vos informations</h5>
+                <p style="display:inline ;">Nom d'utilisateur:
+                </p>
+                <%=utilisateurCourant.nom_utilisateur%>
+                    <br> Adresse courriel:
+                    <%=utilisateurCourant.email%> <br> Age:
+                        <%=utilisateurCourant.age%>
+                            <button onclick=" afficherDiv('modifier_age')">+</button>
+                            <form action="/metre_a_jour_age" class="modifier_age" id="modifier_age" style="display:none;" method="post">
+                                <input type="text" id="age" name="age" max="120" min="18" placeholder="entrez votre age" required>
                                 <input type="submit" value="Modifier" name="save_data"> </input>
 
-                            </form> <br> Votre objectif de poids:
-                            <%=utilisateurCourant.objectif_de_poids_saine%><br>IMC:
-                                <%=utilisateurCourant.imc%>
-                                    <p></p>
+                            </form> <br>Taille:
+                            <%=utilisateurCourant.taille%> <br> Poids actuel:
+                                <p id="liste_poids">
+                                    <%=listePoids%>
+                                </p>
 
+
+                                <button onclick=" afficherDiv('modifier_poids')">+</button>
+                                <form action="/metre_a_jour_poid" class="modifier_poids" id="modifier_poids" style="display:none;" method="post">
+                                    <input type="text" id="poids" name="poids" max="200" min="15" placeholder="entrez votre nouveau poids" required>
+                                    <input type="submit" value="Modifier" name="save_data"> </input>
+
+                                </form> <br> Votre objectif de poids:
+                                <%=utilisateurCourant.objectif_de_poids_saine%><br>IMC:
+                                    <%=utilisateurCourant.imc%>
+                                        <p></p>
+
+            </div>
+
+
+            <div class="graphique"><canvas id="myChart"></canvas>
+            </div>
+            <div class="historique">
+                <h5>Historique de vos activités physiques</h5>
+                <% ListHistorique.forEach(function(item,index){%>
+
+                    <div class="une_activite">
+                        <h5>
+                            <%=item.nom_activite %>:
+                        </h5>
+                        <p>Calorie dépensée:
+                            <%=item.calorie %> KCal
+                        </p> <br>
+                        <p>Durée:
+                            <%=item.temps %> min
+                        </p> <br>
+                        <p>Date:
+                            <%=item.date %>
+                        </p><br>
+
+                        <%}); %>
+                    </div>
+            </div>
         </div>
 
+        <footer>
+            <%- include('../partials/footer'); %>
+        </footer>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-        <div class="graphique"><canvas id="myChart"></canvas>
-        </div>
-        <div class="historique">
-            <h5>Historique de vos activités physiques</h5>
-            <% ListHistorique.forEach(function(item,index){%>
+        <script>
+            const ctx = document.getElementById('myChart');
 
-                <div class="une_activite">
-                    <h5>
-                        <%=item.nom_activite %>:
-                    </h5>
-                    <p>Calorie dépensée:
-                        <%=item.calorie %> KCal
-                    </p> <br>
-                    <p>Durée:
-                        <%=item.temps %> min
-                    </p> <br>
-                    <p>Date:
-                        <%=item.date %>
-                    </p><br>
+            let poids = document.getElementById('liste_poids').innerText
+            const myArray = poids.split(",");
+            let nombre_label = myArray.length;
 
-                    <%}); %>
-                </div>
-        </div>
-    </div>
-
-    <footer>
-        <%- include('../partials/footer'); %>
-    </footer>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-    <script>
-        const ctx = document.getElementById('myChart');
-
-        let poids = document.getElementById('liste_poids').innerText
-        const myArray = poids.split(",");
-        let nombre_label = myArray.length;
-
-        new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'],
-                datasets: [{
-                    label: 'Poids',
-                    data: myArray,
-                    borderWidth: 1
-                }]
-            }
-        });
-    </script>
-    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
-    <script src="../js/recettesEdamame.js"></script>
-    <script src="../js/jquery-3.3.1.min.js"></script>
-    <script src="../js/popper.min.js"></script>
-    <script src="../js/bootstrap.min.js"></script>
-    <script src="../js/chosen.jquery.min.js"></script>
-    <script src="../js/profil.js"></script>
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'],
+                    datasets: [{
+                        label: 'Poids',
+                        data: myArray,
+                        borderWidth: 1
+                    }]
+                }
+            });
+        </script>
+        <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+        <script src="../js/recettesEdamame.js"></script>
+        <script src="../js/jquery-3.3.1.min.js"></script>
+        <script src="../js/popper.min.js"></script>
+        <script src="../js/bootstrap.min.js"></script>
+        <script src="../js/chosen.jquery.min.js"></script>
+        <script src="../js/profil.js"></script>
 
 </body>
 

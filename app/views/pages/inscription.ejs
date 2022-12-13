@@ -20,9 +20,25 @@
 
     <form id="formulaireInscription" method="post">
       <h1>Inscrivez-vous:</h1>
-      
+                       <!-- Modal -->
+  <div class="modal fade bd-example-modal-lg" id="ModalAlert" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Avis</h5>
+        </div>
+        <div class="modal-body">
+            <h5 style="margin-top:0%">Les calculs utilisés sont basés sur des formules largement acceptées, mais il ne s'agit pas d'une ordonnance pour votre santé et votre nutrition. Ils ne remplacent pas un avis médical professionnel, un diagnostique ou un traitement. Consultez votre médecin avant de modifier votre alimentation ou votre régime alimentaire.</h5>       
+            <div style="display:block;">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Je comprends</button>
+          </div>
+        </div>
+      </div>       
+    </div>    
+    </div> 
       <!-- One "tab" for each step in the form: -->
-      <div class="tab">     
+      <div class="tab">    
+   
           <input
             type="text"
             id="prenom"
@@ -358,7 +374,7 @@
         <span class="step"></span>
       </div>
     </form>
-    </div>
+
     <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
     <script src="../js/calculsCaloriesQuot.js"></script>
     <script src="../js/index.js"></script>

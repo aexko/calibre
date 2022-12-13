@@ -98,18 +98,27 @@ app.get("/connexion", checkNotAuthenticated, (req, res) => {
     });
 });
 app.get("/profil", checkAuthenticated, async(req, res) => {
-    const ingredientss = await ingredients.find();
-    const activites = await EnregistrementActivite.find({ id_user: configuerationConnexion.utilisateurCourant._id })
-
-    res.render("pages/profil", {
-        utilisateurconnecte: configuerationConnexion.utilisateurCourant,
-        utilisateurCourant: configuerationConnexion.utilisateurCourant,
-        ingredients: ingredientss,
-        ListHistorique: activites,
-        listePoids: configuerationConnexion.utilisateurCourant.poids,
-        exigencesUtilisateur: JSON.stringify(configuerationConnexion.utilisateurCourant.exigences_dietiques),
-
-    });
+    urlReferant = req.headers.referer
+    if (urlReferant != undefined && urlReferant.includes('connexion')) {
+        const ingredientss = await ingredients.find();
+        const activites = await EnregistrementActivite.find({ id_user: configuerationConnexion.utilisateurCourant._id })
+        res.render("pages/profil", {
+            utilisateurconnecte: configuerationConnexion.utilisateurCourant,
+            utilisateurCourant: configuerationConnexion.utilisateurCourant,
+            ingredients: ingredientss,
+            ListHistorique: activites,
+            listePoids: configuerationConnexion.utilisateurCourant.poids,
+            exigencesUtilisateur: JSON.stringify(configuerationConnexion.utilisateurCourant.exigences_dietiques),
+        });
+    } else {
+        const activites = await EnregistrementActivite.find({ id_user: configuerationConnexion.utilisateurCourant._id })
+        res.render("pages/profil", {
+            utilisateurconnecte: configuerationConnexion.utilisateurCourant,
+            utilisateurCourant: configuerationConnexion.utilisateurCourant,
+            ListHistorique: activites,
+            listePoids: configuerationConnexion.utilisateurCourant.poids,
+        });
+    }
 });
 app.get("/progression", checkAuthenticated, (req, res) => {
 
@@ -204,7 +213,7 @@ app.post("/metre_a_jour_age", checkAuthenticated, async(req, res) => {
 
 // For website access
 /**app.listen(port, () => {
-	console.log(`Le serveur est sur localhost:${port}`);
+    console.log(`Le serveur est sur localhost:${port}`);
 });**/
 if (process.env.NODE_ENV !== 'test') {
     app.listen(port, () => console.log(`Listening on port ${port}`))
