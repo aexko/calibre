@@ -25,17 +25,19 @@ function recommanderRecettes(exigencesDietiques,calories='',typeDeRepas='') {
     }).then(function (response) {
         var recettes = document.getElementById("recettes")
         recettes.innerHTML = ""
+        htmlAjouter= ''
 
 
         if(calories != '' && response.count > 0 ){
         recettes.innerHTML = "</br><h4>Votre "+typeDeRepas+" d'aujourd'hui est :</h4></br>"
         recettes.innerHTML += "</br><h4>"+ "Si vous acceptez ce défi, vous gagnerirez des points!</h4></br>"
+        htmlAjouter ='margin-left:100px'
             compteur = 1
         }else{
             compteur = response.count
         }
         for (i = 0; i < compteur; i++) {
-            recettes.innerHTML += `<div class="row product-lists" style="position: relative; height: 640px; margin-right:-1000px">
+            recettes.innerHTML += `<div class="row product-lists" style="position: relative; height: 640px; margin-right:-1000px;`+htmlAjouter+`">
               <div class="col-lg-4 col-md-6 text-center strawberry" style="position: absolute; left: 0px; top: 0px;">
                 <div class="single-product-item">
                   <div class="product-image">
