@@ -15,9 +15,9 @@ function recommanderRecettes(exigencesDietiques,calories='',typeDeRepas='') {
     if(calories!= ''){    calories='&calories='+0+'-'+calories}
     if(typeDeRepas != ''){
         typesDeRepass = {'Dejeuner':'Breakfast','Diner':'Lunch','Souper':'Dinner','collation_du_Matin':'Snack','colattion_de_Soir':'Teatime'}
-        typeDeRepas = "&mealType=" +typesDeRepass[typeDeRepas]
+        repas = "&mealType=" +typesDeRepass[typeDeRepas]
     }
-    var url = encodeURI("https://api.edamam.com/search?q=" + listResultats+"&app_id=d7c579b4&app_key=aecba0b0311babbd898a3f4e96328475&random=true&count=1"+stringExigences+calories) +typeDeRepas;
+    var url = encodeURI("https://api.edamam.com/search?q=" + listResultats+"&app_id=d7c579b4&app_key=aecba0b0311babbd898a3f4e96328475&random=true&count=1"+stringExigences+calories) +repas;
     $.ajax({
         url:url,
         type: "GET",
