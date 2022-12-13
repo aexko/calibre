@@ -106,17 +106,19 @@ app.get("/profil", checkAuthenticated, async(req, res) => {
         utilisateurCourant: configuerationConnexion.utilisateurCourant,
         ingredients: ingredientss,
         ListHistorique: activites,
+        listePoids: configuerationConnexion.utilisateurCourant.poids,
         exigencesUtilisateur: JSON.stringify(configuerationConnexion.utilisateurCourant.exigences_dietiques),
 
     });
 });
 app.get("/progression", checkAuthenticated, (req, res) => {
+
     bd_activite.find({}, function(err, activites) {
         res.render("pages/progression", {
             ListActivite: activites,
             utilisateurconnecte: configuerationConnexion.utilisateurCourant,
             utilisateurCourant: configuerationConnexion.utilisateurCourant,
-
+            listePoids: configuerationConnexion.utilisateurCourant.poids,
         });
     });
 

@@ -9,7 +9,7 @@
         margin-right: 10%;
         border-radius: 25px;
         padding: 3%;
-        height: 100%;
+        height: 1000px;
     }
     
     p {
@@ -71,8 +71,27 @@
         font-size: medium;
         box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
         padding: 2%;
+        float: left;
     }
     
     .historique {
-        background-color: #ad5389;
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        border-radius: 3px;
+        width: 70%;
+        height: 285px;
+        margin-top: 4%;
+        overflow-x: hidden;
+        overflow-y: auto;
+        padding: 15px;
+    }
+    
+    .une_activite {
+        margin: 2px;
+    }
+    
+    .graphique {
+        margin-top: 4%;
+        margin-bottom: 5%;
+        width: 70%;
+        float: right;
     }

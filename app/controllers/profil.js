@@ -16,8 +16,11 @@ exports.postProfil = async(req, res, next) => {
 exports.mettreAJourPoids = async(req, res, next) => {
 
     var nouveau_poids = parseInt(req.body.poids);
-    configuerationConnexion.utilisateurCourant.poids = nouveau_poids;
-    await modelUtilisateur.findOneAndUpdate({ email: configuerationConnexion.utilisateurCourant.email }, { poids: nouveau_poids });
+    configuerationConnexion.utilisateurCourant.poids.push(nouveau_poids);
+    // await modelUtilisateur.findOneAndUpdate({ email: configuerationConnexion.utilisateurCourant.email }, { poids: nouveau_poids });
+
+    await modelUtilisateur.findOneAndUpdate({ email: configuerationConnexion.utilisateurCourant.email }, { $push: { poids: nouveau_poids } });
+
     res.redirect("/profil");
 }
 

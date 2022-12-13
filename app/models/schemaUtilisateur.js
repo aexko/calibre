@@ -8,7 +8,7 @@ const schemaUtilisateur = mongoose.Schema({
     nom_utilisateur: String,
     mot_passe: String,
     unitePrefere: String,
-    poids: Number,
+    poids: [{}],
     objectif_de_poids_saine: Number,
     objectif_par_semaine: Number,
     taille: [{}],

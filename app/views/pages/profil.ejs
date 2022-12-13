@@ -56,7 +56,9 @@
         <input type="submit" name="deconnexion" value="Déconnexion" />
     </form>
     <br /><br />
+
     <div class="container">
+
         <h3>Heureux de vous revoir
             <%=utilisateurCourant.prenom%>!
         </h3>
@@ -77,68 +79,80 @@
 
                         </form> <br>Taille:
                         <%=utilisateurCourant.taille%> <br> Poids actuel:
-                            <%=utilisateurCourant.poids%> <button onclick=" afficherDiv('modifier_poids')">+</button>
-                                <form action="/metre_a_jour_poid" class="modifier_poids" id="modifier_poids" style="display:none;" method="post">
-                                    <input type="text" id="poids" name="poids" max="200" min="15" placeholder="entrez votre nouveau poids" required>
-                                    <input type="submit" value="Modifier" name="save_data"> </input>
+                            <p id="liste_poids">
+                                <%=listePoids%>
+                            </p>
 
-                                </form> <br> Votre objectif de poids:
-                                <%=utilisateurCourant.objectif_de_poids_saine%><br>IMC:
-                                    <%=utilisateurCourant.imc%>
-                                        <p></p>
+
+                            <button onclick=" afficherDiv('modifier_poids')">+</button>
+                            <form action="/metre_a_jour_poid" class="modifier_poids" id="modifier_poids" style="display:none;" method="post">
+                                <input type="text" id="poids" name="poids" max="200" min="15" placeholder="entrez votre nouveau poids" required>
+                                <input type="submit" value="Modifier" name="save_data"> </input>
+
+                            </form> <br> Votre objectif de poids:
+                            <%=utilisateurCourant.objectif_de_poids_saine%><br>IMC:
+                                <%=utilisateurCourant.imc%>
+                                    <p></p>
+
+        </div>
+
+
+        <div class="graphique"><canvas id="myChart"></canvas>
         </div>
         <div class="historique">
             <h5>Historique de vos activités physiques</h5>
             <% ListHistorique.forEach(function(item,index){%>
 
                 <div class="une_activite">
-                    <p>Nom de l'activité
-                        <%=item.nom_activite %>
-                    </p>
+                    <h5>
+                        <%=item.nom_activite %>:
+                    </h5>
                     <p>Calorie dépensée:
-                        <%=item.calorie %>
-                    </p>
+                        <%=item.calorie %> KCal
+                    </p> <br>
                     <p>Durée:
-                        <%=item.temps %>
-                    </p>
+                        <%=item.temps %> min
+                    </p> <br>
                     <p>Date:
                         <%=item.date %>
-                    </p>
+                    </p><br>
 
                     <%}); %>
                 </div>
         </div>
+    </div>
 
+    <footer>
+        <%- include('../partials/footer'); %>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-        <footer>
-            <%- include('../partials/footer'); %>
-        </footer>
-        <script>
-            function afficherDiv(id_div) {
-                var div = document.getElementById(id_div);
-                if (div.style.display === "none") {
-                    div.style.display = "block";
-                } else {
-                    div.style.display = "none";
-                }
+    <script>
+        const ctx = document.getElementById('myChart');
+
+        let poids = document.getElementById('liste_poids').innerText
+        const myArray = poids.split(",");
+        let nombre_label = myArray.length;
+
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'],
+                datasets: [{
+                    label: 'Poids',
+                    data: myArray,
+                    borderWidth: 1
+                }]
             }
-            $(document).ready(function() {
-                $('#exampleModalLong').modal('show');
-            });
-
-            function afficherRecettes() {
-                var div = document.getElementById('recettess');
-                var bouton = document.getElementById('oui');
-                div.style.display = "block";
-                bouton.setAttribute('disabled', '')
-            }
-        </script>
-        <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
-        <script src="../js/recettesEdamame.js"></script>
-        <script src="../js/jquery-3.3.1.min.js"></script>
-        <script src="../js/popper.min.js"></script>
-        <script src="../js/bootstrap.min.js"></script>
-        <script src="../js/chosen.jquery.min.js"></script>
+        });
+    </script>
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+    <script src="../js/recettesEdamame.js"></script>
+    <script src="../js/jquery-3.3.1.min.js"></script>
+    <script src="../js/popper.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/chosen.jquery.min.js"></script>
+    <script src="../js/profil.js"></script>
 
 </body>
 
