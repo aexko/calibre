@@ -193,7 +193,6 @@ function calculerCaloriesParRepas(calorieRecommendee) {
     var repas = document.getElementById("repas");
     var nombreDeRepas = repas.options[repas.selectedIndex].value;
     var caloriesParRepas = {};
-    alert(nombreDeRepas)
     switch (nombreDeRepas) {
         case "3":
             caloriesParRepas['Dejeuner'] = (35 * calorieRecommendee) / 100
