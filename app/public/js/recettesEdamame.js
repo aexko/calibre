@@ -6,7 +6,6 @@ function recommanderRecettes(exigencesDietiques, calories = '', typeDeRepas = ''
     for (i = 0; i < exigences.length; i++) {
         stringExigences += "&health=" + exigences[i].cle_api;
     }
-    console.log(stringExigences)
     resultats = document.getElementsByClassName('search-choice');
     listResultats = '';
     if (resultats.length > 0) {
@@ -32,7 +31,7 @@ function recommanderRecettes(exigencesDietiques, calories = '', typeDeRepas = ''
 
             if (calories != '' && response.count > 0) {
                 recettes.innerHTML = "</br><h4>Votre " + typeDeRepas + " d'aujourd'hui est :</h4></br>"
-                recettes.innerHTML += "</br><h4>" + "Si vous acceptez ce défi, vous gagnerirez des points!</h4></br>"
+                recettes.innerHTML += "</br><h4>" + "Si vous acceptez ce défi, vous gagnerez des points!</h4></br>"
                 htmlAjouter = 'margin-left:100px'
                 compteur = 1
             } else {
@@ -107,3 +106,6 @@ module.exports = { recommanderRecettes }
   }).error((error)=>{
     console.log(error);
   });**/
+  function stockerIngredients(){
+
+  }
