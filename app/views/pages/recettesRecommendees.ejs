@@ -49,21 +49,7 @@
       </select>
     </h5>
     <button class="btn btn-primary" data-toggle="modal" data-target="#ModalIngredients" onclick="recommanderRecettes('<%=exigencesUtilisateur%>')">recommender des recettes</button>
-       <div class="container" id="recettes">
-      <!-- Modal -->
-  <div class="modal fade bd-example-modal-lg" id="ModalIngredients" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLongTitle">Bienvenue!</h5>
-        </div>
-        <div class="modal-body">
-            <h5>Voulez-vous stocker ces ingredients? </h5>       
-            <div style="display:block;">
-            <button onclick="stockerIngredients()" type="button" class="btn btn-secondary" data-dismiss="modal">Oui</button>
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Non</button>
-          </div>
-    </div>  
+       <div class="container" id="recettes"> 
   </main>
     <footer><%- include('../partials/footer'); %></footer>
     <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
