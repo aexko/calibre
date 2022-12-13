@@ -100,7 +100,7 @@
         <label for="ajouter_activite  ">Enregistré une activité physique </label>
         <select id="nom_activite" name="nom_activite">
             <% ListActivite.forEach(function(item,index){%>
-                <option value="<%=item.id %>">
+                <option value="<%=item._id %>">
                     <%= item.nom %>
                 </option>
                 <%}); %>
@@ -127,7 +127,23 @@
 
             input.value = consommation.toString();
         }
+        function verifier_date() {
+            let date = new Date();
+    date.setHours(0, 0, 0, 0);
+    localStorage.setItem("date", date)
+    var date_stocke = localStorage.getItem("date")
+    date_stocke = new Date(date_stocke)
+    if (date_stocke.getTime() === date.getTime()) {
+        configuerationConnexion.utilisateurCourant = 0;
+        modelUtilisateur.findOneAndUpdate({ email: configuerationConnexion.utilisateurCourant.email }, { calorie_quotidien_consommee: 0 });
+        localStorage.setItem("date", date)
 
+    } else {
+        configuerationConnexion.utilisateurCourant = 0;
+        modelUtilisateur.findOneAndUpdate({ email: configuerationConnexion.utilisateurCourant.email }, { calorie_quotidien_consommee: 0 });
+        localStorage.setItem("date", date)
+    }
+        }
         function afficherDiv(id_div) {
             var div = document.getElementById(id_div);
             if (div.style.display === "none") {

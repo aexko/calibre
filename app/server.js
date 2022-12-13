@@ -6,7 +6,7 @@ const app = express();
 const port = 3000;
 //importation de module schemaUtilisateur
 const modelUtilisateur = require("./models/schemaUtilisateur");
-const Activite = require("./models/bdActivite");
+const bd_activite = require("./models/bdActivite");
 const EnregistrementActivite = require("./models/activite");
 const nomUtilisateur = "admin";
 const motPasse = "admin";
@@ -99,16 +99,19 @@ app.get("/connexion", checkNotAuthenticated, (req, res) => {
 });
 app.get("/profil", checkAuthenticated, async(req, res) => {
     const ingredientss = await ingredients.find();
+    const activites = await EnregistrementActivite.find({ id_user: configuerationConnexion.utilisateurCourant._id })
+
     res.render("pages/profil", {
         utilisateurconnecte: configuerationConnexion.utilisateurCourant,
         utilisateurCourant: configuerationConnexion.utilisateurCourant,
-        ingredients :ingredientss,
+        ingredients: ingredientss,
+        ListHistorique: activites,
         exigencesUtilisateur: JSON.stringify(configuerationConnexion.utilisateurCourant.exigences_dietiques),
 
     });
 });
 app.get("/progression", checkAuthenticated, (req, res) => {
-    Activite.find({}, function(err, activites) {
+    bd_activite.find({}, function(err, activites) {
         res.render("pages/progression", {
             ListActivite: activites,
             utilisateurconnecte: configuerationConnexion.utilisateurCourant,
@@ -151,12 +154,16 @@ app.post("/ajouter_calorie", checkAuthenticated, async(req, res) => {
 
     res.redirect("/profil");
 });
+
+
+
 app.post("/ajouter_activite", checkAuthenticated, async(req, res) => {
     var temps = parseInt(req.body.temps_activite);
-    var id_activite = (req.body.nom_activite).value;
+    var id_activite = req.body.nom_activite;
     let date = new Date();
 
-    var activite = await Activite.findOne({ id: id_activite });
+    const activite = await bd_activite.findOne({ id: id_activite });
+    console.log(activite.nom)
     var calorie_activite = Math.round(temps * activite.calorie_depense / 60)
     const nouvelle_activite = new EnregistrementActivite({
         date: date,
@@ -204,6 +211,7 @@ if (process.env.NODE_ENV !== 'test') {
 const utilisateurRoutes = require("./routes/utilisateur");
 const activite = require("./models/activite");
 const { nextTick } = require("process");
+const bdActivite = require("./models/bdActivite");
 app.use(utilisateurRoutes);
 
 module.exports = app;

@@ -7,7 +7,9 @@ exports.afficherPageConnexion = (req, res, next) => {
         utilisateurconnecte: configuerationConnexion.utilisateurCourant,
     });
 }
-exports.postConnexion = async(req, res, next) => {}
+exports.postConnexion = async(req, res, next) => {
+
+}
 exports.deleteConnexion = (req, res, next) => {
     req.logout(function(err) {
         if (err) {
