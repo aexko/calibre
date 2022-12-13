@@ -2,21 +2,18 @@ const configuerationConnexion = require("../config/config-connexion");
 const modelUtilisateur = require("../models/schemaUtilisateur");
 const ingredients = require("../models/schemaIngredients");
 const EnregistrementActivite = require("../models/activite");
-
-
 exports.postProfil = async(req, res, next) => {
     var calorie =
         parseInt(req.body.calorie) +
         configuerationConnexion.utilisateurCourant.calorie_quotidien_consommee;
     configuerationConnexion.utilisateurCourant.calorie_quotidien_consommee = calorie;
     await modelUtilisateur.findOneAndUpdate({ email: configuerationConnexion.utilisateurCourant.email }, { calorie_quotidien_consommee: calorie });
-
     res.redirect("/profil");
 }
 exports.mettreAJourPoids = async(req, res, next) => {
 
     var nouveau_poids = parseInt(req.body.poids);
-    configuerationConnexion.utilisateurCourant.poids.push(nouveau_poids);
+       configuerationConnexion.utilisateurCourant.poids.push(nouveau_poids);
     // await modelUtilisateur.findOneAndUpdate({ email: configuerationConnexion.utilisateurCourant.email }, { poids: nouveau_poids });
 
     await modelUtilisateur.findOneAndUpdate({ email: configuerationConnexion.utilisateurCourant.email }, { $push: { poids: nouveau_poids } });
@@ -34,7 +31,6 @@ function verifier_date() {
         configuerationConnexion.utilisateurCourant = 0;
         modelUtilisateur.findOneAndUpdate({ email: configuerationConnexion.utilisateurCourant.email }, { calorie_quotidien_consommee: 0 });
         localStorage.setItem("date", date)
-
     } else {
         configuerationConnexion.utilisateurCourant = 0;
         modelUtilisateur.findOneAndUpdate({ email: configuerationConnexion.utilisateurCourant.email }, { calorie_quotidien_consommee: 0 });

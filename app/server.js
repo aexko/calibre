@@ -6,7 +6,7 @@ const app = express();
 const port = 3000;
 //importation de module schemaUtilisateur
 const modelUtilisateur = require("./models/schemaUtilisateur");
-const bd_activite = require("./models/bdActivite");
+const Activite = require("./models/bdActivite");
 const EnregistrementActivite = require("./models/activite");
 const nomUtilisateur = "admin";
 const motPasse = "admin";
@@ -60,7 +60,7 @@ app.set("view engine", "ejs");
 //ceci permet de savoir si la bd est bien connectee
 const bd = mongoose.connection;
 bd.on("error", console.error.bind(console, "Erreur de connection: "));
-bd.once("open", function() {
+bd.once("open", function () {
     console.log("Connexion réussie à MongoDB");
 });
 
@@ -97,12 +97,12 @@ app.get("/connexion", checkNotAuthenticated, (req, res) => {
         utilisateurconnecte: utilisateurCourant,
     });
 });
-app.get("/profil", checkAuthenticated, async(req, res) => {
+app.get("/profil", checkAuthenticated, async (req, res) => {
     urlReferant = req.headers.referer
     if (urlReferant != undefined && urlReferant.includes('connexion')) {
         const ingredientss = await ingredients.find();
         const activites = await EnregistrementActivite.find({ id_user: configuerationConnexion.utilisateurCourant._id })
-        res.render("pages/profil", {
+        res.render("pages/profil-apres-connexion.ejs", {
             utilisateurconnecte: configuerationConnexion.utilisateurCourant,
             utilisateurCourant: configuerationConnexion.utilisateurCourant,
             ingredients: ingredientss,
@@ -121,13 +121,13 @@ app.get("/profil", checkAuthenticated, async(req, res) => {
     }
 });
 app.get("/progression", checkAuthenticated, (req, res) => {
-
-    bd_activite.find({}, function(err, activites) {
+    Activite.find({}, function(err, activites) {
         res.render("pages/progression", {
             ListActivite: activites,
             utilisateurconnecte: configuerationConnexion.utilisateurCourant,
             utilisateurCourant: configuerationConnexion.utilisateurCourant,
             listePoids: configuerationConnexion.utilisateurCourant.poids,
+
         });
     });
 
@@ -155,7 +155,7 @@ app.get("/nutriments", (req, res) => {
 
     });
 });
-app.post("/ajouter_calorie", checkAuthenticated, async(req, res) => {
+app.post("/ajouter_calorie", checkAuthenticated, async (req, res) => {
     var calorie =
         parseInt(req.body.calorie) +
         configuerationConnexion.utilisateurCourant.calorie_quotidien_consommee;
@@ -165,16 +165,12 @@ app.post("/ajouter_calorie", checkAuthenticated, async(req, res) => {
 
     res.redirect("/profil");
 });
-
-
-
 app.post("/ajouter_activite", checkAuthenticated, async(req, res) => {
     var temps = parseInt(req.body.temps_activite);
-    var id_activite = req.body.nom_activite;
+    var id_activite = (req.body.nom_activite).value;
     let date = new Date();
 
-    const activite = await bd_activite.findOne({ id: id_activite });
-    console.log(activite.nom)
+    var activite = await Activite.findOne({ id: id_activite });
     var calorie_activite = Math.round(temps * activite.calorie_depense / 60)
     const nouvelle_activite = new EnregistrementActivite({
         date: date,
@@ -200,7 +196,7 @@ app.post("/ajouter_calorie_recherche", checkAuthenticated, async(req, res) => {
 
     res.redirect("/profil");
 });
-app.post("/metre_a_jour_age", checkAuthenticated, async(req, res) => {
+app.post("/metre_a_jour_age", checkAuthenticated, async (req, res) => {
     var age =
         parseInt(req.body.age);
 
@@ -222,7 +218,6 @@ if (process.env.NODE_ENV !== 'test') {
 const utilisateurRoutes = require("./routes/utilisateur");
 const activite = require("./models/activite");
 const { nextTick } = require("process");
-const bdActivite = require("./models/bdActivite");
 app.use(utilisateurRoutes);
 
 module.exports = app;

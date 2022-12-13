@@ -99,6 +99,7 @@
     .flex-container {
         display: flex;
         width: max-content;
+        padding-bottom: 20px;
     }
     
     .flex-child {

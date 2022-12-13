@@ -1,0 +1,1308 @@
+[{
+  "_id": {
+    "$oid": "6372dacd2a5e78e5b655d297"
+  },
+  "prenom": "",
+  "nom": "",
+  "age": null,
+  "email": "s@s.c",
+  "nom_utilisateur": "",
+  "mot_passe": "$2a$10$e/DsvyJrLfVCvU0UODKubuKOfwedRH80vxgQKfE9PPUvkR5ldYp9.",
+  "unitePrefere": "metrique",
+  "poids": null,
+  "objectif_de_poids_saine": null,
+  "objectif_par_semaine": null,
+  "taille": [
+    ""
+  ],
+  "genre": "Homme",
+  "imc": 0,
+  "BMR": 0,
+  "TDEE": 0,
+  "calorie_quotidien_recommendee": [
+    {
+      "total": 0,
+      "repas": [
+        {}
+      ],
+      "_id": {
+        "$oid": "6372dacd2a5e78e5b655d298"
+      }
+    }
+  ],
+  "restrictions_alim": [],
+  "calorie_quotidien_consommee": 0,
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6372db2a2a5e78e5b655d2a0"
+  },
+  "prenom": "",
+  "nom": "",
+  "age": null,
+  "email": "kjkjl@nnc.c",
+  "nom_utilisateur": "",
+  "mot_passe": "$2a$10$DNOiSzRMGjBwUy25vJJDJuPx4vDlkFDUXnhLSdiLXXzy/rhDe5yFe",
+  "unitePrefere": "metrique",
+  "poids": null,
+  "objectif_de_poids_saine": null,
+  "objectif_par_semaine": null,
+  "taille": [
+    ""
+  ],
+  "genre": "Homme",
+  "imc": 0,
+  "BMR": 0,
+  "TDEE": 0,
+  "calorie_quotidien_recommendee": [
+    {
+      "total": 0,
+      "repas": [
+        {}
+      ],
+      "_id": {
+        "$oid": "6372db2a2a5e78e5b655d2a1"
+      }
+    }
+  ],
+  "restrictions_alim": [],
+  "calorie_quotidien_consommee": 0,
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6372db8adb69e76528e267c4"
+  },
+  "prenom": "",
+  "nom": "",
+  "age": null,
+  "email": "a@s.c",
+  "nom_utilisateur": "",
+  "mot_passe": "$2a$10$gKv1/I/ECKlxXCDQGAqZuu.4cBrWLQRIFZlVHxepVgeHZkiYClP4m",
+  "unitePrefere": "metrique",
+  "poids": null,
+  "objectif_de_poids_saine": null,
+  "objectif_par_semaine": null,
+  "taille": [
+    ""
+  ],
+  "genre": "Homme",
+  "imc": 0,
+  "BMR": 0,
+  "TDEE": 0,
+  "exigences_dietiques": [
+    "637285f49d22c24582bf75f3",
+    "637288cd9d22c24582bf7609",
+    "637289099d22c24582bf760b"
+  ],
+  "calorie_quotidien_recommendee": [
+    {
+      "total": 0,
+      "repas": [
+        {}
+      ],
+      "_id": {
+        "$oid": "6372db8adb69e76528e267c5"
+      }
+    }
+  ],
+  "restrictions_alim": [],
+  "calorie_quotidien_consommee": 0,
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6372dc49db69e76528e267d6"
+  },
+  "prenom": "a",
+  "nom": "a",
+  "age": 21,
+  "email": "jkkd@d.dc",
+  "nom_utilisateur": "dsahgGGGg",
+  "mot_passe": "$2a$10$of4kiwRNipKNIYx1uqCqZerE41m0lWOiT9C2ka3amEc0ltjw/mWYK",
+  "unitePrefere": "imperial",
+  "poids": 120,
+  "objectif_de_poids_saine": 122,
+  "objectif_par_semaine": 1,
+  "taille": [
+    "5",
+    "8"
+  ],
+  "genre": "Femme",
+  "imc": 18.24,
+  "BMR": 1358.16,
+  "TDEE": 2105,
+  "exigences_dietiques": [
+    "637285f49d22c24582bf75f3",
+    "6372881f9d22c24582bf7603"
+  ],
+  "calorie_quotidien_recommendee": [
+    {
+      "total": 2605,
+      "repas": [
+        {
+          "Dejeuner": 911.75,
+          "Diner": 1042,
+          "Souper": 651.25
+        }
+      ],
+      "_id": {
+        "$oid": "6372dc49db69e76528e267d7"
+      }
+    }
+  ],
+  "restrictions_alim": [],
+  "calorie_quotidien_consommee": 0,
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6372df64dc8ce64e20d6a7d7"
+  },
+  "prenom": "s",
+  "nom": "s",
+  "age": 21,
+  "email": "d@g.c",
+  "nom_utilisateur": "shdkhHJhhh",
+  "mot_passe": "$2a$10$PImwS6TGDNpGo1MbERgon.Bq7.u/DRvbwd1FbdXUgAy/fWAsqJwG6",
+  "unitePrefere": "metrique",
+  "poids": 22,
+  "objectif_de_poids_saine": 100,
+  "objectif_par_semaine": 1,
+  "taille": [
+    "222"
+  ],
+  "genre": "Homme",
+  "imc": 4.46,
+  "BMR": 1507.5,
+  "TDEE": 1809,
+  "exigences_dietiques": [
+    "637286479d22c24582bf75f5",
+    "637288ef9d22c24582bf760a",
+    "637289099d22c24582bf760b"
+  ],
+  "calorie_quotidien_recommendee": [
+    {
+      "total": 2909,
+      "repas": [
+        {
+          "Dejeuner": 1018.15,
+          "Diner": 1163.6,
+          "Souper": 727.25
+        }
+      ],
+      "_id": {
+        "$oid": "6372df64dc8ce64e20d6a7d8"
+      }
+    }
+  ],
+  "restrictions_alim": [],
+  "calorie_quotidien_consommee": 0,
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6372e2234359bffc2f034c48"
+  },
+  "prenom": "sdf",
+  "nom": "s",
+  "age": 21,
+  "email": "s@f.c",
+  "nom_utilisateur": "saghGGabb",
+  "mot_passe": "$2a$10$ytXTyt13VAMXMN38vCMRq.ovu88vRB2Ok5G8YIkNssf.ggJrtqqSO",
+  "unitePrefere": "metrique",
+  "poids": 55,
+  "objectif_de_poids_saine": 68,
+  "objectif_par_semaine": 1,
+  "taille": [
+    "168"
+  ],
+  "genre": "Homme",
+  "imc": 19.49,
+  "BMR": 1500,
+  "TDEE": 1800,
+  "exigences_dietiques": [
+    "6372881f9d22c24582bf7603",
+    "637288ef9d22c24582bf760a"
+  ],
+  "calorie_quotidien_recommendee": [
+    {
+      "total": 2900,
+      "repas": [
+        {
+          "Dejeuner": 1015,
+          "Diner": 1160,
+          "Souper": 725
+        }
+      ],
+      "_id": {
+        "$oid": "6372e2234359bffc2f034c49"
+      }
+    }
+  ],
+  "restrictions_alim": [],
+  "calorie_quotidien_consommee": 0,
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6373a4d9dfbd6187eb9df2f9"
+  },
+  "prenom": "sdf2",
+  "nom": "sd",
+  "age": 21,
+  "email": "hdk@gd.c",
+  "nom_utilisateur": "ashkKHJH",
+  "mot_passe": "$2a$10$mEqnI.cv3z.mH6SKcesJROtp36ooKvr.Lf7DYSewgJDcMn18H.cxi",
+  "unitePrefere": "metrique",
+  "poids": 222,
+  "objectif_de_poids_saine": 100,
+  "objectif_par_semaine": 1,
+  "taille": [
+    "222"
+  ],
+  "genre": "Homme",
+  "imc": 45.05,
+  "BMR": 3507.5,
+  "TDEE": 4209,
+  "exigences_dietiques": [
+    "637285d89d22c24582bf75f2",
+    "6372877f9d22c24582bf75fe",
+    "6372881f9d22c24582bf7603",
+    "637288cd9d22c24582bf7609"
+  ],
+  "calorie_quotidien_recommendee": [
+    {
+      "total": 3109,
+      "repas": [
+        {
+          "Dejeuner": 1088.15,
+          "Diner": 1243.6,
+          "Souper": 777.25
+        }
+      ],
+      "_id": {
+        "$oid": "6373a4d9dfbd6187eb9df2fa"
+      }
+    }
+  ],
+  "restrictions_alim": [],
+  "calorie_quotidien_consommee": 0,
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6373a5c281f27e8e037d0d36"
+  },
+  "email": "silvie@gmail.com",
+  "mot_passe": "$2b$10$2JP34ftkIL32UR5BEvzERe1iS73u07dRsg3vVM7vCrMQvBx6IxHoK",
+  "taille": [],
+  "exigences_dietiques": [],
+  "calorie_quotidien_recommendee": [],
+  "restrictions_alim": [],
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6373a5c281f27e8e037d0d39"
+  },
+  "email": "pat@gmail.com",
+  "mot_passe": "$2b$10$qWzWtzmlfKUOsNciH9PI0u8U3SMlXYrPf8N8GQaCX/vc44AYJ3yB.",
+  "taille": [],
+  "exigences_dietiques": [],
+  "calorie_quotidien_recommendee": [],
+  "restrictions_alim": [],
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6373a5c281f27e8e037d0d3c"
+  },
+  "email": "paul@gmail.com",
+  "taille": [],
+  "calorie_quotidien_consommee": 650,
+  "exigences_dietiques": [],
+  "calorie_quotidien_recommendee": [],
+  "restrictions_alim": [],
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6373a6de0d6a39b6f85ec20c"
+  },
+  "email": "silvie@gmail.com",
+  "mot_passe": "$2b$10$SmWhYZHMZENWqpqUlOmMZ.qE4QrkEh3qijOJiRtZ.k3nokmX8TUHm",
+  "taille": [],
+  "exigences_dietiques": [],
+  "calorie_quotidien_recommendee": [],
+  "restrictions_alim": [],
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6373a6de0d6a39b6f85ec20f"
+  },
+  "email": "pat@gmail.com",
+  "mot_passe": "$2b$10$ngmyuFbehF2xQ/OUdqCT0.Sv7EFe5FODH8bVL3gWsR8J3XYmnYija",
+  "taille": [],
+  "exigences_dietiques": [],
+  "calorie_quotidien_recommendee": [],
+  "restrictions_alim": [],
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6373a6de0d6a39b6f85ec212"
+  },
+  "email": "paul@gmail.com",
+  "taille": [],
+  "calorie_quotidien_consommee": 650,
+  "exigences_dietiques": [],
+  "calorie_quotidien_recommendee": [],
+  "restrictions_alim": [],
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6373b131ca1ceb4498f6a56b"
+  },
+  "prenom": "d",
+  "nom": "d",
+  "age": 21,
+  "email": "b@b.c",
+  "nom_utilisateur": "gsajgjGH",
+  "mot_passe": "$2a$10$joLAw51oAwejtcnmUxBs4ejICxYIhmEq.T460JYKmwp/Tv9qTEfiK",
+  "unitePrefere": "metrique",
+  "poids": 222,
+  "objectif_de_poids_saine": 100,
+  "objectif_par_semaine": 1,
+  "taille": [
+    "222"
+  ],
+  "genre": "Homme",
+  "imc": 45.05,
+  "BMR": 3507.5,
+  "TDEE": 4209,
+  "exigences_dietiques": [
+    "6372862b9d22c24582bf75f4",
+    "637288ef9d22c24582bf760a"
+  ],
+  "calorie_quotidien_recommendee": [
+    {
+      "total": 3109,
+      "repas": [
+        {
+          "Dejeuner": 1088.15,
+          "Diner": 1243.6,
+          "Souper": 777.25
+        }
+      ],
+      "_id": {
+        "$oid": "6373b131ca1ceb4498f6a56c"
+      }
+    }
+  ],
+  "restrictions_alim": [],
+  "calorie_quotidien_consommee": 0,
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6373b3d817da5fe1cfc6de1d"
+  },
+  "email": "silvie@gmail.com",
+  "mot_passe": "$2b$10$m72jUmQym8PlZqxFYQUlSOAG3bhQE.dFPjfgXKf8KqnZjo4hiS5tC",
+  "taille": [],
+  "exigences_dietiques": [],
+  "calorie_quotidien_recommendee": [],
+  "restrictions_alim": [],
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6373b3d917da5fe1cfc6de20"
+  },
+  "email": "pat@gmail.com",
+  "mot_passe": "$2b$10$0rgJhXyBSzeEw5CnJRE/2.YmC/lURaCIBfXVmof5dhDxjtt./5FJW",
+  "taille": [],
+  "exigences_dietiques": [],
+  "calorie_quotidien_recommendee": [],
+  "restrictions_alim": [],
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6373b3da17da5fe1cfc6de23"
+  },
+  "email": "paul@gmail.com",
+  "taille": [],
+  "calorie_quotidien_consommee": 650,
+  "exigences_dietiques": [],
+  "calorie_quotidien_recommendee": [],
+  "restrictions_alim": [],
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6373b5e20f3dfc7d156ce085"
+  },
+  "email": "silvie@gmail.com",
+  "mot_passe": "$2b$10$2n0XATm5YOICldyJTYPNseKNwdLEfWRon5A9CG57bXQnzz/X81WeK",
+  "taille": [],
+  "exigences_dietiques": [],
+  "calorie_quotidien_recommendee": [],
+  "restrictions_alim": [],
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6373b5e30f3dfc7d156ce088"
+  },
+  "email": "pat@gmail.com",
+  "mot_passe": "$2b$10$0ExLSAs/vQDy1pYQxOphY.1a.U1IiPZZOsbjDqwTVL1ScOAOJEjci",
+  "taille": [],
+  "exigences_dietiques": [],
+  "calorie_quotidien_recommendee": [],
+  "restrictions_alim": [],
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6373b5e30f3dfc7d156ce08b"
+  },
+  "email": "paul@gmail.com",
+  "taille": [],
+  "calorie_quotidien_consommee": 650,
+  "exigences_dietiques": [],
+  "calorie_quotidien_recommendee": [],
+  "restrictions_alim": [],
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6374534e73288b72b3579e15"
+  },
+  "prenom": "",
+  "nom": "",
+  "age": null,
+  "email": "fad@d.f",
+  "nom_utilisateur": "",
+  "mot_passe": "$2a$10$tbHDjJ0J6JTCKNmHabEkYuCr0EFj2nofBRbhupAapYFVAFY0x/3Gy",
+  "unitePrefere": "metrique",
+  "poids": null,
+  "objectif_de_poids_saine": null,
+  "objectif_par_semaine": null,
+  "taille": [
+    ""
+  ],
+  "genre": "Homme",
+  "imc": 0,
+  "BMR": 0,
+  "TDEE": 0,
+  "exigences_dietiques": [
+    "637283d49d22c24582bf75ef",
+    "637285d89d22c24582bf75f2",
+    "637286479d22c24582bf75f5"
+  ],
+  "calorie_quotidien_recommendee": [
+    {
+      "total": 0,
+      "repas": [
+        {}
+      ],
+      "_id": {
+        "$oid": "6374534e73288b72b3579e16"
+      }
+    }
+  ],
+  "restrictions_alim": [],
+  "calorie_quotidien_consommee": 0,
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63745472f53056db84627df0"
+  },
+  "prenom": "",
+  "nom": "",
+  "age": null,
+  "email": "s@s.cf",
+  "nom_utilisateur": "",
+  "mot_passe": "$2a$10$1PrnVSZlqPP8K80kFjgl6elDwfqXs7pKfOPNukwEy/P6odmsIlKGu",
+  "unitePrefere": "metrique",
+  "poids": null,
+  "objectif_de_poids_saine": null,
+  "objectif_par_semaine": null,
+  "taille": [
+    ""
+  ],
+  "genre": "Homme",
+  "imc": 0,
+  "BMR": 0,
+  "TDEE": 0,
+  "exigences_dietiques": [
+    "6372862b9d22c24582bf75f4"
+  ],
+  "calorie_quotidien_recommendee": [
+    {
+      "total": 0,
+      "repas": [
+        {}
+      ],
+      "_id": {
+        "$oid": "63745472f53056db84627df1"
+      }
+    }
+  ],
+  "restrictions_alim": [],
+  "calorie_quotidien_consommee": 0,
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "637454f20d9247a6f821b1e4"
+  },
+  "email": "silvie@gmail.com",
+  "mot_passe": "$2b$10$EyRrVndlwhxbtWmBMLNGau3451wtqCsj.kHgIgRejMUvpoXtDY6B.",
+  "taille": [],
+  "exigences_dietiques": [],
+  "calorie_quotidien_recommendee": [],
+  "restrictions_alim": [],
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "637454f20d9247a6f821b1e7"
+  },
+  "email": "pat@gmail.com",
+  "mot_passe": "$2b$10$awTQvGObJCwSv6g.XLXaN.ROTbkLCdFPUjc/x0LuGqwhJ5ZxwfHAC",
+  "taille": [],
+  "exigences_dietiques": [],
+  "calorie_quotidien_recommendee": [],
+  "restrictions_alim": [],
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "637454f20d9247a6f821b1ea"
+  },
+  "email": "paul@gmail.com",
+  "taille": [],
+  "calorie_quotidien_consommee": 650,
+  "exigences_dietiques": [],
+  "calorie_quotidien_recommendee": [],
+  "restrictions_alim": [],
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6377b1b73d4508175e775471"
+  },
+  "prenom": "narges",
+  "nom": "sabz",
+  "age": 19,
+  "email": "n@sabz.com",
+  "nom_utilisateur": "naarguess",
+  "mot_passe": "$2a$10$DJh/S2H.dAKa3sbOun7zQ..0M0ehrDJwAyCiXtJetqoX0GH/fpDcy",
+  "unitePrefere": "imperial",
+  "poids": 120,
+  "objectif_de_poids_saine": 120,
+  "taille": [
+    "5",
+    "7"
+  ],
+  "genre": "Femme",
+  "imc": 18.79,
+  "BMR": 1352.28,
+  "TDEE": 1859,
+  "exigences_dietiques": [
+    "637289999d22c24582bf7610"
+  ],
+  "calorie_quotidien_recommendee": [
+    {
+      "total": 1859,
+      "repas": [
+        {
+          "Dejeuner": 650.65,
+          "Diner": 743.6,
+          "Souper": 464.75
+        }
+      ],
+      "_id": {
+        "$oid": "6377b1b73d4508175e775472"
+      }
+    }
+  ],
+  "calorie_quotidien_consommee": 0,
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "637afb6a8bd52d98afc190bc"
+  },
+  "prenom": "n",
+  "nom": "n",
+  "age": 22,
+  "email": "volvo@s.com",
+  "nom_utilisateur": "volvo123",
+  "mot_passe": "$2a$10$OUfyZV4sIGNzeBrwJa/BK.LoHSs5EJt.dczct3JDRM3sCg5WvlNTa",
+  "unitePrefere": "metrique",
+  "poids": 22,
+  "objectif_de_poids_saine": 100,
+  "objectif_par_semaine": 1,
+  "taille": [
+    "222"
+  ],
+  "genre": "Homme",
+  "imc": 4.46,
+  "BMR": 1507.5,
+  "TDEE": 1809,
+  "exigences_dietiques": [
+    "637285f49d22c24582bf75f3",
+    "6372862b9d22c24582bf75f4",
+    "6372866a9d22c24582bf75f6",
+    "637286a69d22c24582bf75f8"
+  ],
+  "calorie_quotidien_recommendee": [
+    {
+      "total": 2909,
+      "repas": [
+        {
+          "Dejeuner": 1018.15,
+          "Diner": 1163.6,
+          "Souper": 727.25
+        }
+      ],
+      "_id": {
+        "$oid": "637afb6a8bd52d98afc190bd"
+      }
+    }
+  ],
+  "calorie_quotidien_consommee": 0,
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "637afbf98bd52d98afc190e4"
+  },
+  "prenom": "bn",
+  "nom": "b",
+  "age": 22,
+  "email": "volvo@d.com",
+  "nom_utilisateur": "volvo1233",
+  "mot_passe": "$2a$10$OAVhPoNi3IBNbTNvKCnhXO7tOXZp7l96BziIf2f69vAQIjtd5WjH.",
+  "unitePrefere": "metrique",
+  "poids": 222,
+  "objectif_de_poids_saine": 120,
+  "objectif_par_semaine": 1,
+  "taille": [
+    "222"
+  ],
+  "genre": "Homme",
+  "imc": 45.05,
+  "BMR": 3502.5,
+  "TDEE": 4203,
+  "exigences_dietiques": [],
+  "calorie_quotidien_recommendee": [
+    {
+      "total": 3103,
+      "repas": [
+        {
+          "Dejeuner": 1086.05,
+          "Diner": 1241.2,
+          "Souper": 775.75
+        }
+      ],
+      "_id": {
+        "$oid": "637afbf98bd52d98afc190e5"
+      }
+    }
+  ],
+  "calorie_quotidien_consommee": 0,
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6383855958086b1389ef8c61"
+  },
+  "email": "silvie@gmail.com",
+  "mot_passe": "$2b$10$kVaG1otQMs3p6DylNxpu8.Fzq1iJ6GUH/A28kKQiIdD/XqhGUCfya",
+  "taille": [],
+  "exigences_dietiques": [],
+  "calorie_quotidien_recommendee": [],
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6383855a58086b1389ef8c64"
+  },
+  "email": "pat@gmail.com",
+  "mot_passe": "$2b$10$6sXbGCpQ42nBZu4opTA0yeYsULGxdQnQZMeuuLE82p6BBcRJgO6RC",
+  "taille": [],
+  "exigences_dietiques": [],
+  "calorie_quotidien_recommendee": [],
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6383855a58086b1389ef8c67"
+  },
+  "email": "paul@gmail.com",
+  "taille": [],
+  "calorie_quotidien_consommee": 650,
+  "exigences_dietiques": [],
+  "calorie_quotidien_recommendee": [],
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "638386776e1059ab84ff954d"
+  },
+  "email": "silvie@gmail.com",
+  "mot_passe": "$2b$10$X1mtcDABGDQIiK4v0Ks3WuzbsNMK5XAkdk6mW8gqquWukflhWte.K",
+  "taille": [],
+  "exigences_dietiques": [],
+  "calorie_quotidien_recommendee": [],
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "638386786e1059ab84ff9550"
+  },
+  "email": "pat@gmail.com",
+  "mot_passe": "$2b$10$uAZjLnPTmF2Zgirp44A13.MRYE9bat3WLGs6YPHnGck/BpNJboruC",
+  "taille": [],
+  "exigences_dietiques": [],
+  "calorie_quotidien_recommendee": [],
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "638386786e1059ab84ff9553"
+  },
+  "email": "paul@gmail.com",
+  "taille": [],
+  "calorie_quotidien_consommee": 650,
+  "exigences_dietiques": [],
+  "calorie_quotidien_recommendee": [],
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6383871b710383e884ec66a8"
+  },
+  "email": "silvie@gmail.com",
+  "mot_passe": "burger",
+  "taille": [],
+  "exigences_dietiques": [],
+  "calorie_quotidien_recommendee": [],
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63838741c1e386f399fab79a"
+  },
+  "email": "silvie@gmail.com",
+  "mot_passe": "$2b$10$3TlbCPglTb3FV84MqwZ9muMSxfqxwQUNVHkrPic/StEph9Mxm/54y",
+  "taille": [],
+  "exigences_dietiques": [],
+  "calorie_quotidien_recommendee": [],
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63838741c1e386f399fab79d"
+  },
+  "email": "pat@gmail.com",
+  "mot_passe": "$2b$10$JHJXj8Vdwzb2mRziAU7u4eRew99gp9tUnTODaiDM.KCABhtZR9Kni",
+  "taille": [],
+  "exigences_dietiques": [],
+  "calorie_quotidien_recommendee": [],
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63838742c1e386f399fab7a0"
+  },
+  "email": "paul@gmail.com",
+  "taille": [],
+  "calorie_quotidien_consommee": 650,
+  "exigences_dietiques": [],
+  "calorie_quotidien_recommendee": [],
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63838891ad3ad920eb7518e1"
+  },
+  "email": "silvie@gmail.com",
+  "mot_passe": "$2b$10$SbYMLZtUvH9VzQSf5Z/usOQk3Ew6Qk3dtg132Ot8NSGMbGdA5kRlO",
+  "taille": [],
+  "exigences_dietiques": [],
+  "calorie_quotidien_recommendee": [],
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63838892ad3ad920eb7518e4"
+  },
+  "email": "pat@gmail.com",
+  "mot_passe": "$2b$10$Gh2DUqPUOiVwPLj/07Ma7u0JEz92VCX5mbORmAAuzmyqVDo8vSU4u",
+  "taille": [],
+  "exigences_dietiques": [],
+  "calorie_quotidien_recommendee": [],
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63838892ad3ad920eb7518e7"
+  },
+  "email": "paul@gmail.com",
+  "taille": [],
+  "calorie_quotidien_consommee": 650,
+  "exigences_dietiques": [],
+  "calorie_quotidien_recommendee": [],
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63838ede6c5df25854c0c660"
+  },
+  "email": "silvie@gmail.com",
+  "mot_passe": "$2b$10$ILxf7o8hIlpOFB3hP/QR4eS8PM.4TTDm63.TcW/L5Knkzp3kaE/wm",
+  "taille": [],
+  "exigences_dietiques": [],
+  "calorie_quotidien_recommendee": [],
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63838edf6c5df25854c0c663"
+  },
+  "email": "pat@gmail.com",
+  "mot_passe": "$2b$10$hzhj84kB/OzFfZ0X4RDoqOfXlff2kLXPwugZp1Nbt3QnWAub2yXF2",
+  "taille": [],
+  "exigences_dietiques": [],
+  "calorie_quotidien_recommendee": [],
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63838edf6c5df25854c0c666"
+  },
+  "email": "paul@gmail.com",
+  "taille": [],
+  "calorie_quotidien_consommee": 650,
+  "exigences_dietiques": [],
+  "calorie_quotidien_recommendee": [],
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63838f6c530cd831c27f1e8f"
+  },
+  "email": "silvie@gmail.com",
+  "mot_passe": "$2b$10$xR9BZvlTCdTl8R2eoQyISOQPaR7pCS5/GKcdl.7PouBvmOE1yxtGy",
+  "taille": [],
+  "exigences_dietiques": [],
+  "calorie_quotidien_recommendee": [],
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63838f6c530cd831c27f1e92"
+  },
+  "email": "pat@gmail.com",
+  "mot_passe": "$2b$10$fpB4qvQEWiwVQOoy/2arZu8prpzKDnEWC1c8NIjCZV5LPvu/O559i",
+  "taille": [],
+  "exigences_dietiques": [],
+  "calorie_quotidien_recommendee": [],
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63838f6d530cd831c27f1e95"
+  },
+  "email": "paul@gmail.com",
+  "taille": [],
+  "calorie_quotidien_consommee": 650,
+  "exigences_dietiques": [],
+  "calorie_quotidien_recommendee": [],
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63838fea893bd43f326e2892"
+  },
+  "email": "silvie@gmail.com",
+  "mot_passe": "$2b$10$14CGfWNN0zEczazc9UJU.ej6rOwl0GrSW2eGfTlCN.VMLQCOx.f6m",
+  "taille": [],
+  "exigences_dietiques": [],
+  "calorie_quotidien_recommendee": [],
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63838fea893bd43f326e2895"
+  },
+  "email": "pat@gmail.com",
+  "mot_passe": "$2b$10$whorPZLxkTBLJKPKmHSvF.TiaXhWAuBsuH2/gH0vHLPVNZLZjN7Q6",
+  "taille": [],
+  "exigences_dietiques": [],
+  "calorie_quotidien_recommendee": [],
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63838feb893bd43f326e2898"
+  },
+  "email": "paul@gmail.com",
+  "taille": [],
+  "calorie_quotidien_consommee": 650,
+  "exigences_dietiques": [],
+  "calorie_quotidien_recommendee": [],
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6383916dd0c0c3d85814966a"
+  },
+  "email": "silvie@gmail.com",
+  "mot_passe": "$2b$10$9g0/vN6krNSPB0Gr1nOLXOXvQtvdNoAVZ5WAGNMcjma.LRbsQQyeS",
+  "taille": [],
+  "exigences_dietiques": [],
+  "calorie_quotidien_recommendee": [],
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6383916ed0c0c3d85814966d"
+  },
+  "email": "pat@gmail.com",
+  "mot_passe": "$2b$10$Ig0RJy3pNKBTvTUocVrmO.Qaz2nqnvQcN4HfNzKEu3d4tXQcRkSYC",
+  "taille": [],
+  "exigences_dietiques": [],
+  "calorie_quotidien_recommendee": [],
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6383916ed0c0c3d858149670"
+  },
+  "email": "paul@gmail.com",
+  "taille": [],
+  "calorie_quotidien_consommee": 650,
+  "exigences_dietiques": [],
+  "calorie_quotidien_recommendee": [],
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "638617a2f88efa75104579eb"
+  },
+  "prenom": "askj.dj",
+  "nom": "jsdlk",
+  "age": 100,
+  "email": "dard@s.com",
+  "nom_utilisateur": "dard1234",
+  "mot_passe": "$2a$10$ux/BT.jOxnr0nzf069TzO.Mgpc0Qt71bGXBEBsJAcnzE9uV0yx9qK",
+  "unitePrefere": "metrique",
+  "poids": 22,
+  "objectif_de_poids_saine": 122,
+  "objectif_par_semaine": 1,
+  "taille": [
+    "222"
+  ],
+  "genre": "Homme",
+  "imc": 4.46,
+  "BMR": 1112.5,
+  "TDEE": 1335,
+  "exigences_dietiques": [
+    "637285f49d22c24582bf75f3",
+    "6372862b9d22c24582bf75f4",
+    "6372866a9d22c24582bf75f6"
+  ],
+  "calorie_quotidien_recommendee": [
+    {
+      "total": 2435,
+      "repas": [
+        {
+          "Dejeuner": 852.25,
+          "Diner": 974,
+          "Souper": 608.75
+        }
+      ],
+      "_id": {
+        "$oid": "638617a2f88efa75104579ec"
+      }
+    }
+  ],
+  "calorie_quotidien_consommee": 0,
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "638619504b80825d966909b7"
+  },
+  "email": "silvie@gmail.com",
+  "mot_passe": "$2b$10$1ZcEJ2QNaTzF9iiycDl1gOvlo7D5msKMCD1EJdKVCTTKYmtCp7eUy",
+  "taille": [],
+  "exigences_dietiques": [],
+  "calorie_quotidien_recommendee": [],
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "638619514b80825d966909ba"
+  },
+  "email": "pat@gmail.com",
+  "mot_passe": "$2b$10$RPvY2JWLZwFj4ijgSw8oSuPCIgTZBvw.CZggrSmXLmy/dDkeDkzHu",
+  "taille": [],
+  "exigences_dietiques": [],
+  "calorie_quotidien_recommendee": [],
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "638619514b80825d966909bd"
+  },
+  "email": "paul@gmail.com",
+  "taille": [],
+  "calorie_quotidien_consommee": 650,
+  "exigences_dietiques": [],
+  "calorie_quotidien_recommendee": [],
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6386c19b963da96213594369"
+  },
+  "prenom": "j",
+  "nom": "jj",
+  "age": 22,
+  "email": "bjhg@ddd.co",
+  "nom_utilisateur": "bhkhkhjkj",
+  "mot_passe": "$2a$10$UlQWgatyAYcesLP/kTNSMuO4OBf/aV3E0xUJAWdGC5wldhyn3f28O",
+  "unitePrefere": "metrique",
+  "poids": 22,
+  "objectif_de_poids_saine": 111,
+  "objectif_par_semaine": 1,
+  "taille": [
+    "222"
+  ],
+  "genre": "Homme",
+  "imc": 4.46,
+  "BMR": 1502.5,
+  "TDEE": 1803,
+  "exigences_dietiques": [
+    "637285529d22c24582bf75f1"
+  ],
+  "calorie_quotidien_recommendee": [
+    {
+      "total": 2903,
+      "repas": [
+        {
+          "Dejeuner": 1016.05,
+          "Diner": 1161.2,
+          "Souper": 725.75
+        }
+      ],
+      "_id": {
+        "$oid": "6386c19b963da9621359436a"
+      }
+    }
+  ],
+  "calorie_quotidien_consommee": 0,
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6396ad570f7b50ba0be0faff"
+  },
+  "prenom": "nn",
+  "nom": "volvo@s.com",
+  "age": 21,
+  "email": "e@d.com",
+  "nom_utilisateur": "1111nmndm",
+  "mot_passe": "$2a$10$hn8kXmTvGRLY4Muvfs84k.aUvgajHOBSoFjgaQHtT2WnNnvz7GSku",
+  "unitePrefere": "metrique",
+  "poids": 222,
+  "objectif_de_poids_saine": 100,
+  "objectif_par_semaine": 1,
+  "taille": [
+    "222"
+  ],
+  "genre": "Femme",
+  "imc": 45.05,
+  "BMR": 3341.5,
+  "TDEE": 4010,
+  "exigences_dietiques": [
+    "637285d89d22c24582bf75f2"
+  ],
+  "calorie_quotidien_recommendee": [
+    {
+      "total": 2910,
+      "repas": [
+        {
+          "Dejeuner": 1018.5,
+          "Diner": 1164,
+          "Souper": 727.5
+        }
+      ],
+      "_id": {
+        "$oid": "6396ad570f7b50ba0be0fb00"
+      }
+    }
+  ],
+  "calorie_quotidien_consommee": 0,
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6396afe1ba89ac331f793327"
+  },
+  "prenom": "s",
+  "nom": "s",
+  "age": 21,
+  "email": "sd@ns.co",
+  "nom_utilisateur": "vsasmdsa",
+  "mot_passe": "$2a$10$UyyziGgAP0rTQfLczg79TOeZk8RjO6pMs91Nk/a2xOA/mHOXwEP.y",
+  "unitePrefere": "metrique",
+  "poids": 222,
+  "objectif_de_poids_saine": 100,
+  "objectif_par_semaine": 1,
+  "taille": [
+    "222"
+  ],
+  "genre": "Femme",
+  "imc": 45.05,
+  "BMR": 3341.5,
+  "TDEE": 4010,
+  "exigences_dietiques": [
+    "637285f49d22c24582bf75f3",
+    "637286479d22c24582bf75f5"
+  ],
+  "calorie_quotidien_recommendee": [
+    {
+      "total": 2910,
+      "repas": [
+        {
+          "Dejeuner": 873,
+          "collation_du_Matin": 145.5,
+          "Diner": 1018.5,
+          "colattion_de_Soir": 145.5,
+          "Souper": 727.5
+        }
+      ],
+      "_id": {
+        "$oid": "6396afe1ba89ac331f793328"
+      }
+    }
+  ],
+  "calorie_quotidien_consommee": 0,
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "639887dae03f4359a6c7f16b"
+  },
+  "prenom": "sd",
+  "nom": "sd",
+  "age": 22,
+  "email": "gfhg@d.v",
+  "nom_utilisateur": "volvoasfaj",
+  "mot_passe": "$2a$10$UPIxgxn8NNrT2GrauBEjYub6V8eI.38UGf9Vyn58iRKZv6Zfdj.86",
+  "unitePrefere": "metrique",
+  "poids": 222,
+  "objectif_de_poids_saine": 111,
+  "objectif_par_semaine": 1,
+  "taille": [
+    "222"
+  ],
+  "genre": "Femme",
+  "imc": 45.05,
+  "BMR": 3336.5,
+  "TDEE": 4004,
+  "exigences_dietiques": [
+    "637285f49d22c24582bf75f3"
+  ],
+  "calorie_quotidien_recommendee": [
+    {
+      "total": 2904,
+      "repas": [
+        {
+          "Dejeuner": 871.2,
+          "collation_du_Matin": 145.2,
+          "Diner": 1016.4,
+          "colattion_de_Soir": 145.2,
+          "Souper": 726
+        }
+      ],
+      "_id": {
+        "$oid": "639887dae03f4359a6c7f16c"
+      }
+    }
+  ],
+  "calorie_quotidien_consommee": 0,
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63989787164137e220686f8e"
+  },
+  "email": "silvie@gmail.com",
+  "mot_passe": "$2b$10$jP1MC/mxUMjDKEuGF64S3.mmWjOiyLp/weWjvt44xuyKeIuZNPCzC",
+  "taille": [],
+  "exigences_dietiques": [],
+  "calorie_quotidien_recommendee": [],
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63989788164137e220686f91"
+  },
+  "email": "pat@gmail.com",
+  "mot_passe": "$2b$10$oNPuwXsExIE.9aCiRuclYe1LvQ4alPzN375ZAWpgJGQmCDSUfwuSe",
+  "taille": [],
+  "exigences_dietiques": [],
+  "calorie_quotidien_recommendee": [],
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63989788164137e220686f94"
+  },
+  "email": "paul@gmail.com",
+  "taille": [],
+  "calorie_quotidien_consommee": 650,
+  "exigences_dietiques": [],
+  "calorie_quotidien_recommendee": [],
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6398bd2347c6ca1ff68af959"
+  },
+  "prenom": "nk",
+  "nom": "hjh",
+  "age": 23,
+  "email": "n@d.com",
+  "nom_utilisateur": "volvhjkj",
+  "mot_passe": "$2a$10$cxiLrzHanJyC5nujSPf.t.tqreHkdbZS5wutdinI4hGBFV3x1UGiK",
+  "unitePrefere": "metrique",
+  "poids": [
+    "233"
+  ],
+  "objectif_de_poids_saine": 120,
+  "objectif_par_semaine": 1,
+  "taille": [
+    "233"
+  ],
+  "genre": "Femme",
+  "imc": 42.92,
+  "BMR": 3510.25,
+  "TDEE": 4212,
+  "exigences_dietiques": [
+    "6372866a9d22c24582bf75f6"
+  ],
+  "calorie_quotidien_recommendee": [
+    {
+      "total": 3112,
+      "repas": [
+        {
+          "Dejeuner": 933.6,
+          "collation_du_Matin": 155.6,
+          "Diner": 1089.2,
+          "colattion_de_Soir": 155.6,
+          "Souper": 778
+        }
+      ],
+      "_id": {
+        "$oid": "6398bd2347c6ca1ff68af95a"
+      }
+    }
+  ],
+  "calorie_quotidien_consommee": 0,
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6398d4e057041c538153cdb5"
+  },
+  "prenom": "d",
+  "nom": "volvo@s.com",
+  "age": 22,
+  "email": "ghjgjSSsss@g.v",
+  "nom_utilisateur": "volvhjkjn",
+  "mot_passe": "$2a$10$V90ux.PEIaCb4myQhKiDOeIFNLLEX6uIQfikFHgFKAqf8lTECBcjm",
+  "unitePrefere": "metrique",
+  "poids": [
+    "53"
+  ],
+  "objectif_de_poids_saine": 53,
+  "taille": [
+    "168"
+  ],
+  "genre": "Femme",
+  "imc": 18.78,
+  "BMR": 1309,
+  "TDEE": 1571,
+  "exigences_dietiques": [
+    "6372862b9d22c24582bf75f4"
+  ],
+  "calorie_quotidien_recommendee": [
+    {
+      "total": 1571,
+      "repas": [
+        {
+          "Dejeuner": 471.3,
+          "collation_du_Matin": 78.55,
+          "Diner": 549.85,
+          "colattion_de_Soir": 78.55,
+          "Souper": 392.75
+        }
+      ],
+      "_id": {
+        "$oid": "6398d4e057041c538153cdb6"
+      }
+    }
+  ],
+  "calorie_quotidien_consommee": 0,
+  "__v": 0
+}]

@@ -9,48 +9,11 @@
 </head>
 <php></php>
 
-<body style="padding-left:300px;">
+<body style="padding-left:200px;">
     <header>
         <%- include('../partials/header'); %>
     </header>
-    <!-- Modal -->
-    <div class="modal fade bd-example-modal-lg" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Bienvenue!</h5>
-                </div>
-                <div class="modal-body">
-                    <h5>Voulez-vous manger? </h5>
-                    <div style="display:block;">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Non</button>
-                        <button id="oui" type="button" onclick="afficherRecettes()" class="btn btn-primary">Oui</button>
-                    </div>
-                    <div id="recettess" style="display: none;">
-                        <div id="ingredients">
-                            <h5>Quelles ingrédients avez vous?<select name="ingredients" id="ingredients" data-placeholder="Selectionnez vos ingrédients" multiple class="chosen-select" tabindex="8"><% for(var i=0; i<ingredients.length; i++) {%>
-                <option value="<%= ingredients[i].cle_api %>" ><%= ingredients[i].aliment %></option>
-                <% } %>
-              </select></h5>
-                        </div>
-
-                        <div id="repas">
-                            <h5>Quelle repas aurez-vous?</h5>
-                            <% Object.keys(utilisateurCourant.calorie_quotidien_recommendee[0].repas[0]).forEach(function(repass) { %>
-                                <button onclick="recommanderRecettes('<%=exigencesUtilisateur%>','<%=utilisateurCourant.calorie_quotidien_recommendee[0].repas[0][repass]%>','<%= repass %>')" type="button" class="btn btn-primary"><%= repass %></button>
-                                <% }); %>
-                        </div>
-                    </div>
-                    <div id="recettes" class="card-body text-center">
-                        <h1 class="title"></h1>
-                        <img class="img" />
-                        <p class="ingredients"></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <form action="/deconnexion?_method=DELETE" method="post">
+       <form action="/deconnexion?_method=DELETE" method="post">
         <form action="/deconnexion?_method=DELETE" method="post">
             <input type="submit" name="deconnexion" value="Déconnexion" />
         </form>
@@ -125,6 +88,9 @@
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
         <script>
+            $(document).ready(function () {
+                $('#exampleModalLong').modal('show');      });
+
             const ctx = document.getElementById('myChart');
 
             let poids = document.getElementById('liste_poids').innerText
