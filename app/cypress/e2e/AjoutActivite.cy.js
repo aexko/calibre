@@ -11,9 +11,7 @@ describe("Ajouter une activité", () => {
   it('Entre la date de la course', () => {
 		cy.get('#date').type("2022-06-01");
 	});
-  it('Entre le nombre de calories brûlées', () => {
-		cy.get('#calories').type("300");
-	});
+
 
   it('Clique sur le bouton "Ajouter"', () => {
     cy.get('.btn').click();
@@ -24,6 +22,6 @@ describe("Ajouter une activité", () => {
 	});
   
 	it('Les données sont correctes"', () => {
-		cy.get(':nth-child(15)').should('contain', 'Course');
+		cy.get('tbody > :nth-child(1) > :nth-child(1)').should('contain', 'Course');
 	});
 });

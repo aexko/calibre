@@ -30,13 +30,13 @@ describe("Ajouter une activité", () => {
 
 	});
   it("Verification des donnees", () => {
-		cy.get('tbody > tr > :nth-child(1)').should('contain', 'Course');
+		cy.get('tbody > :nth-child(1) > :nth-child(1)').should('contain', 'Course');
     cy.wait(500)
 
-    cy.get('tbody > tr > :nth-child(2)').should('contain', 'Avec des amis au Mont-Royal, 5km');
+    cy.get('tbody > :nth-child(1) > :nth-child(2)').should('contain', 'Avec des amis au Mont-Royal, 5km');
     cy.wait(500)
 
-    cy.get('tbody > tr > :nth-child(3)').should('contain', '2022-06-01');
+    cy.get('tbody > :nth-child(1) > :nth-child(3)').should('contain', '2022-06-01');
     cy.wait(500)
 
 	});
