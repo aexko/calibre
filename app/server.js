@@ -294,15 +294,3 @@ app.delete("/:id", (req, res) => {
 			console.log(err);
 		});
 });
-
-app.get("/:id", (req, res) => {
-	const id = req.params.id;
-	activite
-		.findByOneAndUpdate({_id:id }, req.body, { new: true }), (err, doc) => { 
-		if (!err) {
-			res.redirect("/afficher-activites");
-		} else {
-			console.log("Error during record update : " + err);
-		}
-
-});
