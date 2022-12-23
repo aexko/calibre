@@ -30,7 +30,7 @@
         "express-flash": "^0.0.2",
         "express-session": "^1.17.3",
         "jquery": "^3.6.1",
-        "jsonwebtoken": "^8.5.1",
+        "jsonwebtoken": "^9.0.0",
         "local-storage": "^2.0.0",
         "localStorage": "^1.0.4",
         "mdb-ui-kit": "^6.0.0",
